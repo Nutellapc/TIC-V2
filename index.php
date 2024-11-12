@@ -8,8 +8,27 @@
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
+
 <?php
-echo '<h1 class="text-4xl font-bold text-center bg-blue-300">Hello, World!</h1>';
+// Cargar la librería de Mustache
+require 'vendor/autoload.php';
+
+// Configurar Mustache
+$mustache = new Mustache_Engine([
+    'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/templates'),
+]);
+
+// Definir datos dinámicos que se pasarán a la plantilla
+$data = [
+    'dashboard_title' => 'Mi Dashboard en Moodle',
+    'page_title' => 'Página Principal',
+    'username' => 'UsuarioEjemplo',
+    'total_sales' => '1000',  // Ejemplo de datos dinámicos
+];
+
+// Renderizar la plantilla Mustache (index.mustache)
+echo $mustache->render('index', $data);
 ?>
+
 </body>
 </html>

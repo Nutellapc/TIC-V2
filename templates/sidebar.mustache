@@ -1,0 +1,39 @@
+<!-- Sidebar -->
+<aside
+    :class="sidebarToggle ? 'translate-x-0' : '-translate-x-full'"
+    class="fixed left-0 top-0 z-50 h-full w-64 bg-gray-900 text-white shadow-lg duration-300 ease-in-out lg:translate-x-0"
+    @click.outside="sidebarToggle = true"
+>
+    <!-- SIDEBAR HEADER -->
+    <div class="flex items-center justify-between gap-2 p-6 border-b border-gray-700">
+        <a href="#">
+            <img src="./images/logo/logo.svg" alt="Logo" class="h-8 w-auto" />
+        </a>
+        <button
+            class="block lg:hidden"
+            @click.stop="sidebarToggle = !sidebarToggle"
+        >
+            <span class="material-icons text-white">menu</span>
+        </button>
+    </div>
+
+    <!-- SIDEBAR NAVIGATION -->
+    <nav class="mt-4 flex flex-col space-y-2">
+        <a href="#" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <span class="material-icons">dashboard</span>
+            <span class="ml-3">Dashboard</span>
+        </a>
+        <a href="#" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <span class="material-icons">person</span>
+            <span class="ml-3">Profile</span>
+        </a>
+        <a href="#" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <span class="material-icons">settings</span>
+            <span class="ml-3">Settings</span>
+        </a>
+        <a href="#" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <span class="material-icons">logout</span>
+            <span class="ml-3">Logout</span>
+        </a>
+    </nav>
+</aside>
