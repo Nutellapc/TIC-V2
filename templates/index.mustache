@@ -26,5 +26,43 @@
     <p class="text-lg text-gray-700">Total de ventas: {{total_sales}}</p>
 </div>
 
+<!-- Contenedor donde se mostrarán los usuarios dinámicamente -->
+<div id="user-list" class="p-4 bg-gray-100 rounded shadow">
+    <!-- Aquí se cargarán los datos dinámicos desde la API -->
+</div>
+
+<!-- Script para cargar los usuarios desde la API -->
+<script>
+    async function fetchUsers() {
+        try {
+            // Realiza la solicitud a la API
+            const response = await fetch('http://127.0.0.1:8000/users'); // Cambia la URL si es necesario
+            if (!response.ok) {
+                throw new Error("Error al obtener los usuarios");
+            }
+
+            const users = await response.json(); // Convierte la respuesta a JSON
+            const userList = document.getElementById('user-list'); // Selecciona el contenedor
+
+            // Limpia el contenedor antes de agregar nuevos datos
+            userList.innerHTML = "";
+
+            // Recorre los usuarios y crea un elemento para cada uno
+            users.forEach(user => {
+                const userElement = document.createElement('div');
+                userElement.textContent = `${user.firstname} ${user.lastname}`;
+                userElement.classList.add('p-2', 'bg-white', 'border', 'rounded', 'mb-2'); // Clases de Tailwind para estilo
+                userList.appendChild(userElement); // Añade el elemento al contenedor
+            });
+        } catch (error) {
+            console.error("Error:", error);
+            const userList = document.getElementById('user-list');
+            userList.textContent = "No se pudieron cargar los usuarios.";
+        }
+    }
+
+    // Llama a la función al cargar la página
+    fetchUsers();
+</script>
 </body>
 </html>
