@@ -6,6 +6,7 @@
     <title>{{dashboard_title}}</title>
     <link rel="stylesheet" href="../style.css">
     <script src="https://cdn.jsdelivr.net/npm/alpinejs@3.14.3/dist/cdn.min.js" defer></script>
+    <script src="https://cdn.jsdelivr.net/npm/mustache@4.2.0/mustache.min.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
 <body class="bg-gray-100 text-gray-800" x-data="{ sidebarToggle: false }">
@@ -28,41 +29,65 @@
 
 <!-- Contenedor donde se mostrarán los usuarios dinámicamente -->
 <div id="user-list" class="p-4 bg-gray-100 rounded shadow">
-    <!-- Aquí se cargarán los datos dinámicos desde la API -->
+    <!-- Aquí se cargarán los datos dinámicos con Mustache -->
 </div>
+
+<!-- Plantilla Mustache para usuarios -->
+<script id="user-template" type="x-tmpl-mustache">
+    {{#users}}
+    <div class="p-2 bg-white border rounded mb-2">
+    {{firstname}} {{lastname}}
+    </div>
+{{/users}}
+</script>
 
 <!-- Script para cargar los usuarios desde la API -->
 <script>
     async function fetchUsers() {
         try {
+            const token = "143bfe295993ff7caa6e404efea7d245";
+            const apiUrl = "http://localhost/TIC/moodle/webservice/rest/server.php";
+
+            // Parámetros de la solicitud
+            const params = new URLSearchParams({
+                wstoken: token,
+                wsfunction: "core_user_get_users_by_field",
+                moodlewsrestformat: "json",
+                field: "email",
+                "values[0]": "nutellapc6@gmail.com" // Cambia este valor si necesitas otros usuarios
+            });
+
             // Realiza la solicitud a la API
-            const response = await fetch('http://127.0.0.1:8000/users'); // Cambia la URL si es necesario
+            const response = await fetch(`${apiUrl}?${params.toString()}`, { method: "POST" });
+
             if (!response.ok) {
                 throw new Error("Error al obtener los usuarios");
             }
 
-            const users = await response.json(); // Convierte la respuesta a JSON
-            const userList = document.getElementById('user-list'); // Selecciona el contenedor
+            const users = await response.json(); // Convierte la respuesta en JSON
+            console.log(users); // Muestra los datos en la consola para verificar
 
-            // Limpia el contenedor antes de agregar nuevos datos
-            userList.innerHTML = "";
+            const userList = document.getElementById("user-list"); // Selecciona el contenedor donde se mostrarán los usuarios
+            userList.innerHTML = ""; // Limpia el contenedor antes de renderizar nuevos datos
 
-            // Recorre los usuarios y crea un elemento para cada uno
+            // Itera sobre los usuarios y muestra los datos en la página
             users.forEach(user => {
-                const userElement = document.createElement('div');
-                userElement.textContent = `${user.firstname} ${user.lastname}`;
-                userElement.classList.add('p-2', 'bg-white', 'border', 'rounded', 'mb-2'); // Clases de Tailwind para estilo
+                const userElement = document.createElement("p"); // Crea un elemento de texto para cada usuario
+                userElement.textContent = `Nombre: ${user.firstname} ${user.lastname}, Usuario: ${user.username}`;
+                userElement.classList.add("p-2", "bg-white", "border", "rounded", "mb-2"); // Aplica clases de Tailwind para estilo
                 userList.appendChild(userElement); // Añade el elemento al contenedor
             });
+
         } catch (error) {
-            console.error("Error:", error);
-            const userList = document.getElementById('user-list');
-            userList.textContent = "No se pudieron cargar los usuarios.";
+            console.error("Error:", error); // Muestra el error en la consola
+            const userList = document.getElementById("user-list");
+            userList.textContent = "No se pudieron cargar los usuarios."; // Muestra un mensaje de error en la página
         }
     }
 
     // Llama a la función al cargar la página
     fetchUsers();
+
 </script>
 </body>
 </html>
