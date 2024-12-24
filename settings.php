@@ -10,6 +10,11 @@ if ($hassiteconfig) { // Solo visible para administradores
         get_string('enabled', 'local_ml_dashboard2'),
         get_string('enableddesc', 'local_ml_dashboard2'), 0));
 
+    // Agrega una opción para habilitar/deshabilitar el modelo de Machine Learning
+    $settings->add(new admin_setting_configcheckbox('local_ml_dashboard2/enable_ml',
+        get_string('enableml', 'local_ml_dashboard2'),
+        get_string('enablemldesc', 'local_ml_dashboard2'), 0));
+
     // Añade la página de ajustes al menú de plugins locales
     $ADMIN->add('localplugins', $settings);
 
@@ -22,5 +27,4 @@ if ($hassiteconfig) { // Solo visible para administradores
             new moodle_url('/local/ml_dashboard2/index.php') // URL del dashboard
         ));
     }
-
 }
