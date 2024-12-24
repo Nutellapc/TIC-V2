@@ -1,4 +1,13 @@
+if (typeof activityViewsChartInstance === 'undefined') {
+    var activityViewsChartInstance;
+}
+if (typeof gradesBarChartInstance === 'undefined') {
+    var gradesBarChartInstance;
+}
+
+
 document.addEventListener('DOMContentLoaded', () => {
+    // Animar los contadores
     const counters = document.querySelectorAll('.font-bold[data-target]');
     counters.forEach(counter => {
         let count = 0;
@@ -18,32 +27,68 @@ document.addEventListener('DOMContentLoaded', () => {
         updateCounter();
     });
 
-    // Configurar gráficos de tendencias
-    const gradesCtx = document.getElementById('gradesChart').getContext('2d');
-    const assignmentsCtx = document.getElementById('assignmentsChart').getContext('2d');
+    // Configurar gráfico de vistas de actividades
+    const activityViewsCtx = document.getElementById('activityViewsChart')?.getContext('2d');
+    if (activityViewsCtx && dashboardData.activity_views) {
+        const activityData = dashboardData.activity_views;
 
-    new Chart(gradesCtx, {
-        type: 'line',
-        data: {
-            labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-            datasets: [{
-                label: 'Promedio de Calificaciones',
-                data: [75, 80, 85, 90],
-                borderColor: '#10B981',
-                backgroundColor: 'rgba(16, 185, 129, 0.2)',
-            }]
-        },
-    });
+        new Chart(activityViewsCtx, {
+            type: 'doughnut',
+            data: {
+                labels: activityData.map(activity => activity.name),
+                datasets: [{
+                    label: 'Vistas por Actividad',
+                    data: activityData.map(activity => activity.views),
+                    backgroundColor: ['#FF6384', '#36A2EB', '#FFCE56', '#4BC0C0', '#9966FF'],
+                }]
+            },
+            options: {
+                responsive: true,
+                maintainAspectRatio: false,
+                plugins: {
+                    legend: {
+                        position: 'top',
+                    },
+                    tooltip: {
+                        callbacks: {
+                            label: function (tooltipItem) {
+                                const label = tooltipItem.label || '';
+                                const value = tooltipItem.raw || 0;
+                                return `${label}: ${value} vistas`;
+                            }
+                        }
+                    }
+                }
+            }
+        });
+    } else {
+        console.warn('No se encontró el canvas o no hay datos para activityViewsChart');
+    }
 
-    new Chart(assignmentsCtx, {
-        type: 'bar',
-        data: {
-            labels: ['Semana 1', 'Semana 2', 'Semana 3', 'Semana 4'],
-            datasets: [{
-                label: 'Tareas Enviadas',
-                data: [10, 15, 20, 25],
-                backgroundColor: '#F59E0B',
-            }]
-        },
-    });
+
+    // Configurar gráfico de calificaciones por estudiante
+    const gradesBarChart = document.getElementById('gradesBarChart');
+    if (gradesBarChart) {
+        const gradesBarCtx = gradesBarChart.getContext('2d');
+        new Chart(gradesBarCtx, {
+            type: 'bar',
+            data: {
+                labels: dashboardData.student_grades.map(item => item.student),
+                datasets: [{
+                    label: 'Calificaciones',
+                    data: dashboardData.student_grades.map(item => item.grade),
+                    backgroundColor: '#4CAF50',
+                }]
+            },
+            options: {
+                responsive: true,
+                plugins: {
+                    legend: { display: true },
+                    tooltip: { enabled: true }
+                }
+            }
+        });
+    }
+
+
 });

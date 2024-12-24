@@ -106,12 +106,103 @@ if (!empty($assignments['courses'])) {
     }
 }
 
+// Obtener tiempo conectado
+$totalConnectedTime = 0;
+$activeUsersCount = 0;
+
+if (!empty($users['users'])) {
+    foreach ($users['users'] as $user) {
+        if (isset($user['lastaccess']) && $user['lastaccess'] > time() - 30 * 24 * 60 * 60) { // Activo en los últimos 30 días
+            $activeUsersCount++;
+            $totalConnectedTime += (time() - $user['lastaccess']); // Diferencia en segundos desde el último acceso
+        }
+    }
+}
+
+// Convertir el tiempo total conectado a horas y calcular el promedio
+$averageConnectedTime = $activeUsersCount > 0 ? round($totalConnectedTime / $activeUsersCount / 3600, 2) : 0;
+
+//*****
+// Obtener calificaciones por estudiante
+$studentGradesData = [];
+$users = callMoodleAPI("core_user_get_users", [
+    "criteria[0][key]" => "",
+    "criteria[0][value]" => ""
+]);
+
+if (!empty($grades['usergrades'])) {
+    foreach ($grades['usergrades'] as $userGrade) {
+        $studentName = '';
+        foreach ($users['users'] as $user) {
+            if ($user['id'] === $userGrade['userid']) {
+                $studentName = $user['fullname']; // Usar el nombre completo
+                break;
+            }
+        }
+        $totalGrade = 0;
+        $itemsCount = 0;
+
+        foreach ($userGrade['gradeitems'] as $gradeItem) {
+            if (isset($gradeItem['gradeformatted']) && is_numeric($gradeItem['gradeformatted'])) {
+                $totalGrade += $gradeItem['gradeformatted'];
+                $itemsCount++;
+            }
+        }
+
+        $averageGrade = $itemsCount > 0 ? round($totalGrade / $itemsCount, 2) : 0;
+        $studentGradesData[] = ['student' => $studentName, 'grade' => $averageGrade];
+    }
+}
+
+
+
+// Obtener vistas de actividades del curso
+$activityViewsData = [];
+$courseId = 2;
+$sections = callMoodleAPI("core_course_get_contents", ["courseid" => $courseId]);
+
+if (!empty($sections)) {
+    foreach ($sections as $section) {
+        if (!empty($section['modules'])) {
+            foreach ($section['modules'] as $module) {
+                $activityName = $module['name'] ?? 'Desconocido';
+                $modName = $module['modname'] ?? 'Desconocido';
+
+                // Sumar las vistas de cada módulo (si está disponible)
+                if (!empty($module['modname'])) {
+                    if (!isset($activityViewsData[$modName])) {
+                        $activityViewsData[$modName] = 1;
+                    } else {
+                        $activityViewsData[$modName]++;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Convertir los datos procesados a un formato adecuado para el gráfico
+$activityViewsData = array_map(
+    fn($modName, $views) => ['name' => $modName, 'views' => $views],
+    array_keys($activityViewsData),
+    array_values($activityViewsData)
+);
+
+// Validar que haya datos
+if (empty($activityViewsData)) {
+    $activityViewsData = [['name' => 'Sin datos', 'views' => 0]];
+}
+
+
 // Preparar datos para la plantilla
 $data = [
     'dashboard_title' => 'Mi Dashboard en Moodle',
     'active_students' => $activeStudents,
     'average_grades' => $averageGrades,
-    'assignments_submitted' => $assignmentsSubmitted
+    'assignments_submitted' => $assignmentsSubmitted,
+    'average_connected_time' => $averageConnectedTime,
+    'student_grades' => $studentGradesData,
+    'activity_views' => $activityViewsData
 ];
 
 // Renderizar la plantilla Mustache
@@ -122,6 +213,9 @@ if (isset($mustache)) {
 }
 ?>
 
+<script>
+    const dashboardData = <?php echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>;
+</script>
 <script src="dashboard.js" defer></script>
 </body>
 </html>

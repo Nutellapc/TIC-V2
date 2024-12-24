@@ -2,16 +2,14 @@
 <div class="bg-white p-6 rounded shadow mt-6">
     <h2 class="text-2xl font-bold mb-4 text-blue-600">Visualización de Datos</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Mini-gráfico: Calificaciones Promedio -->
-        <div class="p-4 bg-green-100 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-green-800 mb-4">Tendencia de Calificaciones</h3>
-            <canvas id="gradesChart"></canvas>
+        <!-- Contenedor para el gráfico de Vistas a Actividades -->
+        <div class="bg-green-100 p-4 rounded-lg shadow w-full h-[300px] flex items-center justify-center">
+            <canvas id="activityViewsChart" class="max-w-[250px] max-h-[250px]"></canvas>
         </div>
 
-        <!-- Mini-gráfico: Tareas Enviadas -->
-        <div class="p-4 bg-yellow-100 rounded-lg shadow">
-            <h3 class="text-lg font-semibold text-yellow-800 mb-4">Evolución de Tareas Enviadas</h3>
-            <canvas id="assignmentsChart"></canvas>
+        <!-- Contenedor para el gráfico de Calificaciones por Estudiante -->
+        <div class="bg-blue-100 p-4 rounded-lg shadow w-full h-[300px] flex items-center justify-center">
+            <canvas id="gradesBarChart" class="max-w-[250px] max-h-[250px]"></canvas>
         </div>
     </div>
 </div>

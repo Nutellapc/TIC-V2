@@ -1,7 +1,6 @@
-<!-- Sección de estadísticas generales -->
 <div class="bg-white p-6 rounded shadow mt-6">
     <h2 class="text-2xl font-bold mb-4 text-blue-600">Estadísticas Generales de Estudiantes</h2>
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
         <!-- Tarjeta: Estudiantes Activos -->
         <div class="p-4 bg-blue-100 rounded-lg shadow flex items-center hover:bg-blue-200 hover:shadow-lg transition duration-300">
             <div class="flex-1">
@@ -35,6 +34,18 @@
             </div>
             <div>
                 <span class="material-icons text-yellow-600 text-4xl">assignment_turned_in</span>
+            </div>
+        </div>
+
+        <!-- Tarjeta: Tiempo Conectados -->
+        <div class="p-4 bg-purple-100 rounded-lg shadow flex items-center hover:bg-purple-200 hover:shadow-lg transition duration-300">
+            <div class="flex-1">
+                <h3 class="text-lg font-semibold text-purple-800">Tiempo Conectado</h3>
+                <p class="text-3xl font-bold" data-target="{{average_connected_time}}">0</p>
+                <p class="text-sm text-purple-700">Promedio de horas conectadas en los últimos 30 días</p>
+            </div>
+            <div>
+                <span class="material-icons text-purple-600 text-4xl">timer</span>
             </div>
         </div>
     </div>
