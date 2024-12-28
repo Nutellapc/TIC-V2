@@ -62,6 +62,8 @@ function predict_student_score($student_data) {
         print(json.dumps(error_result))
     EOT;
 
+
+
     // Guardar el script Python temporalmente
     $temp_script_path = sys_get_temp_dir() . '/ml_predictor_script.py';
     if (!file_put_contents($temp_script_path, $script)) {
@@ -79,6 +81,8 @@ function predict_student_score($student_data) {
     );
 
     $output = shell_exec("$command 2>&1");
+    error_log("Salida del script Python: $output");
+
 
     // Filtrar la salida para extraer solo el JSON
     preg_match('/\{.*\}/s', $output, $matches);
@@ -102,9 +106,17 @@ function predict_student_score($student_data) {
         throw new Exception("Error al decodificar la salida JSON: " . json_last_error_msg() . "\nSalida: $output");
     }
 
+    // Log para verificar la salida decodificada
+    error_log("Predicción decodificada: " . print_r($result, true));
+
+
     if (isset($result['error'])) {
         throw new Exception("Error en el script Python: " . $result['error']);
     }
 
-    return ["prediction" => $result['prediction'], "raw_output" => $output];
+
+    // Retornar solo la predicción
+    return $result['prediction'];
+    //return ["prediction" => $result['prediction'], "raw_output" => $output];
+
 }

@@ -1,0 +1,98 @@
+[26-Dec-2024 19:35:48 America/Guayaquil] Salida del script Python: 2024-12-26 19:35:40.087314: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-26 19:35:42.714008: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-26 19:35:47.269906: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 334ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 350ms/step
+{"prediction": 22285.46875}
+
+[26-Dec-2024 19:36:13 America/Guayaquil] Salida del script Python: 2024-12-26 19:36:07.708233: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-26 19:36:08.800556: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-26 19:36:11.879126: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 318ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 338ms/step
+{"prediction": 22285.46875}
+
+[28-Dec-2024 16:00:27 America/Guayaquil] Salida del script Python: 2024-12-28 15:59:30.959449: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 15:59:48.674124: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:00:25.576627: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 419ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 450ms/step
+{"prediction": 22285.46875}
+
+[28-Dec-2024 16:00:27 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 22285.46875
+)
+
+[28-Dec-2024 16:00:27 America/Guayaquil] Predicción obtenida: Array
+(
+    [prediction] => 22285.46875
+    [raw_output] => {"prediction": 22285.46875}
+)
+
+[28-Dec-2024 16:08:56 America/Guayaquil] Salida del script Python: 2024-12-28 16:08:42.818617: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:08:46.367786: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:08:54.021741: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 494ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m1s[0m 526ms/step
+{"prediction": 22285.46875}
+
+[28-Dec-2024 16:08:56 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 22285.46875
+)
+
+[28-Dec-2024 16:08:56 America/Guayaquil] Predicción obtenida: 22285.46875
+[28-Dec-2024 16:09:29 America/Guayaquil] Salida del script Python: 2024-12-28 16:09:17.594102: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:09:20.650981: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:09:27.252326: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 465ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 491ms/step
+{"prediction": 22285.46875}
+
+[28-Dec-2024 16:09:29 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 22285.46875
+)
+
+[28-Dec-2024 16:09:29 America/Guayaquil] Predicción obtenida: 22285.46875
+[28-Dec-2024 16:20:37 America/Guayaquil] Salida del script Python: 2024-12-28 16:20:24.093420: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:20:27.719726: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:20:35.297146: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 403ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 427ms/step
+{"prediction": 22285.46875}
+
+[28-Dec-2024 16:20:37 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 22285.46875
+)
+
+[28-Dec-2024 16:20:37 America/Guayaquil] Predicción obtenida: 22285.46875
+[28-Dec-2024 16:21:39 America/Guayaquil] Salida del script Python: 2024-12-28 16:21:32.195669: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:21:33.990578: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2024-12-28 16:21:37.765797: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 262ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 290ms/step
+{"prediction": 66.96321105957031}
+
+[28-Dec-2024 16:21:39 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 66.96321105957
+)
+
+[28-Dec-2024 16:21:39 America/Guayaquil] Predicción obtenida: 66.96321105957
