@@ -12,7 +12,8 @@ function load_model() {
 // Realizar predicción con los datos del estudiante
 function predict_student_score($student_data) {
     // Verificar que los datos del estudiante están completos
-    $required_keys = ['study_hours', 'attendance', 'assignments_completed', 'feature4', 'feature5', 'feature6'];
+    $required_keys = ['hours_studied', 'attendance', 'sleep_hours', 'previous_scores', 'tutoring_sessions', 'physical_activity'];
+
     foreach ($required_keys as $key) {
         if (!array_key_exists($key, $student_data)) {
             throw new Exception("Falta el dato requerido: $key");
@@ -27,8 +28,10 @@ function predict_student_score($student_data) {
     import sys
     import tensorflow as tf
     import numpy as np
+    import pandas as pd
     import json
     import os
+    from sklearn.preprocessing import StandardScaler
 
     # Suprimir logs de TensorFlow
     os.environ['TF_CPP_MIN_LOG_LEVEL'] = '3'
@@ -38,19 +41,29 @@ function predict_student_score($student_data) {
         model_path = sys.argv[1]
         study_hours = float(sys.argv[2])
         attendance = float(sys.argv[3])
-        assignments_completed = float(sys.argv[4])
-        feature4 = float(sys.argv[5])
-        feature5 = float(sys.argv[6])
-        feature6 = float(sys.argv[7])
+        sleep_hours = float(sys.argv[4])
+        previous_scores = float(sys.argv[5])
+        tutoring_sessions = float(sys.argv[6])
+        physical_activity = float(sys.argv[7])
 
         # Cargar el modelo
         model = tf.keras.models.load_model(model_path)
 
-        # Crear el array de entrada
-        input_data = np.array([[study_hours, attendance, assignments_completed, feature4, feature5, feature6]])
+        # Leer los datos de entrenamiento para ajustar el scaler
+        data = pd.read_csv("StudentPerformanceFactors.csv")  # Asegúrate de tener este archivo disponible
+        features = ['Hours_Studied', 'Attendance', 'Sleep_Hours', 'Previous_Scores', 'Tutoring_Sessions', 'Physical_Activity']
+        X_train = data[features]
+
+        # Ajustar el scaler
+        scaler = StandardScaler()
+        scaler.fit(X_train)
+
+        # Escalar los datos de entrada
+        input_data = np.array([[study_hours, attendance, sleep_hours, previous_scores, tutoring_sessions, physical_activity]])
+        scaled_input = scaler.transform(input_data)
 
         # Realizar predicción
-        prediction = model.predict(input_data)
+        prediction = model.predict(scaled_input)
 
         # Devolver resultado como JSON
         result = {"prediction": float(prediction[0][0])}
@@ -60,6 +73,7 @@ function predict_student_score($student_data) {
         # Devolver error como JSON válido
         error_result = {"error": str(e)}
         print(json.dumps(error_result))
+
     EOT;
 
 
@@ -72,12 +86,12 @@ function predict_student_score($student_data) {
 
     // Ejecutar el script Python y capturar la salida
     $command = escapeshellcmd("python $temp_script_path " . escapeshellarg($model_path) . " " .
-        escapeshellarg($student_data['study_hours']) . " " .
+        escapeshellarg($student_data['hours_studied']) . " " .
         escapeshellarg($student_data['attendance']) . " " .
-        escapeshellarg($student_data['assignments_completed']) . " " .
-        escapeshellarg($student_data['feature4']) . " " .
-        escapeshellarg($student_data['feature5']) . " " .
-        escapeshellarg($student_data['feature6'])
+        escapeshellarg($student_data['sleep_hours']) . " " .
+        escapeshellarg($student_data['previous_scores']) . " " .
+        escapeshellarg($student_data['tutoring_sessions']) . " " .
+        escapeshellarg($student_data['physical_activity'])
     );
 
     $output = shell_exec("$command 2>&1");
