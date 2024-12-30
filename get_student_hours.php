@@ -1,8 +1,5 @@
 <?php
 function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
-    //echo "Verificando si el estudiante está en línea...<br>";
-    flush(); // Forzar la salida para mostrar mensajes en tiempo real
-
     // Ruta del archivo para registrar el estado y tiempo de los usuarios en línea
     $onlineStatusFile = __DIR__ . "/online_status.json";
 
@@ -13,8 +10,9 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         $onlineStatus = [];
     }
 
-    // Recuperar tiempo activo acumulado previo
+    // Recuperar tiempo activo acumulado previo y máximo valor registrado
     $activeTimeInSeconds = $onlineStatus["user_{$userId}_course_{$courseId}"]['activeTimeInSeconds'] ?? 0;
+    $maxActiveTime = $onlineStatus["user_{$userId}_course_{$courseId}"]['maxActiveTime'] ?? 0;
 
     // Endpoint de Moodle
     $function = 'core_course_get_recent_courses';
@@ -42,9 +40,6 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         throw new Exception('Error al obtener datos: ' . $data['message']);
     }
 
-    // Depuración: Ver la respuesta completa
-    //echo "Respuesta de la API: <pre>" . print_r($data, true) . "</pre>";
-
     $isOnline = false;
 
     foreach ($data as $course) {
@@ -59,6 +54,11 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
                 if (($currentTime - $timeAccess) <= 300) {
                     $isOnline = true;
 
+                    // Si activeTimeInSeconds es menor o igual a 0, asignar maxActiveTime
+                    if ($activeTimeInSeconds <= 0 || $activeTimeInSeconds < $maxActiveTime) {
+                        $activeTimeInSeconds = $maxActiveTime;
+                    }
+
                     // Calcular tiempo activo
                     $lastChecked = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
                     $timeSpent = $currentTime - $lastChecked;
@@ -66,36 +66,52 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
                     // Acumular tiempo activo
                     $activeTimeInSeconds += $timeSpent;
 
+                    // Actualizar el valor máximo registrado
+                    $maxActiveTime = max($maxActiveTime, $activeTimeInSeconds);
+
                     // Actualizar el estado en el archivo
                     $onlineStatus["user_{$userId}_course_{$courseId}"] = [
                         'isOnline' => true,
                         'lastChecked' => $currentTime,
                         'activeTimeInSeconds' => $activeTimeInSeconds,
+                        'maxActiveTime' => $maxActiveTime,
                     ];
                 }
-            } else {
-                //echo "No se pudo determinar el último acceso (timeaccess) para el curso {$courseId}.<br>";
             }
         }
     }
 
-    // Si el usuario ya no está activo, mantener el tiempo acumulado y establecer estado inactivo
+    // Si el usuario no está activo, mantener el tiempo acumulado y restar tiempo
     if (!$isOnline) {
-        $onlineStatus["user_{$userId}_course_{$courseId}"]['isOnline'] = false;
+        $currentTime = time();
+        $lastChecked = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
+
+        // Calcular tiempo de inactividad
+        $timeInactive = $currentTime - $lastChecked;
+
+        // Reducir tiempo acumulado pero no más allá de 0
+        $activeTimeInSeconds = max(0, $activeTimeInSeconds - $timeInactive);
+
+        // Actualizar el estado en el archivo
+        $onlineStatus["user_{$userId}_course_{$courseId}"] = [
+            'isOnline' => false,
+            'lastChecked' => $currentTime,
+            'activeTimeInSeconds' => $activeTimeInSeconds,
+            'maxActiveTime' => $maxActiveTime,
+        ];
     }
 
     // Guardar el estado actualizado en el archivo
     file_put_contents($onlineStatusFile, json_encode($onlineStatus, JSON_PRETTY_PRINT));
 
-    // Convertir tiempo activo a horas
-    $activeTimeInHours = round($activeTimeInSeconds / 3600, 2);
+    // Convertir tiempo activo a horas y devolver el valor máximo registrado
+    $activeTimeInHours = round($maxActiveTime / 3600, 2);
 
     // Mostrar tiempo activo
-//    if ($isOnline) {
-//      echo "El estudiante está actualmente en línea en el curso {$courseId}.<br>";
-//    } else {
-//      echo "El estudiante no está en línea, pero mantiene un tiempo acumulado de: {$activeTimeInHours} horas.<br>";
-//    }
+    echo $isOnline
+        ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
+        : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
 
     return $activeTimeInHours;
 }
+

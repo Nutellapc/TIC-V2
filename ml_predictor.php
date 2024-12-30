@@ -12,7 +12,7 @@ function load_model() {
 // Realizar predicción con los datos del estudiante
 function predict_student_score($student_data) {
     // Verificar que los datos del estudiante están completos
-    $required_keys = ['hours_studied', 'attendance', 'sleep_hours', 'previous_scores', 'tutoring_sessions', 'physical_activity'];
+    $required_keys = ['hours_studied', 'attendance', 'inactivity_hours', 'previous_scores', 'tutoring_sessions', 'physical_activity'];
 
     foreach ($required_keys as $key) {
         if (!array_key_exists($key, $student_data)) {
@@ -88,7 +88,7 @@ function predict_student_score($student_data) {
     $command = escapeshellcmd("python $temp_script_path " . escapeshellarg($model_path) . " " .
         escapeshellarg($student_data['hours_studied']) . " " .
         escapeshellarg($student_data['attendance']) . " " .
-        escapeshellarg($student_data['sleep_hours']) . " " .
+        escapeshellarg($student_data['inactivity_hours']) . " " .
         escapeshellarg($student_data['previous_scores']) . " " .
         escapeshellarg($student_data['tutoring_sessions']) . " " .
         escapeshellarg($student_data['physical_activity'])
