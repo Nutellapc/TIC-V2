@@ -1,124 +1,123 @@
 <?php
-// Agregar una variable global para almacenar el máximo valor de tiempo inactivo
 function get_user_inactive_hours($userId, $courseId, $token, $apiUrl) {
-// Ruta del archivo para registrar el tiempo de inactividad
-$inactiveStatusFile = __DIR__ . "/inactive_status.json";
-$maxValueFile = __DIR__ . "/max_inactive_status.json"; // Nuevo archivo para almacenar el máximo
+    // Rutas de los archivos
+    $inactiveStatusFile = __DIR__ . "/inactive_status.json";
+    $attendanceFile = __DIR__ . "/attendance_status.json";
 
-// Leer o inicializar el archivo de estado para tiempo de inactividad
-if (file_exists($inactiveStatusFile)) {
-$inactiveStatus = json_decode(file_get_contents($inactiveStatusFile), true);
-} else {
-$inactiveStatus = [];
-}
+    // Leer o inicializar el archivo de estado para tiempo de inactividad
+    if (file_exists($inactiveStatusFile)) {
+        $inactiveStatus = json_decode(file_get_contents($inactiveStatusFile), true);
+    } else {
+        $inactiveStatus = [];
+    }
 
-// Leer o inicializar el archivo para almacenar el valor máximo de tiempo inactivo
-if (file_exists($maxValueFile)) {
-$maxInactiveStatus = json_decode(file_get_contents($maxValueFile), true);
-} else {
-$maxInactiveStatus = [];
-}
+    // Recuperar tiempo inactivo acumulado previo y máximo valor registrado
+    $inactiveTimeInSeconds = $inactiveStatus["user_{$userId}_course_{$courseId}"]['inactiveTimeInSeconds'] ?? 0;
+    $maxInactiveTimeInSeconds = $inactiveStatus["user_{$userId}_course_{$courseId}"]['maxInactiveTime'] ?? 0;
 
-// Recuperar tiempo inactivo acumulado previo
-$inactiveTimeInSeconds = $inactiveStatus["user_{$userId}_course_{$courseId}"]['inactiveTimeInSeconds'] ?? 0;
+    // Endpoint de Moodle
+    $function = 'core_course_get_recent_courses';
+    $url = $apiUrl . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
 
-// Recuperar el valor máximo registrado previamente
-$maxInactiveTimeInSeconds = $maxInactiveStatus["user_{$userId}_course_{$courseId}"]['maxInactiveTimeInSeconds'] ?? 0;
+    // Hacer la solicitud
+    $ch = curl_init();
+    curl_setopt($ch, CURLOPT_URL, $url);
+    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-// Endpoint de Moodle
-$function = 'core_course_get_recent_courses';
-$url = $apiUrl . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
+    $response = curl_exec($ch);
 
-// Hacer la solicitud
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+    if (curl_errno($ch)) {
+        $error_msg = curl_error($ch);
+        curl_close($ch);
+        throw new Exception("Error en la solicitud cURL: " . $error_msg);
+    }
 
-$response = curl_exec($ch);
+    curl_close($ch);
 
-if (curl_errno($ch)) {
-$error_msg = curl_error($ch);
-curl_close($ch);
-throw new Exception("Error en la solicitud cURL: " . $error_msg);
-}
+    $data = json_decode($response, true);
 
-curl_close($ch);
+    // Verificar si la respuesta contiene errores
+    if (isset($data['exception'])) {
+        throw new Exception('Error al obtener datos: ' . $data['message']);
+    }
 
-$data = json_decode($response, true);
+    $isOnline = false;
 
-// Verificar si la respuesta contiene errores
-if (isset($data['exception'])) {
-throw new Exception('Error al obtener datos: ' . $data['message']);
-}
+    foreach ($data as $course) {
+        if ($course['id'] == $courseId) {
+            $timeAccess = $course['timeaccess'] ?? 0;
 
-$isOnline = false;
+            // Validar que timeAccess tenga un valor válido
+            if ($timeAccess > 0) {
+                $currentTime = time();
 
-foreach ($data as $course) {
-if ($course['id'] == $courseId) {
-$timeAccess = $course['timeaccess'] ?? 0;
+                // Verificar si el último acceso fue hace menos de 1 hora
+                if (($currentTime - $timeAccess) <= 3600) {
+                    $isOnline = true;
 
-// Validar que timeAccess tenga un valor válido
-if ($timeAccess > 0) {
-$currentTime = time();
+                    // Calcular el tiempo de actividad desde la última revisión
+                    $lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
+                    $timeActive = $currentTime - $lastChecked;
 
-// Verificar si el último acceso fue hace menos de 5 minutos (300 segundos)
-if (($currentTime - $timeAccess) <= 300) {
-$isOnline = true;
+                    // Si el usuario vuelve a estar activo, actualizar maxInactiveTimeInSeconds
+                    if ($inactiveTimeInSeconds < $maxInactiveTimeInSeconds) {
+                        $inactiveTimeInSeconds = $maxInactiveTimeInSeconds;
+                    }
 
-// Calcular el tiempo de actividad desde la última revisión
-$lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
-$timeActive = $currentTime - $lastChecked;
+                    // Actualizar estado en el archivo de inactividad
+                    $inactiveStatus["user_{$userId}_course_{$courseId}"] = [
+                        'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
+                        'lastChecked' => $currentTime,
+                        'maxInactiveTime' => $maxInactiveTimeInSeconds
+                    ];
+                }
+            }
+        }
+    }
 
-// Asegurar que no se reste más allá del último valor acumulado
-if ($timeActive < $inactiveTimeInSeconds) {
-$inactiveTimeInSeconds -= $timeActive;
-}
+    // Si el usuario no está en línea, acumular tiempo inactivo
+    if (!$isOnline) {
+        $currentTime = time();
+        $lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
+        $timeInactive = $currentTime - $lastChecked;
 
-// Actualizar estado en el archivo de inactividad
-$inactiveStatus["user_{$userId}_course_{$courseId}"] = [
-'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
-'lastChecked' => $currentTime,
-];
-}
-}
-}
-}
+        // Acumular tiempo inactivo
+        $inactiveTimeInSeconds += $timeInactive;
 
-// Si el usuario no está en línea, acumular tiempo inactivo
-if (!$isOnline) {
-$currentTime = time();
-$lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
-$timeInactive = $currentTime - $lastChecked;
+        // Actualizar el valor máximo registrado si el nuevo valor es mayor
+        $maxInactiveTimeInSeconds = max($maxInactiveTimeInSeconds, $inactiveTimeInSeconds);
 
-// Acumular tiempo inactivo
-$inactiveTimeInSeconds += $timeInactive;
+        // Actualizar estado de inactividad
+        $inactiveStatus["user_{$userId}_course_{$courseId}"] = [
+            'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
+            'lastChecked' => $currentTime,
+            'maxInactiveTime' => $maxInactiveTimeInSeconds
+        ];
+    }
 
-// Actualizar estado de inactividad
-$inactiveStatus["user_{$userId}_course_{$courseId}"] = [
-'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
-'lastChecked' => $currentTime,
-];
-}
+    // Guardar el estado actualizado en el archivo de inactividad
+    file_put_contents($inactiveStatusFile, json_encode($inactiveStatus, JSON_PRETTY_PRINT));
 
-// Guardar el estado actualizado en el archivo de inactividad
-file_put_contents($inactiveStatusFile, json_encode($inactiveStatus, JSON_PRETTY_PRINT));
+    // Leer número de días desde el archivo de asistencia
+    if (file_exists($attendanceFile)) {
+        $attendanceData = json_decode(file_get_contents($attendanceFile), true);
+        $days = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
+    } else {
+        $days = 1; // Valor predeterminado en caso de error
+    }
 
-// Actualizar el valor máximo registrado si el nuevo valor es mayor
-if ($inactiveTimeInSeconds > $maxInactiveTimeInSeconds) {
-$maxInactiveTimeInSeconds = $inactiveTimeInSeconds;
-$maxInactiveStatus["user_{$userId}_course_{$courseId}"] = [
-'maxInactiveTimeInSeconds' => $maxInactiveTimeInSeconds,
-];
+    // Evitar división por 0
+    if ($days == 0) {
+        $days = 1;
+    }
 
-// Guardar el nuevo valor máximo en el archivo
-file_put_contents($maxValueFile, json_encode($maxInactiveStatus, JSON_PRETTY_PRINT));
-}
+    // Convertir tiempo inactivo a horas basado en el máximo
+    $inactiveTimeInHours = round($maxInactiveTimeInSeconds / 3600, 1);
 
-// Convertir tiempo inactivo a horas basado en el máximo
-$inactiveTimeInHours = round($maxInactiveTimeInSeconds / 3600, 1);
+    // Depuración
+//    echo "Tiempo inactivo acumulado (basado en el máximo): {$inactiveTimeInHours} horas.<br>";
+//    echo "Número de días registrados: {$days}.<br>";
 
-// Depuración
-//echo "Tiempo inactivo acumulado (basado en el máximo): {$inactiveTimeInHours} horas.<br>";
-
-return $inactiveTimeInHours;
+    // Devolver promedio de horas inactivas por día
+    return $inactiveTimeInHours / $days;
 }

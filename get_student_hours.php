@@ -2,6 +2,7 @@
 function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
     // Ruta del archivo para registrar el estado y tiempo de los usuarios en línea
     $onlineStatusFile = __DIR__ . "/online_status.json";
+    $attendanceFile = __DIR__ . "/attendance_status.json"; // Archivo de asistencia
 
     // Leer o inicializar el archivo de estado
     if (file_exists($onlineStatusFile)) {
@@ -50,8 +51,8 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
             if ($timeAccess > 0) {
                 $currentTime = time();
 
-                // Verificar si el último acceso fue hace menos de 5 minutos (300 segundos)
-                if (($currentTime - $timeAccess) <= 300) {
+                // Verificar si el último acceso fue hace menos de 1 hora
+                if (($currentTime - $timeAccess) <= 3600) {
                     $isOnline = true;
 
                     // Si activeTimeInSeconds es menor o igual a 0, asignar maxActiveTime
@@ -104,14 +105,28 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
     // Guardar el estado actualizado en el archivo
     file_put_contents($onlineStatusFile, json_encode($onlineStatus, JSON_PRETTY_PRINT));
 
-    // Convertir tiempo activo a horas y devolver el valor máximo registrado
+    // Convertir tiempo activo a horas
     $activeTimeInHours = round($maxActiveTime / 3600, 2);
 
+    // Leer número de días desde el archivo de asistencia
+    if (file_exists($attendanceFile)) {
+        $attendanceData = json_decode(file_get_contents($attendanceFile), true);
+        $days = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
+    } else {
+        $days = 1; // Valor predeterminado en caso de error
+    }
+
+    // Evitar división por 0
+    if ($days == 0) {
+        $days = 1;
+    }
+
     // Mostrar tiempo activo
-    echo $isOnline
-        ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
-        : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
+//    echo $isOnline
+//        ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
+//        : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
+//    echo "Número de días registrados: {$days}.<br>";
 
-    return $activeTimeInHours;
+    // Devolver promedio de horas activas por día
+    return $activeTimeInHours / $days;
 }
-

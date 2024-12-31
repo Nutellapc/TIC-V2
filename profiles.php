@@ -8,6 +8,8 @@ ini_set('log_errors', 1);
 ini_set('error_log', __DIR__ . '/error_log.txt'); // Archivo de log en la misma carpeta
 error_reporting(E_ALL);
 
+require_once(__DIR__ . '/forum_participations.php');
+require_once(__DIR__ . '/calculate_general_grade.php');
 require_once(__DIR__ . '/get_student_hours.php');
 require_once(__DIR__ . '/course_attendance.php');
 require_once(__DIR__ . '/course_inactivity.php');
@@ -34,22 +36,28 @@ try {
     $hours_studied = min(max($hours_studied, 0), 44); // Ajustar al rango válido (1-44)
     $attendance_percentage = calculate_attendance($studentId, $courseId, $token, $apiUrl);
     $inactivity_hours = get_user_inactive_hours($studentId, $courseId, $token, $apiUrl);
+    $general_grade = calculate_general_grade($studentId, $courseId, $token, $apiUrl);
+    $forum_participations = count_forum_participations($studentId, $courseId, $token, $apiUrl);
+
+
 
 } catch (Exception $e) {
     error_log("Error al obtener las horas activas: " . $e->getMessage());
     $hours_studied = 0; // Valor predeterminado en caso de error
     $attendance_percentage = 0; // Valor predeterminado en caso de error
     $inactivity_hours = 0; // Valor predeterminado en caso de error
+    $general_grade = 0; // Valor predeterminado en caso de error
+    $forum_participations = 0; // Valor predeterminado en caso de error
 }
 
 // Configurar datos del estudiante
 $student_data = [
-    'hours_studied' => $hours_studied,          // Usar el valor calculado
-    'attendance' => $attendance_percentage,     // Attendance 60-100 (puedes calcularlo dinámicamente después)
-    'inactivity_hours' => $inactivity_hours,    // inactivity_hours 4-10
-    'previous_scores' => 100,                   // Previous_Scores 50-100
-    'tutoring_sessions' => 0,                   // Tutoring_Sessions 0-8
-    'physical_activity' => 0                    // Physical_Activity
+    'hours_studied' => $hours_studied,               // Ajustar al rango válido (1-44)
+    'attendance' => $attendance_percentage,          // Attendance 60-100 (puedes calcularlo dinámicamente después)
+    'inactivity_hours' => $inactivity_hours,         // inactivity_hours 4-16
+    'previous_scores' => $general_grade,             // Previous_Scores 50-100
+    'tutoring_sessions' => $forum_participations,    // Tutoring_Sessions 0-8
+    'physical_activity' => 1                        // Physical_Activity
 ];
 
 
@@ -75,11 +83,11 @@ $m = new Mustache_Engine(array(
 
 echo $m->render('profiles', [
     'ml_enabled' => $ml_enabled,
-    'predicted_score' => round($normalized_prediction, 2) ?? 'No disponible', // Redondear el valor de predicción a 2 decimales
-    'hours_studied' => $student_data['hours_studied'], // Cambiar a horas estudiadas
+    'predicted_score' => round($normalized_prediction/10, 2) ?? 'No disponible', // Redondear el valor de predicción a 2 decimales
+    'hours_studied' => round($student_data['hours_studied'] , 2), // Cambiar a horas estudiadas
     'attendance' => $student_data['attendance'], // Asistencia
-    'inactivity_hours' => $student_data['inactivity_hours'], // Horas de sueño
-    'previous_scores' => $student_data['previous_scores'], // Puntajes previos
+    'inactivity_hours' => round($student_data['inactivity_hours'],2), // Horas de inactividad
+    'previous_scores' => $student_data['previous_scores']/10, // Puntajes previos
     'tutoring_sessions' => $student_data['tutoring_sessions'], // Sesiones de tutoría
     'physical_activity' => $student_data['physical_activity'] // Actividad física
 ]);
