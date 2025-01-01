@@ -10,18 +10,11 @@
 <body>
 
 <?php
-// Verificar si se cargó Mustache
-if (!isset($mustache)) {
-    // Cargar la librería de Mustache
-    require 'vendor/autoload.php';
-    $mustache = new Mustache_Engine([
-        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/templates'),
-    ]);
-}
 
 // Token de Moodle
 $token = "143bfe295993ff7caa6e404efea7d245";
 $apiUrl = "http://localhost/TIC/moodle/webservice/rest/server.php";
+
 
 // Función para llamar a la API de Moodle
 function callMoodleAPI($functionName, $params = []) {
@@ -38,6 +31,84 @@ function callMoodleAPI($functionName, $params = []) {
     curl_close($ch);
 
     return json_decode($response, true);
+}
+
+// Obtener los datos del usuario autenticado
+function getAuthenticatedUser($token, $apiUrl) {
+    $function = 'core_webservice_get_site_info';
+    $siteInfo = callMoodleAPI($function);
+
+    if (isset($siteInfo['userid'])) {
+        return [
+            'id' => $siteInfo['userid'],
+            'fullname' => $siteInfo['fullname'],
+            'username' => $siteInfo['username'],
+        ];
+    }
+
+    return null;
+}
+
+// Llamar a la función para obtener los datos del usuario autenticado
+$userData = getAuthenticatedUser($token, $apiUrl);
+if (!$userData) {
+    die("Error: No se pudo obtener la información del usuario.");
+}
+
+// Obtener el curso seleccionado de la URL (o usar un valor predeterminado si no está seleccionado)
+$selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : (isset($courses[0]['id']) ? $courses[0]['id'] : 0);
+echo $selectedCourseId;
+
+// Verificar si el curso seleccionado es válido
+if ($selectedCourseId > 0) {
+    // Usar $selectedCourseId para todas las funciones que dependen de courseid
+    $grades = callMoodleAPI("gradereport_user_get_grade_items", [
+        "courseid" => $selectedCourseId
+    ]);
+    $assignments = callMoodleAPI("mod_assign_get_assignments", [
+        "courseids[0]" => $selectedCourseId
+    ]);
+    // Otras funciones que dependen del courseid...
+} else {
+    echo "Error: No se seleccionó un curso válido.";
+}
+
+
+// Verificar si se cargó Mustache
+
+if (!isset($mustache)) {
+    require 'vendor/autoload.php';
+    $mustache = new Mustache_Engine([
+        'loader' => new Mustache_Loader_FilesystemLoader(dirname(__FILE__) . '/templates'),
+        'helpers' => [
+            'equals' => function ($value, $expected) {
+                return $value == $expected ? 'selected' : '';
+            }
+        ]
+    ]);
+}
+
+
+// Obtener cursos para el usuario autenticado
+$userId = $userData['id'];
+$courses = get_user_courses($userId, $token, $apiUrl);
+
+
+// Obtener la lista de cursos disponibles para el usuario
+function get_user_courses($userId, $token, $apiUrl) {
+    $function = 'core_enrol_get_users_courses';
+    $params = ['userid' => $userId];
+
+    $courses = callMoodleAPI($function, $params);
+
+    // Verificar si se encontraron cursos y procesarlos
+    if (!empty($courses)) {
+        return array_map(function ($course) {
+            return ['id' => $course['id'], 'fullname' => $course['fullname']];
+        }, $courses);
+    }
+
+    return [];
 }
 
 // Obtener usuarios activos
@@ -57,11 +128,11 @@ if (!empty($users['users'])) {
 
 // Obtener calificaciones promedio
 $grades = callMoodleAPI("gradereport_user_get_grade_items", [
-    "courseid" => 2 // Cambiar por el ID del curso requerido
+    "courseid" => $selectedCourseId
 ]);
 // Obtener asignaciones para un curso
 $assignments = callMoodleAPI("mod_assign_get_assignments", [
-    "courseids[0]" => 2 // Cambiar $courseId por el ID del curso
+    "courseids[0]" => $selectedCourseId
 ]);
 
 $totalGrades = 0;
@@ -158,7 +229,7 @@ if (!empty($grades['usergrades'])) {
 
 // Obtener vistas de actividades del curso
 $activityViewsData = [];
-$courseId = 2;
+$courseId = $selectedCourseId;
 $sections = callMoodleAPI("core_course_get_contents", ["courseid" => $courseId]);
 
 if (!empty($sections)) {
@@ -193,6 +264,9 @@ if (empty($activityViewsData)) {
     $activityViewsData = [['name' => 'Sin datos', 'views' => 0]];
 }
 
+// Obtener el curso seleccionado de la URL (o usar un valor predeterminado si no está seleccionado)
+$selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : (isset($courses[0]['id']) ? $courses[0]['id'] : 0);
+
 
 // Preparar datos para la plantilla
 $data = [
@@ -202,7 +276,11 @@ $data = [
     'assignments_submitted' => $assignmentsSubmitted,
     'average_connected_time' => $averageConnectedTime,
     'student_grades' => $studentGradesData,
-    'activity_views' => $activityViewsData
+    'activity_views' => $activityViewsData,
+    'courses' => $courses,
+    'selected_course' => $selectedCourseId,
+    'username' => $userData['fullname'], // Nombre completo del usuario
+    'user_id' => $userData['id'], // ID del usuario
 ];
 
 // Renderizar la plantilla Mustache
@@ -215,6 +293,15 @@ if (isset($mustache)) {
 
 <script>
     const dashboardData = <?php echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>;
+
+    // Manejar el cambio de curso desde el selector
+    document.getElementById('courseSelector').addEventListener('change', function () {
+        const selectedCourseId = this.value; // Obtener el valor seleccionado
+        if (selectedCourseId) {
+            window.location.href = `index.php?courseid=${selectedCourseId}`; // Redirigir con el ID del curso
+        }
+    });
+
 </script>
 <script src="dashboard.js" defer></script>
 </body>

@@ -5680,3 +5680,139 @@ C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\vali
 )
 
 [30-Dec-2024 19:08:18 America/Guayaquil] Predicción obtenida: 65.353294372559
+[01-Jan-2025 15:36:13 America/Guayaquil] Salida del script Python: 2025-01-01 15:35:18.487885: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 15:35:33.001702: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 15:36:12.223555: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 297ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 315ms/step
+{"prediction": 64.94319152832031}
+
+[01-Jan-2025 15:36:13 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 64.94319152832
+)
+
+[01-Jan-2025 15:36:13 America/Guayaquil] Predicción obtenida: 64.94319152832
+[01-Jan-2025 16:13:28 America/Guayaquil] Salida del script Python: 2025-01-01 16:13:18.052732: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 16:13:19.851264: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 16:13:26.691936: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 333ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 352ms/step
+{"prediction": 66.18096160888672}
+
+[01-Jan-2025 16:13:28 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 66.180961608887
+)
+
+[01-Jan-2025 16:13:28 America/Guayaquil] Predicción obtenida: 66.180961608887
+[01-Jan-2025 16:37:37 America/Guayaquil] Salida del script Python: 2025-01-01 16:37:26.957916: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 16:37:29.343549: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 16:37:36.152835: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 297ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 314ms/step
+{"prediction": 67.005859375}
+
+[01-Jan-2025 16:37:37 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 67.005859375
+)
+
+[01-Jan-2025 16:37:37 America/Guayaquil] Predicción obtenida: 67.005859375
+[01-Jan-2025 17:12:03 America/Guayaquil] Salida del script Python: 2025-01-01 17:11:52.816100: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:11:55.067848: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:12:02.062507: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 309ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 328ms/step
+{"prediction": 68.23324584960938}
+
+[01-Jan-2025 17:12:03 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 68.233245849609
+)
+
+[01-Jan-2025 17:12:03 America/Guayaquil] Predicción obtenida: 68.233245849609
+[01-Jan-2025 17:49:32 America/Guayaquil] Salida del script Python: 2025-01-01 17:49:20.932561: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:49:23.021200: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:49:30.792741: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 393ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 419ms/step
+{"prediction": 69.45122528076172}
+
+[01-Jan-2025 17:49:32 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 69.451225280762
+)
+
+[01-Jan-2025 17:49:32 America/Guayaquil] Predicción obtenida: 69.451225280762
+[01-Jan-2025 17:58:40 America/Guayaquil] Salida del script Python: 2025-01-01 17:58:29.234510: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:58:31.604853: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 17:58:38.629304: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 356ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 375ms/step
+{"prediction": 69.86077117919922}
+
+[01-Jan-2025 17:58:40 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 69.860771179199
+)
+
+[01-Jan-2025 17:58:40 America/Guayaquil] Predicción obtenida: 69.860771179199
+[01-Jan-2025 18:28:15 America/Guayaquil] Salida del script Python: 2025-01-01 18:28:01.395206: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:28:04.196525: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:28:12.992187: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 416ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 437ms/step
+{"prediction": 70.88684844970703}
+
+[01-Jan-2025 18:28:15 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 70.886848449707
+)
+
+[01-Jan-2025 18:28:15 America/Guayaquil] Predicción obtenida: 70.886848449707
+[01-Jan-2025 18:46:43 America/Guayaquil] Salida del script Python: 2025-01-01 18:46:33.231954: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:46:35.245978: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:46:42.004089: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 300ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 318ms/step
+{"prediction": 71.49351501464844}
+
+[01-Jan-2025 18:46:43 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 71.493515014648
+)
+
+[01-Jan-2025 18:46:43 America/Guayaquil] Predicción obtenida: 71.493515014648

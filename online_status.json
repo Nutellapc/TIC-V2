@@ -1,8 +1,8 @@
 {
     "user_2_course_2": {
-        "isOnline": true,
-        "lastChecked": 1735603673,
-        "activeTimeInSeconds": 10653,
+        "isOnline": false,
+        "lastChecked": 1735775176,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 10653
     }
 }

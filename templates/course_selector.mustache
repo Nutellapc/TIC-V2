@@ -1,0 +1,14 @@
+<div class="mb-6">
+    <label for="courseSelector" class="block text-lg font-semibold text-gray-700">
+        Selecciona un curso:
+    </label>
+    <select id="courseSelector" class="border border-gray-300 rounded-md p-2 w-full">
+        <option value="">Seleccione un curso</option>
+        {{#courses}}
+            <option value="{{id}}" {{#equals}}{{id}} {{selected_course}}{{/equals}}>{{fullname}}</option>
+        {{/courses}}
+    </select>
+
+
+
+</div>
