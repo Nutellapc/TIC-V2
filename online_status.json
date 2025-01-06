@@ -1,8 +1,32 @@
 {
     "user_2_course_2": {
         "isOnline": false,
-        "lastChecked": 1735775176,
+        "lastChecked": 1736121721,
+        "activeTimeInSeconds": 8003,
+        "maxActiveTime": 13650
+    },
+    "user_2_course_0": {
+        "isOnline": false,
+        "lastChecked": 1736120253,
         "activeTimeInSeconds": 0,
-        "maxActiveTime": 10653
+        "maxActiveTime": 0
+    },
+    "user__course_0": {
+        "isOnline": false,
+        "lastChecked": 1736118486,
+        "activeTimeInSeconds": 0,
+        "maxActiveTime": 0
+    },
+    "user__course_3": {
+        "isOnline": false,
+        "lastChecked": 1736119044,
+        "activeTimeInSeconds": 0,
+        "maxActiveTime": 0
+    },
+    "user_2_course_3": {
+        "isOnline": false,
+        "lastChecked": 1736121699,
+        "activeTimeInSeconds": 0,
+        "maxActiveTime": 0
     }
 }

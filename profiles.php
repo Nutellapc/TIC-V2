@@ -3,78 +3,103 @@
 $token = "143bfe295993ff7caa6e404efea7d245";
 $apiUrl = "http://localhost/TIC/moodle/webservice/rest/server.php";
 
-// Configuración para registrar errores en un archivo
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error_log.txt'); // Archivo de log en la misma carpeta
-error_reporting(E_ALL);
-
+require_once(__DIR__ . '/api_client.php'); // Llamadas a la API externa
 require_once(__DIR__ . '/forum_participations.php');
 require_once(__DIR__ . '/calculate_general_grade.php');
 require_once(__DIR__ . '/get_student_hours.php');
 require_once(__DIR__ . '/course_attendance.php');
 require_once(__DIR__ . '/course_inactivity.php');
-require_once(__DIR__ . '/../../config.php');
 require_once(__DIR__ . '/vendor/autoload.php');
-require_once(__DIR__ . '/ml_predictor.php'); // el predictor
+require_once(__DIR__ . '/ml_predictor.php'); // El predictor
 
-// Configuración para registrar errores en un archivo
-ini_set('log_errors', 1);
-ini_set('error_log', __DIR__ . '/error_log.txt'); // Archivo de log
-error_reporting(E_ALL);
+// Obtener el usuario autenticado utilizando la API
+$userInfo = get_authenticated_user();
+if (!$userInfo) {
+//    echo "<h3>Error: No se pudo obtener información del usuario autenticado.</h3>";
+    error_log("Error al obtener información del usuario autenticado.");
+    exit;
+}
 
-// Verificar si el modelo de ML está habilitado
-$ml_enabled = get_config('local_ml_dashboard2', 'enabled');
+// ID y nombre del usuario autenticado
+$studentId = $userInfo['id'];
+$studentName = $userInfo['fullname'];
+//echo "<h3>ID del usuario autenticado: $studentId</h3>";
+//echo "<h3>Nombre del usuario autenticado: $studentName</h3>";
+
+// Obtener la lista de cursos del usuario desde `api_client.php`
+$courses = get_user_courses($studentId);
+
+require_once(__DIR__ . '/../../config.php');
+
+require_login(); // Asegura que el usuario esté autenticado
 
 
-// Obtener horas estudiadas dinámicamente usando la función get_useractive_hour()
+if (empty($courses)) {
+//    echo "<h3>No se encontraron cursos para el usuario con ID: $studentId.</h3>";
+    error_log("No se encontraron cursos para el usuario con ID: $studentId.");
+} else {
+//    echo "<h3>Cursos recuperados para el usuario con ID: $studentId:</h3><pre>";
+//    print_r($courses);
+//    echo "</pre>";
+}
+
+// Seleccionar curso actual
+$selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : ($courses[0]['id'] ?? 0);
+//echo "<h3>Curso seleccionado: $selectedCourseId</h3>";
+
+if (!$selectedCourseId) {
+//    echo "<h3>Error: No se seleccionó un curso válido.</h3>";
+    error_log("Error: No se seleccionó un curso válido.");
+}
+
+// Obtener datos relacionados con el curso
 try {
-    $studentId = 2; // ID del estudiante (ajusta según el contexto real)
-    $courseId = 2;  // ID del curso
+    $courseId = $selectedCourseId;
 
     // Llamar a las funciones para calcular datos
     $hours_studied = get_user_active_hours($studentId, $courseId, $token, $apiUrl);
+//    echo "<h3>Horas estudiadas: $hours_studied</h3>";
     $hours_studied = min(max($hours_studied, 0), 44); // Ajustar al rango válido (1-44)
+
     $attendance_percentage = calculate_attendance($studentId, $courseId, $token, $apiUrl);
+//    echo "<h3>Porcentaje de asistencia: $attendance_percentage</h3>";
+
     $inactivity_hours = get_user_inactive_hours($studentId, $courseId, $token, $apiUrl);
+//    echo "<h3>Horas de inactividad: $inactivity_hours</h3>";
+
     $general_grade = calculate_general_grade($studentId, $courseId, $token, $apiUrl);
+//    echo "<h3>Calificación general: $general_grade</h3>";
+
     $forum_participations = count_forum_participations($studentId, $courseId, $token, $apiUrl);
-
-
-
+//    echo "<h3>Participaciones en foros: $forum_participations</h3>";
 } catch (Exception $e) {
-    error_log("Error al obtener las horas activas: " . $e->getMessage());
-    $hours_studied = 0; // Valor predeterminado en caso de error
-    $attendance_percentage = 0; // Valor predeterminado en caso de error
-    $inactivity_hours = 0; // Valor predeterminado en caso de error
-    $general_grade = 0; // Valor predeterminado en caso de error
-    $forum_participations = 0; // Valor predeterminado en caso de error
+    error_log("Error al obtener datos del curso: " . $e->getMessage());
+//    echo "<h3>Error al obtener datos del curso: " . $e->getMessage() . "</h3>";
+
+    $hours_studied = 0;
+    $attendance_percentage = 0;
+    $inactivity_hours = 0;
+    $general_grade = 0;
+    $forum_participations = 0;
 }
 
 // Configurar datos del estudiante
 $student_data = [
-    'hours_studied' => $hours_studied,               // Ajustar al rango válido (1-44)
-    'attendance' => $attendance_percentage,          // Attendance 60-100 (puedes calcularlo dinámicamente después)
-    'inactivity_hours' => $inactivity_hours,         // inactivity_hours 4-16
-    'previous_scores' => $general_grade,             // Previous_Scores 50-100
-    'tutoring_sessions' => $forum_participations,    // Tutoring_Sessions 0-8
-    'physical_activity' => 1                        // Physical_Activity
+    'hours_studied' => $hours_studied,
+    'attendance' => $attendance_percentage,
+    'inactivity_hours' => $inactivity_hours,
+    'previous_scores' => $general_grade,
+    'tutoring_sessions' => $forum_participations,
+    'physical_activity' => 1
 ];
 
+// Predicción basada en ML
+$ml_enabled = get_config('local_ml_dashboard2', 'enabled');
+$predicted_score = $ml_enabled ? predict_student_score($student_data) : null;
 
-$predicted_score = null;
-if ($ml_enabled) {
-    // Realizar predicción
-    $predicted_score = predict_student_score($student_data);
-    error_log("Predicción obtenida: " . print_r($predicted_score, true)); // Log
-    //var_dump($predicted_score); die(); // Descomenta para prueba en la página
-}
-
-// Normalizar la predicción al rango esperado (0-100), pero verificar si todos los datos son cero
-if (array_sum($student_data) === 0) {
-    $normalized_prediction = 0;  // Valor predeterminado si todos los valores son cero
-} else {
-    $normalized_prediction = min(max($predicted_score, 0), 100);
-}
+// Normalizar la predicción
+$normalized_prediction = array_sum($student_data) === 0 ? 0 : min(max($predicted_score, 0), 100);
+//echo "<h3>Predicción normalizada: $normalized_prediction</h3>";
 
 // Preparar datos para la plantilla Mustache
 $m = new Mustache_Engine(array(
@@ -83,13 +108,24 @@ $m = new Mustache_Engine(array(
 
 echo $m->render('profiles', [
     'ml_enabled' => $ml_enabled,
-    'predicted_score' => round($normalized_prediction/10, 2) ?? 'No disponible', // Redondear el valor de predicción a 2 decimales
-    'hours_studied' => round($student_data['hours_studied'] , 2), // Cambiar a horas estudiadas
-    'attendance' => $student_data['attendance'], // Asistencia
-    'inactivity_hours' => round($student_data['inactivity_hours'],2), // Horas de inactividad
-    'previous_scores' => $student_data['previous_scores']/10, // Puntajes previos
-    'tutoring_sessions' => $student_data['tutoring_sessions'], // Sesiones de tutoría
-    'physical_activity' => $student_data['physical_activity'] // Actividad física
+    'predicted_score' => round($normalized_prediction / 10, 2) ?? 'No disponible',
+    'hours_studied' => round($student_data['hours_studied'], 2),
+    'attendance' => $student_data['attendance'],
+    'inactivity_hours' => round($student_data['inactivity_hours'], 2),
+    'previous_scores' => $student_data['previous_scores'] / 10,
+    'tutoring_sessions' => $student_data['tutoring_sessions'],
+    'physical_activity' => $student_data['physical_activity'],
+    'courses' => $courses,
+    'selected_course' => $selectedCourseId,
 ]);
 
+?>
 
+<script>
+    document.getElementById('courseSelector').addEventListener('change', function () {
+        const selectedCourseId = this.value;
+        if (selectedCourseId) {
+            window.location.href = `profiles.php?courseid=${selectedCourseId}`;
+        }
+    });
+</script>

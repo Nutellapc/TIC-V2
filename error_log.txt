@@ -5816,3 +5816,665 @@ C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\vali
 )
 
 [01-Jan-2025 18:46:43 America/Guayaquil] Predicción obtenida: 71.493515014648
+[01-Jan-2025 18:59:36 America/Guayaquil] Salida del script Python: 2025-01-01 18:59:26.362219: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:59:28.461358: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 18:59:34.795704: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 314ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 332ms/step
+{"prediction": 71.89856719970703}
+
+[01-Jan-2025 18:59:36 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 71.898567199707
+)
+
+[01-Jan-2025 18:59:36 America/Guayaquil] Predicción obtenida: 71.898567199707
+[01-Jan-2025 19:27:08 America/Guayaquil] Salida del script Python: 2025-01-01 19:26:52.787306: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 19:26:56.243362: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 19:27:06.877723: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 324ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 342ms/step
+{"prediction": 72.91132354736328}
+
+[01-Jan-2025 19:27:08 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 72.911323547363
+)
+
+[01-Jan-2025 19:27:08 America/Guayaquil] Predicción obtenida: 72.911323547363
+[01-Jan-2025 19:32:20 America/Guayaquil] Respuesta de get_site_info: 
+[01-Jan-2025 19:37:14 America/Guayaquil] Salida del script Python: 2025-01-01 19:37:02.882894: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 19:37:05.342593: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 19:37:12.599320: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 440ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 464ms/step
+{"prediction": 73.10784149169922}
+
+[01-Jan-2025 19:37:14 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 73.107841491699
+)
+
+[01-Jan-2025 19:37:14 America/Guayaquil] Predicción obtenida: 73.107841491699
+[02-Jan-2025 01:45:21 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function get_config() in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php:21
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 21
+[01-Jan-2025 19:50:54 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:50:54 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 19:51:52 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:51:52 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 19:53:14 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:53:14 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 19:59:40 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:59:40 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 19:59:46 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:59:46 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 19:59:54 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 19:59:54 America/Guayaquil] Respuesta de core_webservice_get_site_info: 
+[01-Jan-2025 20:02:52 America/Guayaquil] Respuesta de la API (core_webservice_get_site_info): <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 20:04:57 America/Guayaquil] Respuesta de la API para core_webservice_get_site_info: <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 20:08:08 America/Guayaquil] Respuesta de la API para core_webservice_get_site_info: <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 20:08:08 America/Guayaquil] Error al obtener la información del usuario: null
+[01-Jan-2025 20:11:26 America/Guayaquil] Respuesta de la API para core_webservice_get_site_info: <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 20:11:26 America/Guayaquil] Error al obtener la información del usuario: null
+[01-Jan-2025 20:15:31 America/Guayaquil] Respuesta de la API para core_webservice_get_site_info: <?xml version="1.0" encoding="UTF-8" ?>
+<EXCEPTION class="invalid_parameter_exception">
+<ERRORCODE>invalidparameter</ERRORCODE>
+<MESSAGE>Invalid parameter value detected (Missing function name)</MESSAGE>
+<DEBUGINFO>Missing function name</DEBUGINFO>
+</EXCEPTION>
+
+[01-Jan-2025 20:15:31 America/Guayaquil] Error al obtener la información del usuario: null
+[01-Jan-2025 20:17:11 America/Guayaquil] Salida del script Python: 2025-01-01 20:17:01.054646: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:17:03.124874: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:17:10.200236: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 318ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 337ms/step
+{"prediction": 74.44422149658203}
+
+[01-Jan-2025 20:17:11 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 74.444221496582
+)
+
+[01-Jan-2025 20:17:11 America/Guayaquil] Predicción obtenida: 74.444221496582
+[01-Jan-2025 20:24:12 America/Guayaquil] Salida del script Python: 2025-01-01 20:24:02.874350: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:24:04.630912: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:24:11.257054: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 306ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 325ms/step
+{"prediction": 142.9903106689453}
+
+[01-Jan-2025 20:24:12 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 142.99031066895
+)
+
+[01-Jan-2025 20:24:12 America/Guayaquil] Predicción obtenida: 142.99031066895
+[01-Jan-2025 20:28:30 America/Guayaquil] Salida del script Python: 2025-01-01 20:28:20.546369: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:28:22.323290: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:28:29.164850: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 312ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 335ms/step
+{"prediction": 142.39402770996094}
+
+[01-Jan-2025 20:28:30 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 142.39402770996
+)
+
+[01-Jan-2025 20:28:30 America/Guayaquil] Predicción obtenida: 142.39402770996
+[01-Jan-2025 20:31:17 America/Guayaquil] Salida del script Python: 2025-01-01 20:31:08.014513: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:31:09.761204: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:31:15.893961: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 291ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 309ms/step
+{"prediction": 74.81745147705078}
+
+[01-Jan-2025 20:31:17 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 74.817451477051
+)
+
+[01-Jan-2025 20:31:17 America/Guayaquil] Predicción obtenida: 74.817451477051
+[01-Jan-2025 20:34:55 America/Guayaquil] Salida del script Python: 2025-01-01 20:34:46.771851: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:34:48.383668: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:34:54.054311: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 312ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 330ms/step
+{"prediction": 75.00092315673828}
+
+[01-Jan-2025 20:34:55 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 75.000923156738
+)
+
+[01-Jan-2025 20:34:55 America/Guayaquil] Predicción obtenida: 75.000923156738
+[01-Jan-2025 20:41:43 America/Guayaquil] Salida del script Python: 2025-01-01 20:41:33.296592: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:41:35.454002: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:41:41.631215: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 369ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 389ms/step
+{"prediction": 75.1844253540039}
+
+[01-Jan-2025 20:41:43 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 75.184425354004
+)
+
+[01-Jan-2025 20:41:43 America/Guayaquil] Predicción obtenida: 75.184425354004
+[01-Jan-2025 20:45:50 America/Guayaquil] Salida del script Python: 2025-01-01 20:45:40.386020: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:45:42.189518: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:45:48.413625: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 321ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 341ms/step
+{"prediction": 75.36788940429688}
+
+[01-Jan-2025 20:45:50 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 75.367889404297
+)
+
+[01-Jan-2025 20:45:50 America/Guayaquil] Predicción obtenida: 75.367889404297
+[01-Jan-2025 20:59:01 America/Guayaquil] Salida del script Python: 2025-01-01 20:58:49.971717: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:58:52.052455: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:58:59.340254: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 357ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 378ms/step
+{"prediction": 75.73484802246094}
+
+[01-Jan-2025 20:59:01 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 75.734848022461
+)
+
+[01-Jan-2025 20:59:01 America/Guayaquil] Predicción obtenida: 75.734848022461
+[01-Jan-2025 20:59:38 America/Guayaquil] Salida del script Python: 2025-01-01 20:59:29.903375: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:59:31.363723: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 20:59:37.314885: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 323ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 343ms/step
+{"prediction": 75.73484802246094}
+
+[01-Jan-2025 20:59:38 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 75.734848022461
+)
+
+[01-Jan-2025 20:59:38 America/Guayaquil] Predicción obtenida: 75.734848022461
+[01-Jan-2025 21:08:47 America/Guayaquil] Error: No se seleccionó un curso válido.
+[01-Jan-2025 21:09:14 America/Guayaquil] Salida del script Python: 2025-01-01 21:09:05.419491: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:09:07.192931: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:09:13.192755: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 324ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 342ms/step
+{"prediction": 76.10183715820312}
+
+[01-Jan-2025 21:09:14 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 76.101837158203
+)
+
+[01-Jan-2025 21:09:14 America/Guayaquil] Predicción obtenida: 76.101837158203
+[01-Jan-2025 21:15:08 America/Guayaquil] No se seleccionó un curso válido.
+[01-Jan-2025 21:15:43 America/Guayaquil] Error: No se seleccionó un curso válido.
+[01-Jan-2025 21:16:12 America/Guayaquil] Salida del script Python: 2025-01-01 21:16:02.901857: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:16:04.558289: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:16:10.743247: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 308ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 330ms/step
+{"prediction": 76.28530883789062}
+
+[01-Jan-2025 21:16:12 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 76.285308837891
+)
+
+[01-Jan-2025 21:16:12 America/Guayaquil] Predicción obtenida: 76.285308837891
+[01-Jan-2025 21:25:33 America/Guayaquil] Error: No se seleccionó un curso válido.
+[01-Jan-2025 21:25:49 America/Guayaquil] Salida del script Python: 2025-01-01 21:25:39.391757: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:25:41.095048: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:25:47.794866: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 335ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 358ms/step
+{"prediction": 136.0471649169922}
+
+[01-Jan-2025 21:25:49 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 136.04716491699
+)
+
+[01-Jan-2025 21:25:49 America/Guayaquil] Predicción obtenida: 136.04716491699
+[01-Jan-2025 21:27:24 America/Guayaquil] Error: No se seleccionó un curso válido.
+[01-Jan-2025 21:27:48 America/Guayaquil] Salida del script Python: 2025-01-01 21:27:31.496713: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:27:34.773208: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:27:46.894996: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 341ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 360ms/step
+{"prediction": 135.27667236328125}
+
+[01-Jan-2025 21:27:48 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 135.27667236328
+)
+
+[01-Jan-2025 21:27:48 America/Guayaquil] Predicción obtenida: 135.27667236328
+[01-Jan-2025 21:29:14 America/Guayaquil] Salida del script Python: 2025-01-01 21:29:02.398246: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:29:05.108859: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-01 21:29:12.498029: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 352ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 376ms/step
+{"prediction": 76.65151977539062}
+
+[01-Jan-2025 21:29:14 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 76.651519775391
+)
+
+[01-Jan-2025 21:29:14 America/Guayaquil] Predicción obtenida: 76.651519775391
+[05-Jan-2025 16:38:42 America/Guayaquil] Salida del script Python: 2025-01-05 16:38:16.599051: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 16:38:29.592338: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 16:38:40.049979: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 451ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 480ms/step
+{"prediction": 489.2878723144531}
+
+[05-Jan-2025 16:38:42 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 489.28787231445
+)
+
+[05-Jan-2025 16:38:42 America/Guayaquil] Predicción obtenida: 489.28787231445
+[05-Jan-2025 16:50:58 America/Guayaquil] Salida del script Python: 2025-01-05 16:49:27.204897: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 16:49:37.485555: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 16:50:53.044485: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 779ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m1s[0m 820ms/step
+{"prediction": 270.28955078125}
+
+[05-Jan-2025 16:50:58 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 270.28955078125
+)
+
+[05-Jan-2025 16:50:58 America/Guayaquil] Predicción obtenida: 270.28955078125
+[05-Jan-2025 17:10:35 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:10:53 America/Guayaquil] Salida del script Python: 2025-01-05 17:10:42.232217: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:10:44.085095: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:10:51.585827: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 294ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 312ms/step
+{"prediction": 1076.837158203125}
+
+[05-Jan-2025 17:10:53 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1076.8371582031
+)
+
+[05-Jan-2025 17:12:39 America/Guayaquil] Salida del script Python: 2025-01-05 17:12:29.468354: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:12:31.282167: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:12:38.149027: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 348ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 367ms/step
+{"prediction": 269.744140625}
+
+[05-Jan-2025 17:12:39 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 269.744140625
+)
+
+[05-Jan-2025 17:12:39 America/Guayaquil] Predicción obtenida: 269.744140625
+[05-Jan-2025 17:15:13 America/Guayaquil] Error HTTP al llamar a la API: Código 0
+[05-Jan-2025 17:15:13 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:18:50 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:19:09 America/Guayaquil] Salida del script Python: 2025-01-05 17:18:57.836364: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:19:00.064473: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:19:07.266429: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 368ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 391ms/step
+{"prediction": 1078.3662109375}
+
+[05-Jan-2025 17:19:09 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1078.3662109375
+)
+
+[05-Jan-2025 17:20:24 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:20:41 America/Guayaquil] Salida del script Python: 2025-01-05 17:20:31.619417: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:20:33.313174: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:20:39.596500: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 285ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 303ms/step
+{"prediction": 1078.3662109375}
+
+[05-Jan-2025 17:20:41 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1078.3662109375
+)
+
+[05-Jan-2025 17:25:59 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:26:15 America/Guayaquil] Salida del script Python: 2025-01-05 17:26:05.963656: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:26:07.616423: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:26:13.780341: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 328ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 346ms/step
+{"prediction": 1079.895751953125}
+
+[05-Jan-2025 17:26:15 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1079.8957519531
+)
+
+[05-Jan-2025 17:27:53 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:28:24 America/Guayaquil] Salida del script Python: 2025-01-05 17:28:14.158698: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:28:16.060743: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:28:22.804676: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 336ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 360ms/step
+{"prediction": 269.96026611328125}
+
+[05-Jan-2025 17:28:24 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 269.96026611328
+)
+
+[05-Jan-2025 17:30:07 America/Guayaquil] No se encontraron cursos para el usuario con ID: 2
+[05-Jan-2025 17:30:07 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:30:23 America/Guayaquil] Salida del script Python: 2025-01-05 17:30:13.586249: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:30:15.189626: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:30:21.570234: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 343ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 366ms/step
+{"prediction": 1081.4259033203125}
+
+[05-Jan-2025 17:30:23 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1081.4259033203
+)
+
+[05-Jan-2025 17:38:30 America/Guayaquil] No se encontraron cursos para el usuario con ID: 2
+[05-Jan-2025 17:38:30 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:38:49 America/Guayaquil] Salida del script Python: 2025-01-05 17:38:38.021428: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:38:40.255579: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:38:47.420934: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 333ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 352ms/step
+{"prediction": 1082.9544677734375}
+
+[05-Jan-2025 17:38:49 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1082.9544677734
+)
+
+[05-Jan-2025 17:42:18 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:42:35 America/Guayaquil] Salida del script Python: 2025-01-05 17:42:25.506162: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:42:27.306457: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:42:33.789913: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 292ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 310ms/step
+{"prediction": 1084.4818115234375}
+
+[05-Jan-2025 17:42:35 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1084.4818115234
+)
+
+[05-Jan-2025 17:51:05 America/Guayaquil] No se encontraron cursos para el usuario con ID 2.
+[05-Jan-2025 17:51:05 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:51:21 America/Guayaquil] Salida del script Python: 2025-01-05 17:51:12.044351: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:51:13.733736: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:51:20.067933: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 290ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 310ms/step
+{"prediction": 1087.53759765625}
+
+[05-Jan-2025 17:51:21 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1087.5375976562
+)
+
+[05-Jan-2025 17:57:35 America/Guayaquil] Respuesta completa de la API para get_user_courses: null
+[05-Jan-2025 17:57:35 America/Guayaquil] No se encontraron cursos para el usuario con ID 2.
+[05-Jan-2025 17:57:35 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 17:57:51 America/Guayaquil] Salida del script Python: 2025-01-05 17:57:41.210937: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:57:42.998644: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 17:57:50.086675: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 436ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 458ms/step
+{"prediction": 1089.06494140625}
+
+[05-Jan-2025 17:57:51 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1089.0649414062
+)
+
+[06-Jan-2025 00:07:32 Europe/Berlin] PHP Warning:  Attempt to read property "id" on null in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 25
+[06-Jan-2025 00:07:34 Europe/Berlin] Error en la API: Invalid parameter value detected (Missing required key in single structure: userid)
+[06-Jan-2025 00:07:34 Europe/Berlin] Respuesta completa de la API para get_user_courses: null
+[06-Jan-2025 00:07:34 Europe/Berlin] No se encontraron cursos para el usuario con ID .
+[06-Jan-2025 00:07:34 Europe/Berlin] Error: No se seleccionó un curso válido.
+[06-Jan-2025 00:07:40 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function get_config() in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php:149
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 149
+[06-Jan-2025 00:08:03 Europe/Berlin] PHP Warning:  Attempt to read property "id" on null in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 25
+[06-Jan-2025 00:08:05 Europe/Berlin] Error en la API: Invalid parameter value detected (Missing required key in single structure: userid)
+[06-Jan-2025 00:08:05 Europe/Berlin] Respuesta completa de la API para get_user_courses: null
+[06-Jan-2025 00:08:05 Europe/Berlin] No se encontraron cursos para el usuario con ID .
+[06-Jan-2025 00:08:05 Europe/Berlin] Error: No se seleccionó un curso válido.
+[06-Jan-2025 00:08:10 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 152
+[06-Jan-2025 00:08:10 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 169
+[06-Jan-2025 00:08:30 Europe/Berlin] PHP Warning:  Attempt to read property "id" on null in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 25
+[06-Jan-2025 00:08:31 Europe/Berlin] Respuesta completa de la API para get_user_courses: [{"id":3,"shortname":"XS2","fullname":"XS2","displayname":"XS2","enrolledusercount":2,"idnumber":"","visible":1,"summary":"XS2","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/50\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1735707600,"enddate":0,"marker":0,"lastaccess":1735770010,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1735770000},{"id":2,"shortname":"XS","fullname":"XS","displayname":"XS","enrolledusercount":7,"idnumber":"","visible":1,"summary":"Test course 1<br \/>\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla non arcu lacinia neque faucibus fringilla. Vivamus porttitor turpis ac leo. Integer in sapien. Nullam eget nisl. Aliquam erat volutpat. Cras elementum. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Integer malesuada. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Mauris elementum mauris vitae tortor. Aliquam erat volutpat.<br \/>\nTemporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Pellentesque ipsum. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Aliquam ante. Proin in tellus sit amet nibh dignissim sagittis. Vivamus porttitor turpis ac leo. Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Aliquam erat volutpat. Nulla est.<br \/>\nVivamus luctus egestas leo. Aenean fermentum risus id tortor. Mauris dictum facilisis augue. Aliquam erat volutpat. Aliquam ornare wisi eu metus. Aliquam id dolor. Duis condimentum augue id magna semper rutrum. Donec iaculis gravida nulla. Pellentesque ipsum. Etiam dictum tincidunt diam. Quisque tincidunt scelerisque libero. Etiam egestas wisi a erat.<br \/>\nInteger lacinia. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris tincidunt sem sed arcu. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Aliquam id dolor. Maecenas sollicitudin. Et harum quidem rerum facilis est et expedita distinctio. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Nullam dapibus fermentum ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Pellentesque sapien. Duis risus. Mauris elementum mauris vitae tortor. Suspendisse nisl. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim.<br \/>\nIn laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Maecenas lorem. Etiam posuere lacus quis dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Nam sed tellus id magna elementum tincidunt. Suspendisse nisl. Vivamus luctus egestas leo. Nulla non arcu lacinia neque faucibus fringilla. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Etiam dictum tincidunt diam. Etiam commodo dui eget wisi. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Pellentesque sapien.","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/14\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1730091600,"enddate":0,"marker":0,"lastaccess":1736114331,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1730148774}]
+[06-Jan-2025 00:08:38 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 152
+[06-Jan-2025 00:08:38 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 169
+[05-Jan-2025 18:09:02 America/Guayaquil] Respuesta completa de la API para get_user_courses: null
+[05-Jan-2025 18:09:02 America/Guayaquil] No se encontraron cursos para el usuario con ID 2.
+[05-Jan-2025 18:09:02 America/Guayaquil] Error: No se seleccionó un curso válido.
+[05-Jan-2025 18:09:19 America/Guayaquil] Salida del script Python: 2025-01-05 18:09:08.358892: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 18:09:10.504036: I tensorflow/core/util/port.cc:153] oneDNN custom operations are on. You may see slightly different numerical results due to floating-point round-off errors from different computation orders. To turn them off, set the environment variable `TF_ENABLE_ONEDNN_OPTS=0`.
+2025-01-05 18:09:17.157647: I tensorflow/core/platform/cpu_feature_guard.cc:210] This TensorFlow binary is optimized to use available CPU instructions in performance-critical operations.
+To enable the following instructions: AVX2 FMA, in other operations, rebuild TensorFlow with the appropriate compiler flags.
+C:\Users\Tonyp\AppData\Roaming\Python\Python312\site-packages\sklearn\utils\validation.py:2739: UserWarning: X does not have valid feature names, but StandardScaler was fitted with feature names
+  warnings.warn(
+
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 366ms/step
+[1m1/1[0m [32m====================[0m[37m[0m [1m0s[0m 385ms/step
+{"prediction": 1092.11279296875}
+
+[05-Jan-2025 18:09:19 America/Guayaquil] Predicción decodificada: Array
+(
+    [prediction] => 1092.1127929688
+)
+
+[06-Jan-2025 00:15:50 Europe/Berlin] PHP Warning:  Attempt to read property "id" on null in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 26
+[06-Jan-2025 00:15:53 Europe/Berlin] Respuesta completa de la API para get_user_courses: [{"id":3,"shortname":"XS2","fullname":"XS2","displayname":"XS2","enrolledusercount":2,"idnumber":"","visible":1,"summary":"XS2","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/50\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1735707600,"enddate":0,"marker":0,"lastaccess":1735770010,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1735770000},{"id":2,"shortname":"XS","fullname":"XS","displayname":"XS","enrolledusercount":7,"idnumber":"","visible":1,"summary":"Test course 1<br \/>\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla non arcu lacinia neque faucibus fringilla. Vivamus porttitor turpis ac leo. Integer in sapien. Nullam eget nisl. Aliquam erat volutpat. Cras elementum. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Integer malesuada. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Mauris elementum mauris vitae tortor. Aliquam erat volutpat.<br \/>\nTemporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Pellentesque ipsum. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Aliquam ante. Proin in tellus sit amet nibh dignissim sagittis. Vivamus porttitor turpis ac leo. Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Aliquam erat volutpat. Nulla est.<br \/>\nVivamus luctus egestas leo. Aenean fermentum risus id tortor. Mauris dictum facilisis augue. Aliquam erat volutpat. Aliquam ornare wisi eu metus. Aliquam id dolor. Duis condimentum augue id magna semper rutrum. Donec iaculis gravida nulla. Pellentesque ipsum. Etiam dictum tincidunt diam. Quisque tincidunt scelerisque libero. Etiam egestas wisi a erat.<br \/>\nInteger lacinia. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris tincidunt sem sed arcu. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Aliquam id dolor. Maecenas sollicitudin. Et harum quidem rerum facilis est et expedita distinctio. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Nullam dapibus fermentum ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Pellentesque sapien. Duis risus. Mauris elementum mauris vitae tortor. Suspendisse nisl. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim.<br \/>\nIn laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Maecenas lorem. Etiam posuere lacus quis dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Nam sed tellus id magna elementum tincidunt. Suspendisse nisl. Vivamus luctus egestas leo. Nulla non arcu lacinia neque faucibus fringilla. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Etiam dictum tincidunt diam. Etiam commodo dui eget wisi. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Pellentesque sapien.","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/14\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1730091600,"enddate":0,"marker":0,"lastaccess":1736114331,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1730148774}]
+[06-Jan-2025 00:16:01 Europe/Berlin] PHP Fatal error:  Uncaught Error: Call to undefined function get_config() in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php:150
+Stack trace:
+#0 {main}
+  thrown in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 150
+[06-Jan-2025 00:17:22 Europe/Berlin] PHP Warning:  Attempt to read property "id" on null in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 26
+[06-Jan-2025 00:17:23 Europe/Berlin] Respuesta completa de la API para get_user_courses: [{"id":3,"shortname":"XS2","fullname":"XS2","displayname":"XS2","enrolledusercount":2,"idnumber":"","visible":1,"summary":"XS2","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/50\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1735707600,"enddate":0,"marker":0,"lastaccess":1735770010,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1735770000},{"id":2,"shortname":"XS","fullname":"XS","displayname":"XS","enrolledusercount":7,"idnumber":"","visible":1,"summary":"Test course 1<br \/>\nLorem ipsum dolor sit amet, consectetuer adipiscing elit. Nulla non arcu lacinia neque faucibus fringilla. Vivamus porttitor turpis ac leo. Integer in sapien. Nullam eget nisl. Aliquam erat volutpat. Cras elementum. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Integer malesuada. Nullam lectus justo, vulputate eget mollis sed, tempor sed magna. Mauris elementum mauris vitae tortor. Aliquam erat volutpat.<br \/>\nTemporibus autem quibusdam et aut officiis debitis aut rerum necessitatibus saepe eveniet ut et voluptates repudiandae sint et molestiae non recusandae. Pellentesque ipsum. Cras pede libero, dapibus nec, pretium sit amet, tempor quis. Aliquam ante. Proin in tellus sit amet nibh dignissim sagittis. Vivamus porttitor turpis ac leo. Duis bibendum, lectus ut viverra rhoncus, dolor nunc faucibus libero, eget facilisis enim ipsum id lacus. In sem justo, commodo ut, suscipit at, pharetra vitae, orci. Aliquam erat volutpat. Nulla est.<br \/>\nVivamus luctus egestas leo. Aenean fermentum risus id tortor. Mauris dictum facilisis augue. Aliquam erat volutpat. Aliquam ornare wisi eu metus. Aliquam id dolor. Duis condimentum augue id magna semper rutrum. Donec iaculis gravida nulla. Pellentesque ipsum. Etiam dictum tincidunt diam. Quisque tincidunt scelerisque libero. Etiam egestas wisi a erat.<br \/>\nInteger lacinia. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Mauris tincidunt sem sed arcu. Nullam feugiat, turpis at pulvinar vulputate, erat libero tristique tellus, nec bibendum odio risus sit amet ante. Aliquam id dolor. Maecenas sollicitudin. Et harum quidem rerum facilis est et expedita distinctio. Mauris suscipit, ligula sit amet pharetra semper, nibh ante cursus purus, vel sagittis velit mauris vel metus. Nullam dapibus fermentum ipsum. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Pellentesque sapien. Duis risus. Mauris elementum mauris vitae tortor. Suspendisse nisl. Integer rutrum, orci vestibulum ullamcorper ultricies, lacus quam ultricies odio, vitae placerat pede sem sit amet enim.<br \/>\nIn laoreet, magna id viverra tincidunt, sem odio bibendum justo, vel imperdiet sapien wisi sed libero. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Nullam justo enim, consectetuer nec, ullamcorper ac, vestibulum in, elit. Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur? Maecenas lorem. Etiam posuere lacus quis dolor. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos hymenaeos. Curabitur ligula sapien, pulvinar a vestibulum quis, facilisis vel sapien. Nam sed tellus id magna elementum tincidunt. Suspendisse nisl. Vivamus luctus egestas leo. Nulla non arcu lacinia neque faucibus fringilla. Etiam dui sem, fermentum vitae, sagittis id, malesuada in, quam. Etiam dictum tincidunt diam. Etiam commodo dui eget wisi. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Proin pede metus, vulputate nec, fermentum fringilla, vehicula vitae, justo. Duis ante orci, molestie vitae vehicula venenatis, tincidunt ac pede. Pellentesque sapien.","summaryformat":1,"format":"topics","courseimage":"http:\/\/localhost\/TIC\/moodle\/pluginfile.php\/14\/course\/generated\/course.svg","showgrades":true,"lang":"","enablecompletion":false,"completionhascriteria":false,"completionusertracked":false,"category":1,"progress":null,"completed":null,"startdate":1730091600,"enddate":0,"marker":0,"lastaccess":1736114331,"isfavourite":false,"hidden":false,"overviewfiles":[],"showactivitydates":false,"showcompletionconditions":true,"timemodified":1730148774}]
+[06-Jan-2025 00:17:31 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 152
+[06-Jan-2025 00:17:31 Europe/Berlin] PHP Warning:  Undefined variable $ml_enabled in C:\xampp\htdocs\TIC\moodle\local\ml_dashboard2\profiles.php on line 169
