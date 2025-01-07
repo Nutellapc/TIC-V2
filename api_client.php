@@ -83,3 +83,28 @@ function get_authenticated_user() {
     ];
 }
 
+/**
+ * Obtiene los IDs de los usuarios inscritos en un curso, a partir del tercer ID.
+ *
+ * @param int $courseId ID del curso.
+ * @return array Lista de IDs de usuarios a partir del tercero, o un array vacío si no hay suficientes usuarios.
+ */
+function get_user_ids_from_course($courseId) {
+    $function = 'core_enrol_get_enrolled_users';
+    $params = ['courseid' => $courseId];
+
+    $enrolledUsers = callMoodleAPI($function, $params);
+
+    if (empty($enrolledUsers)) {
+        error_log("No se encontraron usuarios inscritos en el curso con ID $courseId.");
+        return [];
+    }
+
+    // Extraer los IDs de los usuarios y omitir los dos primeros
+    $userIds = array_column($enrolledUsers, 'id');
+    return array_slice($userIds, 2); // A partir del tercer ID
+}
+
+
+
+?>

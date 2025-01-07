@@ -11,6 +11,8 @@ require_once(__DIR__ . '/course_attendance.php');
 require_once(__DIR__ . '/course_inactivity.php');
 require_once(__DIR__ . '/vendor/autoload.php');
 require_once(__DIR__ . '/ml_predictor.php'); // El predictor
+require_once(__DIR__ . '/average_calculations.php');// promedios del curso
+
 
 // Obtener el usuario autenticado utilizando la API
 $userInfo = get_authenticated_user();
@@ -29,6 +31,23 @@ $studentName = $userInfo['fullname'];
 // Obtener la lista de cursos del usuario desde `api_client.php`
 $courses = get_user_courses($studentId);
 
+// Seleccionar curso actual
+$selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : ($courses[0]['id'] ?? 0);
+//echo "<h3>Curso seleccionado: $selectedCourseId</h3>";
+
+
+// Llamar a la función para obtener los IDs de los estudiantes inscritos en el curso seleccionado
+$studentIds = get_user_ids_from_course($selectedCourseId);
+
+// Mostrar los IDs obtenidos en pantalla si existen
+//if (!empty($studentIds)) {
+//    echo "IDs de estudiantes inscritos en el curso $selectedCourseId: " . implode(', ', $studentIds);
+//} else {
+//    echo "No se encontraron IDs de estudiantes inscritos en el curso $selectedCourseId.";
+//}*******************
+
+
+
 require_once(__DIR__ . '/../../config.php');
 
 require_login(); // Asegura que el usuario esté autenticado
@@ -43,34 +62,36 @@ if (empty($courses)) {
 //    echo "</pre>";
 }
 
-// Seleccionar curso actual
-$selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : ($courses[0]['id'] ?? 0);
-//echo "<h3>Curso seleccionado: $selectedCourseId</h3>";
 
 if (!$selectedCourseId) {
 //    echo "<h3>Error: No se seleccionó un curso válido.</h3>";
     error_log("Error: No se seleccionó un curso válido.");
 }
 
+
+
+
+
 // Obtener datos relacionados con el curso
 try {
     $courseId = $selectedCourseId;
 
     // Llamar a las funciones para calcular datos
-    $hours_studied = get_user_active_hours($studentId, $courseId, $token, $apiUrl);
+    $hours_studied = calculate_average_hours_studied($studentIds, $selectedCourseId, $token, $apiUrl);
+
 //    echo "<h3>Horas estudiadas: $hours_studied</h3>";
     $hours_studied = min(max($hours_studied, 0), 44); // Ajustar al rango válido (1-44)
 
-    $attendance_percentage = calculate_attendance($studentId, $courseId, $token, $apiUrl);
+    $attendance_percentage = calculate_average_attendance($studentIds, $selectedCourseId, $token, $apiUrl);
 //    echo "<h3>Porcentaje de asistencia: $attendance_percentage</h3>";
 
-    $inactivity_hours = get_user_inactive_hours($studentId, $courseId, $token, $apiUrl);
+    $inactivity_hours = calculate_average_inactivity_hours($studentIds, $selectedCourseId, $token, $apiUrl);
 //    echo "<h3>Horas de inactividad: $inactivity_hours</h3>";
 
-    $general_grade = calculate_general_grade($studentId, $courseId, $token, $apiUrl);
+    $general_grade = calculate_average_general_grade($studentIds, $selectedCourseId, $token, $apiUrl);
 //    echo "<h3>Calificación general: $general_grade</h3>";
 
-    $forum_participations = count_forum_participations($studentId, $courseId, $token, $apiUrl);
+    $forum_participations = calculate_average_forum_participations($studentIds, $selectedCourseId, $token, $apiUrl);
 //    echo "<h3>Participaciones en foros: $forum_participations</h3>";
 } catch (Exception $e) {
     error_log("Error al obtener datos del curso: " . $e->getMessage());

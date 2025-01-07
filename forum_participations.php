@@ -79,7 +79,7 @@ function count_forum_participations($userId, $courseId, $token, $apiUrl) {
         }
     }
 
-    //echo "Total de participaciones únicas del usuario $userId en el curso $courseId: $participations\n";
+//    echo "Total de participaciones únicas del usuario $userId en el curso $courseId: $participations\n";
 
     return $participations;
 }
