@@ -1,8 +1,8 @@
 {
     "user_2_course_2": {
-        "inactiveTimeInSeconds": 685255,
-        "lastChecked": 1736212209,
-        "maxInactiveTime": 685255
+        "inactiveTimeInSeconds": 758206,
+        "lastChecked": 1736344835,
+        "maxInactiveTime": 758206
     },
     "user_2_course_0": {
         "inactiveTimeInSeconds": 339216,
@@ -20,33 +20,33 @@
         "maxInactiveTime": 533
     },
     "user_2_course_3": {
-        "inactiveTimeInSeconds": 87322,
-        "lastChecked": 1736207659,
-        "maxInactiveTime": 87322
+        "inactiveTimeInSeconds": 434821,
+        "lastChecked": 1736555158,
+        "maxInactiveTime": 434821
     },
     "user_4_course_2": {
-        "inactiveTimeInSeconds": 1949,
-        "lastChecked": 1736214509,
-        "maxInactiveTime": 1949
+        "inactiveTimeInSeconds": 57658,
+        "lastChecked": 1736270586,
+        "maxInactiveTime": 57658
     },
     "user_5_course_2": {
-        "inactiveTimeInSeconds": 1949,
-        "lastChecked": 1736214510,
-        "maxInactiveTime": 1949
+        "inactiveTimeInSeconds": 57658,
+        "lastChecked": 1736270587,
+        "maxInactiveTime": 57658
     },
     "user_6_course_2": {
-        "inactiveTimeInSeconds": 1949,
-        "lastChecked": 1736214511,
-        "maxInactiveTime": 1949
+        "inactiveTimeInSeconds": 57658,
+        "lastChecked": 1736270588,
+        "maxInactiveTime": 57658
     },
     "user_7_course_2": {
-        "inactiveTimeInSeconds": 1949,
-        "lastChecked": 1736214512,
-        "maxInactiveTime": 1949
+        "inactiveTimeInSeconds": 57659,
+        "lastChecked": 1736270589,
+        "maxInactiveTime": 57659
     },
     "user_8_course_2": {
-        "inactiveTimeInSeconds": 1949,
-        "lastChecked": 1736214513,
-        "maxInactiveTime": 1949
+        "inactiveTimeInSeconds": 57659,
+        "lastChecked": 1736270590,
+        "maxInactiveTime": 57659
     }
 }

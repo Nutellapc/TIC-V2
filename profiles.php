@@ -77,21 +77,21 @@ try {
     $courseId = $selectedCourseId;
 
     // Llamar a las funciones para calcular datos
-    $hours_studied = calculate_average_hours_studied($studentIds, $selectedCourseId, $token, $apiUrl);
+    $hours_studied = get_user_active_hours($studentId, $courseId, $token, $apiUrl);
 
 //    echo "<h3>Horas estudiadas: $hours_studied</h3>";
     $hours_studied = min(max($hours_studied, 0), 44); // Ajustar al rango válido (1-44)
 
-    $attendance_percentage = calculate_average_attendance($studentIds, $selectedCourseId, $token, $apiUrl);
+    $attendance_percentage = calculate_attendance($studentId, $courseId, $token, $apiUrl);
 //    echo "<h3>Porcentaje de asistencia: $attendance_percentage</h3>";
 
-    $inactivity_hours = calculate_average_inactivity_hours($studentIds, $selectedCourseId, $token, $apiUrl);
+    $inactivity_hours = get_user_inactive_hours($studentId, $courseId, $token, $apiUrl);
 //    echo "<h3>Horas de inactividad: $inactivity_hours</h3>";
 
-    $general_grade = calculate_average_general_grade($studentIds, $selectedCourseId, $token, $apiUrl);
+    $general_grade = calculate_general_grade($studentId, $courseId, $token, $apiUrl);
 //    echo "<h3>Calificación general: $general_grade</h3>";
 
-    $forum_participations = calculate_average_forum_participations($studentIds, $selectedCourseId, $token, $apiUrl);
+    $forum_participations = count_forum_participations($studentId, $courseId, $token, $apiUrl);
 //    echo "<h3>Participaciones en foros: $forum_participations</h3>";
 } catch (Exception $e) {
     error_log("Error al obtener datos del curso: " . $e->getMessage());

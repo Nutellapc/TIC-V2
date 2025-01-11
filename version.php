@@ -16,7 +16,7 @@
 // along with Moodle.  If not, see <http://www.gnu.org/licenses/>.
 
 /**
- * PLUGIN VERSION INFORMATION
+ * PLUGIN VERSION INFORMATION DATA
  *
  * This file defines the current version of the plugin being used.
  * This is compared against the values stored in the database to determine
@@ -30,7 +30,7 @@
 defined('MOODLE_INTERNAL') || die();
 
 $plugin->component = 'local_ml_dashboard2';   // Nombre único del plugin.
-$plugin->version = 2024101500;               // Versión del plugin en formato AAAAMMDDHH.
+$plugin->version = 2025010802;             // Versión del plugin en formato AAAAMMDDHH.
 $plugin->requires = 2022041900;              // Versión mínima de Moodle requerida (ajusta según tu Moodle).
 $plugin->maturity = MATURITY_STABLE;         // Estado del plugin: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC o MATURITY_STABLE.
 $plugin->release = '1.0';                    // Número de versión del plugin.
