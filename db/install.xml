@@ -8,13 +8,14 @@
             <FIELDS>
                 <FIELD NAME="id" TYPE="int" LENGTH="10" NOTNULL="true" SEQUENCE="true" COMMENT="ID único"/>
                 <FIELD NAME="userid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID del usuario"/>
+                <FIELD NAME="username" TYPE="char" LENGTH="255" NOTNULL="true" COMMENT="Nombre del usuario"/> <!-- Campo agregado -->
                 <FIELD NAME="courseid" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="ID del curso"/>
                 <FIELD NAME="hours_studied" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Horas estudiadas"/>
                 <FIELD NAME="attendance" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Porcentaje de asistencia"/>
                 <FIELD NAME="inactive_time" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Horas de inactividad"/>
                 <FIELD NAME="general_grade" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Calificación general"/>
                 <FIELD NAME="forum_participations" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Participaciones en foros"/>
-                <FIELD NAME="prediction_score" TYPE="float" NOTNULL="false" DEFAULT="0" COMMENT="Puntaje de predicción"/>
+                <FIELD NAME="prediction_score" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Puntaje de predicción"/>
                 <FIELD NAME="last_updated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Última actualización"/>
             </FIELDS>
             <KEYS>

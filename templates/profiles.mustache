@@ -6,6 +6,7 @@
     <title>Perfil</title>
     <link rel="stylesheet" href="style.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 </head>
 <body>
 
@@ -23,23 +24,12 @@
         <!-- Selector de cursos -->
         {{> course_selector }}
 
-        <div class="mt-4">
-            <h2 class="text-xl font-semibold text-gray-700">Predicción:</h2>
-            <p class="text-lg text-blue-600 font-bold">{{predicted_score}}</p>
-        </div>
-        <div class="mt-4">
-            <h2 class="text-xl font-semibold text-gray-700">Datos del Estudiante:</h2>
-            <ul>
-                <li>Horas de Estudio: {{hours_studied}}</li>
-                <li>Asistencia: {{attendance}}%</li>
-                <li>Horas de Inactividad: {{inactivity_hours}}</li>
-                <li>Calificaciones: {{previous_scores}}</li>
-                <li># de Interacciones colaborativas: {{tutoring_sessions}}</li>
-<!--                <li>Actividad Física: {{physical_activity}}</li>-->
-            </ul>
-        </div>
-    </div>
 
+        <!-- Incluir la tabla de datos procesados -->
+        {{> processed_data_table }}
+
+    </div>
 </div>
 
-
+</body>
+</html>

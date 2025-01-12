@@ -1,0 +1,137 @@
+<div class="mt-8">
+    <h2 class="text-xl font-semibold text-gray-700">
+        Datos Procesados del Curso
+        <span class="text-sm text-gray-500">(Última actualización: {{last_updated}})</span>
+    </h2>
+
+    <!-- Contenedor para hacer la tabla responsive -->
+    <div class="overflow-x-auto">
+        <table class="min-w-full bg-white shadow-lg rounded-lg border-collapse border border-gray-200">
+            <thead>
+            <tr class="bg-blue-600 text-white text-left text-sm uppercase tracking-wider">
+                <th class="px-6 py-3">ID de Usuario</th>
+                <th class="px-6 py-3">Nombre</th>
+                <th class="px-6 py-3">Predicción</th>
+                <th class="px-6 py-3">Acciones</th>
+            </tr>
+            </thead>
+            <tbody class="divide-y divide-gray-200">
+            {{#processed_data}}
+                <tr class="hover:bg-gray-100">
+                    <td class="px-6 py-4 text-gray-700">{{userid}}</td>
+                    <td class="px-6 py-4 text-gray-700">{{username}}</td>
+                    <td class="px-6 py-4 text-gray-700">{{prediction_score}}</td>
+                    <td class="px-6 py-4">
+                        <button
+                            class="bg-blue-500 text-white text-lg px-6 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
+                            onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')">
+                            Ver detalles
+                        </button>
+                    </td>
+                </tr>
+            {{/processed_data}}
+            </tbody>
+        </table>
+    </div>
+
+    {{^processed_data}}
+        <p class="text-gray-500 mt-4">No hay datos procesados para este curso.</p>
+    {{/processed_data}}
+</div>
+
+<!-- Modal -->
+{{> modal }}
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+    function openModal(name, userId, prediction, hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations) {
+        // Asignar los datos del usuario al modal
+        document.getElementById('modalName').innerText = name;
+        document.getElementById('modalUserId').innerText = userId;
+        document.getElementById('modalPrediction').innerText = prediction;
+
+        // Configurar el gráfico radar
+        const radarCanvas = document.getElementById('radarChart');
+        const radarData = {
+            labels: ['Horas Estudiadas', 'Asistencia', 'Inactividad', 'Calificación General', 'Part en Foros'],
+            datasets: [{
+                label: 'Datos del Estudiante',
+                data: [hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations],
+                backgroundColor: 'rgba(54, 162, 235, 0.2)',
+                borderColor: 'rgba(54, 162, 235, 1)',
+                borderWidth: 2,
+                pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+            }]
+        };
+
+        const radarOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            scales: {
+                r: {
+                    angleLines: {
+                        display: false
+                    },
+                    suggestedMin: 0,
+                    suggestedMax: 100,
+                    pointLabels: {
+                        font: {
+                            size: 16 // Tamaño de las etiquetas del gráfico
+                        },
+                        color: '#333' // Color de las etiquetas
+                    },
+                    ticks: {
+                        display: true,
+                        font: {
+                            size: 14 // Tamaño de los valores del gráfico
+                        },
+                        color: '#555' // Color de los ticks
+                    }
+                }
+            },
+            plugins: {
+                tooltip: {
+                    bodyFont: {
+                        size: 18 // Tamaño del texto del tooltip /texto etiqueta fantasma
+                    },
+                    titleFont: {
+                        size: 20 // Tamaño del título del tooltip /titulo etiqueta fanstama
+                    }
+                },
+                legend: {
+                    labels: {
+                        font: {
+                            size: 16 // Tamaño de las etiquetas de la leyenda /Datos del estudiante
+                        }
+                    }
+                }
+            }
+        };
+
+        // Destruir el gráfico existente si ya está inicializado
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
+        }
+        window.radarChartInstance = new Chart(radarCanvas, {
+            type: 'radar',
+            data: radarData,
+            options: radarOptions
+        });
+
+        // Mostrar el modal
+        document.getElementById('detailsModal').classList.remove('hidden');
+    }
+
+    function closeModal() {
+        // Cerrar el modal
+        document.getElementById('detailsModal').classList.add('hidden');
+        if (window.radarChartInstance) {
+            window.radarChartInstance.destroy();
+            window.radarChartInstance = null;
+        }
+    }
+
+
+</script>
+

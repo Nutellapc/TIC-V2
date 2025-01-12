@@ -121,7 +121,7 @@ function predict_student_score($student_data) {
     }
 
     // Log para verificar la salida decodificada
-    error_log("Predicción decodificada: " . print_r($result, true));
+//    error_log("Predicción decodificada: " . print_r($result, true));
 
 
     if (isset($result['error'])) {

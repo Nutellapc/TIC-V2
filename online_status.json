@@ -25,38 +25,38 @@
     },
     "user_2_course_3": {
         "isOnline": false,
-        "lastChecked": 1736555156,
+        "lastChecked": 1736618349,
         "activeTimeInSeconds": 0,
         "maxActiveTime": 0
     },
     "user_4_course_2": {
-        "isOnline": true,
-        "lastChecked": 1736270575,
-        "activeTimeInSeconds": 368,
+        "isOnline": false,
+        "lastChecked": 1736636644,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 368
     },
     "user_5_course_2": {
-        "isOnline": true,
-        "lastChecked": 1736270576,
-        "activeTimeInSeconds": 368,
+        "isOnline": false,
+        "lastChecked": 1736636693,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 368
     },
     "user_6_course_2": {
-        "isOnline": true,
-        "lastChecked": 1736270577,
-        "activeTimeInSeconds": 368,
+        "isOnline": false,
+        "lastChecked": 1736636717,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 368
     },
     "user_7_course_2": {
-        "isOnline": true,
-        "lastChecked": 1736270578,
-        "activeTimeInSeconds": 368,
+        "isOnline": false,
+        "lastChecked": 1736636739,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 368
     },
     "user_8_course_2": {
-        "isOnline": true,
-        "lastChecked": 1736270579,
-        "activeTimeInSeconds": 368,
+        "isOnline": false,
+        "lastChecked": 1736636760,
+        "activeTimeInSeconds": 0,
         "maxActiveTime": 368
     }
 }
