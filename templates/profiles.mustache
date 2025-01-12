@@ -24,12 +24,65 @@
         <!-- Selector de cursos -->
         {{> course_selector }}
 
+        <!-- Botón para ejecutar tarea en segundo plano -->
+        <div class="mt-6">
+            <button
+                id="backgroundTaskButton"
+                class="bg-green-500 text-white px-6 py-3 rounded-lg shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105"
+                onclick="startBackgroundTask({{selected_course}})"
+            >
+                Ejecutar Tarea en Segundo Plano
+        </div>
 
         <!-- Incluir la tabla de datos procesados -->
         {{> processed_data_table }}
 
     </div>
 </div>
+
+<script>
+    function startBackgroundTask() {
+        const button = document.getElementById('backgroundTaskButton');
+        button.innerText = 'Procesando...';
+        button.disabled = true;
+
+        // Obtener el courseid seleccionado
+        const courseSelector = document.querySelector('[name="courseid"]');
+        const courseId = courseSelector ? courseSelector.value : null;
+
+        if (!courseId) {
+            alert('Por favor, selecciona un curso antes de iniciar la tarea.');
+            button.innerText = 'Ejecutar Tarea en Segundo Plano';
+            button.disabled = false;
+            return;
+        }
+
+        // Enviar petición al servidor
+        fetch(`/local/ml_dashboard2/start_task.php`, {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ courseid: courseId }),
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Tarea en segundo plano iniciada exitosamente.');
+                } else {
+                    alert('Error al iniciar la tarea: ' + data.message);
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Hubo un problema al iniciar la tarea.');
+            })
+            .finally(() => {
+                button.innerText = 'Ejecutar Tarea en Segundo Plano';
+                button.disabled = false;
+            });
+    }
+</script>
 
 </body>
 </html>

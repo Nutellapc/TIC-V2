@@ -78,25 +78,87 @@ echo $m->render('profiles', [
 ?>
 
 <!-- Script para procesar datos del curso -->
+<!-- Script para procesar datos del curso -->
 <script>
     function processCourseData(courseId) {
         if (courseId) {
-            fetch(`process_course_data.php?courseid=${courseId}`)
-                .then(response => response.text())
+            fetch('http://localhost/TIC/moodle/local/ml_dashboard2/start_task.php', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({ courseid: courseId }),
+            })
+                .then(response => response.json())
                 .then(data => {
-                    alert('Procesamiento completado: ' + data);
+                    if (data.success) {
+                        alert('Tarea iniciada correctamente.');
+                    } else {
+                        alert('Error: ' + (data.message || 'No se pudo iniciar la tarea.'));
+                    }
                 })
                 .catch(error => {
-                    console.error('Error en el procesamiento:', error);
-                    alert('Ocurrió un error durante el procesamiento.');
+                    console.error('Error en la solicitud:', error);
+                    alert('Error en la red o el servidor: ' + error.message);
                 });
+        } else {
+            alert('Por favor, selecciona un curso antes de iniciar la tarea.');
         }
     }
 
+    function startBackgroundTask(courseId) {
+        if (!courseId) {
+            alert('Por favor, selecciona un curso antes de iniciar la tarea.');
+            return;
+        }
+
+        const button = document.getElementById('backgroundTaskButton');
+        button.innerText = 'Procesando...';
+        button.disabled = true;
+
+        // Enviar la solicitud al backend para procesar la tarea
+        fetch('http://localhost/TIC/moodle/local/ml_dashboard2/start_task.php', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify({ courseid: courseId }),
+        })
+            .then(response => {
+                if (!response.ok) {
+                    // Si la respuesta no es OK, devolver el texto completo para diagnóstico
+                    return response.text().then(text => {
+                        throw new Error(
+                            `Error del servidor (HTTP ${response.status}): ${text}`
+                        );
+                    });
+                }
+                // Intentar parsear la respuesta como JSON
+                return response.json();
+            })
+            .then(data => {
+                if (data.success) {
+                    alert(`Tarea en segundo plano para el curso con ID ${courseId} iniciada exitosamente.`);
+                } else {
+                    alert('Error al iniciar la tarea: ' + (data.message || 'No se pudo iniciar.'));
+                }
+            })
+            .catch(error => {
+                console.error('Error en la solicitud o servidor:', error);
+                alert('Hubo un problema: ' + error.message);
+            })
+            .finally(() => {
+                button.innerText = 'Ejecutar Tarea en Segundo Plano';
+                button.disabled = false;
+            });
+    }
+
+
+
+    // Cambiar el curso cuando se seleccione en el selector
     document.getElementById('courseSelector').addEventListener('change', function () {
         const selectedCourseId = this.value;
         if (selectedCourseId) {
-            // Cambiar el curso y lanzar el procesamiento
             window.location.href = `profiles.php?courseid=${selectedCourseId}`;
         }
     });
