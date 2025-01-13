@@ -20,11 +20,20 @@
                 <tr class="hover:bg-gray-100">
                     <td class="px-6 py-4 text-gray-700">{{userid}}</td>
                     <td class="px-6 py-4 text-gray-700">{{username}}</td>
-                    <td class="px-6 py-4 text-gray-700">{{prediction_score}}</td>
+                    <td class="px-6 py-4 text-gray-700">
+                        {{#prediction_score_equals_negative_one}}
+                            Predicción no disponible
+                        {{/prediction_score_equals_negative_one}}
+                        {{^prediction_score_equals_negative_one}}
+                            {{prediction_score}}
+                        {{/prediction_score_equals_negative_one}}
+                    </td>
+
                     <td class="px-6 py-4">
                         <button
                             class="bg-blue-500 text-white text-lg px-6 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
-                            onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')">
+                            onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')"
+                            data-prediction="{{prediction_score}}">
                             Ver detalles
                         </button>
                     </td>
@@ -42,26 +51,84 @@
 <!-- Modal -->
 {{> modal }}
 
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function openModal(name, userId, prediction, hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations) {
+        const data = {
+            prediction: prediction,
+            predictionEqualsNegativeOne: parseInt(prediction, 10) === -1 // Asegurarse de comparar numéricamente
+
+        };
+
         // Asignar los datos del usuario al modal
         document.getElementById('modalName').innerText = name;
         document.getElementById('modalUserId').innerText = userId;
-        document.getElementById('modalPrediction').innerText = prediction;
+
+        // Mostrar mensaje según la predicción
+        if (data.predictionEqualsNegativeOne) {
+            document.getElementById('modalPrediction').innerText = 'Los datos aún no alcanzan los valores requeridos para realizar una predicción precisa.';
+        } else {
+            document.getElementById('modalPrediction').innerText = ` ${data.prediction}`;
+        }
+
+        // Definir los rangos para escalar y los mínimos
+        const ranges = {
+            hoursStudied: { min: 0, max: 44 },
+            attendance: { min: 0, max: 100 },
+            inactiveTime: { min: 0, max: 12 },
+            generalGrade: { min: 0, max: 10 },
+            forumParticipations: { min: 0, max: 8 }
+        };
+
+        const originalMin = {
+            hoursStudied: 2,
+            attendance: 60,
+            inactiveTime: 6,
+            generalGrade: 50,
+            forumParticipations: 0
+        };
+
+        // Escalar valores a 0-100
+        const scaledHoursStudied = ((hoursStudied - ranges.hoursStudied.min) / (ranges.hoursStudied.max - ranges.hoursStudied.min)) * 100;
+        const scaledAttendance = ((attendance - ranges.attendance.min) / (ranges.attendance.max - ranges.attendance.min)) * 100;
+        const scaledInactiveTime = ((inactiveTime - ranges.inactiveTime.min) / (ranges.inactiveTime.max - ranges.inactiveTime.min)) * 100;
+        const scaledGeneralGrade = ((generalGrade - ranges.generalGrade.min) / (ranges.generalGrade.max - ranges.generalGrade.min)) * 100;
+        const scaledForumParticipations = ((forumParticipations - ranges.forumParticipations.min) / (ranges.forumParticipations.max - ranges.forumParticipations.min)) * 100;
+
+        // Cambiar colores basados en los límites originales
+        const pointColors = [
+            hoursStudied != null && hoursStudied >= originalMin.hoursStudied ? 'green' : 'red',
+            attendance != null && attendance >= originalMin.attendance ? 'green' : 'red',
+            inactiveTime != null && inactiveTime >= originalMin.inactiveTime ? 'green' : 'red',
+            generalGrade != null && generalGrade >= originalMin.generalGrade ? 'green' : 'red',
+            forumParticipations != null && forumParticipations >= originalMin.forumParticipations ? 'green' : 'red'
+        ];
 
         // Configurar el gráfico radar
         const radarCanvas = document.getElementById('radarChart');
         const radarData = {
-            labels: ['Horas Estudiadas', 'Asistencia', 'Inactividad', 'Calificación General', 'Part en Foros'],
+            labels: [
+                `Horas Estudiadas `,
+                `Asistencia `,
+                `Inactividad `,
+                `Calificación General `,
+                `Part en Foros `
+            ],
             datasets: [{
                 label: 'Datos del Estudiante',
-                data: [hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations],
+                data: [
+                    scaledHoursStudied,
+                    scaledAttendance,
+                    scaledInactiveTime,
+                    scaledGeneralGrade,
+                    scaledForumParticipations
+                ],
                 backgroundColor: 'rgba(54, 162, 235, 0.2)',
                 borderColor: 'rgba(54, 162, 235, 1)',
                 borderWidth: 2,
-                pointBackgroundColor: 'rgba(54, 162, 235, 1)'
+                pointBackgroundColor: pointColors // Colores dinámicos para los puntos
             }]
         };
 
@@ -71,38 +138,39 @@
             scales: {
                 r: {
                     angleLines: {
-                        display: false
+                        display: true // Mostrar líneas angulares
                     },
-                    suggestedMin: 0,
-                    suggestedMax: 100,
+                    min: 0, // Mínimo común para todos los ejes
+                    max: 100, // Máximo común para todos los ejes
+                    ticks: {
+                        stepSize: 20, // Intervalos de pasos
+                        backdropColor: 'rgba(255, 255, 255, 0.8)' // Fondo blanco detrás de los valores
+                    },
                     pointLabels: {
                         font: {
-                            size: 16 // Tamaño de las etiquetas del gráfico
+                            size: 16
                         },
-                        color: '#333' // Color de las etiquetas
-                    },
-                    ticks: {
-                        display: true,
-                        font: {
-                            size: 14 // Tamaño de los valores del gráfico
-                        },
-                        color: '#555' // Color de los ticks
+                        color: '#333'
                     }
                 }
             },
             plugins: {
                 tooltip: {
-                    bodyFont: {
-                        size: 18 // Tamaño del texto del tooltip /texto etiqueta fantasma
-                    },
-                    titleFont: {
-                        size: 20 // Tamaño del título del tooltip /titulo etiqueta fanstama
+                    callbacks: {
+                        label: function (context) {
+                            const rawData = [hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations];
+                            const labels = ['Horas Estudiadas', 'Asistencia', 'Inactividad', 'Calificación General', 'Part en Foros'];
+                            const index = context.dataIndex;
+
+                            // Mostrar etiqueta con valor original
+                            return `${labels[index]}: ${rawData[index]} (Escalado: ${Math.round(context.raw)})`;
+                        }
                     }
                 },
                 legend: {
                     labels: {
                         font: {
-                            size: 16 // Tamaño de las etiquetas de la leyenda /Datos del estudiante
+                            size: 16
                         }
                     }
                 }
@@ -131,7 +199,6 @@
             window.radarChartInstance = null;
         }
     }
-
-
 </script>
+
 

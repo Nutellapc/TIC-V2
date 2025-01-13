@@ -43,11 +43,13 @@ foreach ($users as $userId) {
     $username = $user->firstname . ' ' . $user->lastname;
 
     // Realizar cálculos
-    $hours_studied = min(max(get_user_active_hours($userId, $courseId, $token, $apiUrl), 0), 44);
-    $attendance_percentage = calculate_attendance($userId, $courseId, $token, $apiUrl);
-    $inactivity_hours = max(get_user_inactive_hours($userId, $courseId, $token, $apiUrl), 0);
-    $general_grade = min(max(calculate_general_grade($userId, $courseId, $token, $apiUrl), 0), 100);
-    $forum_participations = max(count_forum_participations($userId, $courseId, $token, $apiUrl), 0);
+    $hours_studied = min(max(get_user_active_hours($userId, $courseId, $token, $apiUrl), 0), 44); // Límite entre 0 y 44 horas de estudio
+    $attendance_percentage = min(max(calculate_attendance($userId, $courseId, $token, $apiUrl), 0), 100); // Límite entre 60% (mínimo aceptable) y 100% de asistencia.
+    $inactivity_hours = min(max(get_user_inactive_hours($userId, $courseId, $token, $apiUrl), 0), 12); // Límite entre 6 y 12 horas de inactividad
+    $general_grade = min(max(calculate_general_grade($userId, $courseId, $token, $apiUrl), 0), 100); // Límite entre 50 y 100 en las calificaciones generales.
+    $forum_participations = min(max(count_forum_participations($userId, $courseId, $token, $apiUrl), 0), 8); // Límite entre 0 y 8 participaciones en foros
+
+
 
     // Preparar datos del estudiante para la predicción
     $student_data = [
@@ -59,13 +61,30 @@ foreach ($users as $userId) {
         'physical_activity' => 1
     ];
 
+
+    if (
+        $hours_studied >= 0 && $hours_studied <= 44 && // Límite para horas de estudio
+        $attendance_percentage >= 60 && $attendance_percentage <= 100 && // Límite para asistencia
+        $inactivity_hours >= 6 && $inactivity_hours <= 12 && // Límite para horas de inactividad
+        $general_grade >= 50 && $general_grade <= 100 && // Límite para calificación general
+        $forum_participations >= 0 && $forum_participations <= 8 // Límite para participaciones en foros
+    ) {
+
     // Calcular predicción
     $ml_enabled = get_config('local_ml_dashboard2', 'enabled');
     $predicted_score = $ml_enabled ? predict_student_score($student_data) : null;
 
     // Normalizar la predicción
-    $normalized_prediction = array_sum($student_data) === 0 ? 0 : min(max($predicted_score, 0), 100);
+
+        $normalized_prediction = array_sum($student_data) === 0
+            ? 0
+            : round(min(max($predicted_score, 0), 100) / 10, 2);
+
 //    echo "Normalized prediction: $normalized_prediction\n";
+    } else {
+        // Usar un valor especial para indicar que la predicción no está disponible
+        $normalized_prediction = -1; // Indica "predicción no disponible"
+    }
 
     // Preparar datos para la tabla
     $record = [
@@ -75,7 +94,7 @@ foreach ($users as $userId) {
         'hours_studied' => $hours_studied,
         'attendance' => $attendance_percentage,
         'inactive_time' => $inactivity_hours,
-        'general_grade' => $general_grade,
+        'general_grade' => $general_grade/10,
         'forum_participations' => $forum_participations,
         'prediction_score' => $normalized_prediction,
         'last_updated' => time()
