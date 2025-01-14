@@ -82,7 +82,7 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         }
     }
 
-    // Si el usuario no está activo, mantener el tiempo acumulado y restar tiempo
+    // Si el usuario no está activo, acumular tiempo inactivo
     if (!$isOnline) {
         $currentTime = time();
         $lastChecked = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
@@ -90,8 +90,11 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         // Calcular tiempo de inactividad
         $timeInactive = $currentTime - $lastChecked;
 
-        // Reducir tiempo acumulado pero no más allá de 0
-        $activeTimeInSeconds = max(0, $activeTimeInSeconds - $timeInactive);
+        // Acumular tiempo inactivo usando el valor máximo registrado
+        $activeTimeInSeconds = max($maxActiveTime, $activeTimeInSeconds + $timeInactive);
+
+        // Actualizar el valor máximo registrado si el nuevo valor es mayor
+        $maxActiveTime = max($maxActiveTime, $activeTimeInSeconds);
 
         // Actualizar el estado en el archivo
         $onlineStatus["user_{$userId}_course_{$courseId}"] = [
@@ -102,13 +105,14 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         ];
     }
 
+
     // Guardar el estado actualizado en el archivo
     file_put_contents($onlineStatusFile, json_encode($onlineStatus, JSON_PRETTY_PRINT));
 
     // Convertir tiempo activo a horas
     $activeTimeInHours = round($maxActiveTime / 3600, 2);
 
-    // Leer número de días desde el archivo de asistencia
+// Leer número de días desde el archivo de asistencia
     if (file_exists($attendanceFile)) {
         $attendanceData = json_decode(file_get_contents($attendanceFile), true);
         $days = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
@@ -116,17 +120,26 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         $days = 1; // Valor predeterminado en caso de error
     }
 
-    // Evitar división por 0
+// Evitar división por 0
     if ($days == 0) {
         $days = 1;
     }
 
-    // Mostrar tiempo activo
-//    echo $isOnline
-//        ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
-//        : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
-//    echo "Número de días registrados: {$days}.<br>";
+// Calcular número de semanas basado en los días registrados
+    $weeks = ceil($days / 7); // Redondear hacia arriba para incluir semanas incompletas
 
-    // Devolver promedio de horas activas por día
-    return $activeTimeInHours / $days;
+// Evitar división por 0 en semanas
+    if ($weeks == 0) {
+        $weeks = 1;
+    }
+
+// Mostrar tiempo activo
+// echo $isOnline
+//     ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
+//     : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
+// echo "Número de semanas registradas: {$weeks}.<br>";
+
+// Devolver promedio de horas activas por semana
+    return $activeTimeInHours / $weeks;
+
 }
