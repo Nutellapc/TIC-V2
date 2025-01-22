@@ -1,89 +1,118 @@
 <?php
 function calculate_attendance($userId, $courseId, $token, $apiUrl) {
-// "Calculando la asistencia del estudiante...<br>";
-flush();
+    // Archivo para registrar los días de actividad
+    $attendanceFile = __DIR__ . "/attendance_status.json";
 
-// Ruta al archivo para registrar los días de actividad
-$attendanceFile = __DIR__ . "/attendance_status.json";
+    // Leer o inicializar el archivo de asistencia
+    if (file_exists($attendanceFile)) {
+        $attendanceData = json_decode(file_get_contents($attendanceFile), true);
+    } else {
+        $attendanceData = [];
+    }
 
-// Leer o inicializar el archivo de asistencia
-if (file_exists($attendanceFile)) {
-$attendanceData = json_decode(file_get_contents($attendanceFile), true);
-} else {
-$attendanceData = [];
-}
+    // Registrar inicio del proceso en el log
+    error_log("[INFO] Iniciando cálculo de asistencia para usuario {$userId} en el curso {$courseId}.");
 
-// Endpoint de Moodle
-$function = 'core_course_get_recent_courses';
-$url = $apiUrl . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
+    try {
+        // Obtener la fecha de inicio del curso
+        $function = 'core_course_get_courses';
+        $url = $apiUrl . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
 
-// Hacer la solicitud
-$ch = curl_init();
-curl_setopt($ch, CURLOPT_URL, $url);
-curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-$response = curl_exec($ch);
+        $response = curl_exec($ch);
 
-if (curl_errno($ch)) {
-$error_msg = curl_error($ch);
-curl_close($ch);
-throw new Exception("Error en la solicitud cURL: " . $error_msg);
-}
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            curl_close($ch);
+            throw new Exception("Error en la solicitud cURL: " . $error_msg);
+        }
 
-curl_close($ch);
+        curl_close($ch);
 
-$data = json_decode($response, true);
+        $coursesData = json_decode($response, true);
 
-// Verificar si la respuesta contiene errores
-if (isset($data['exception'])) {
-throw new Exception('Error al obtener datos: ' . $data['message']);
-}
+        // Buscar el curso específico
+        $courseStartDate = null;
+        foreach ($coursesData as $course) {
+            if ($course['id'] == $courseId) {
+                $courseStartDate = date('Y-m-d', $course['startdate']);
+                error_log("[INFO] Fecha de inicio del curso {$courseId}: {$courseStartDate}");
+                break;
+            }
+        }
 
-// Depuración: Ver la respuesta completa
-//echo "Respuesta de la API: <pre>" . print_r($data, true) . "</pre>";
+        if (!$courseStartDate) {
+            throw new Exception("No se encontró la fecha de inicio para el curso {$courseId}.");
+        }
 
-// Verificar la actividad del estudiante en el curso
-$currentDate = date('Y-m-d'); // Fecha actual
-$hasLoggedToday = false;
+        // Obtener actividad reciente del usuario
+        $function = 'core_course_get_recent_courses';
+        $url = $apiUrl . '?wstoken=' . $token . '&wsfunction=' . $function . '&moodlewsrestformat=json';
 
-foreach ($data as $course) {
-if ($course['id'] == $courseId) {
-$timeAccess = $course['timeaccess'] ?? 0;
+        $ch = curl_init();
+        curl_setopt($ch, CURLOPT_URL, $url);
+        curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
 
-// Validar que timeAccess tenga un valor válido
-if ($timeAccess > 0) {
-$lastAccessDate = date('Y-m-d', $timeAccess);
+        $response = curl_exec($ch);
 
-// Verificar si el último acceso fue hoy
-if ($lastAccessDate === $currentDate) {
-$hasLoggedToday = true;
-}
+        if (curl_errno($ch)) {
+            $error_msg = curl_error($ch);
+            curl_close($ch);
+            throw new Exception("Error en la solicitud cURL: " . $error_msg);
+        }
 
-// Registrar la fecha en la lista de actividad si no está ya registrada
-if (!isset($attendanceData["user_{$userId}_course_{$courseId}"])) {
-$attendanceData["user_{$userId}_course_{$courseId}"] = [];
-}
+        curl_close($ch);
 
-if (!in_array($lastAccessDate, $attendanceData["user_{$userId}_course_{$courseId}"])) {
-$attendanceData["user_{$userId}_course_{$courseId}"][] = $lastAccessDate;
-}
-}
-}
-}
+        $data = json_decode($response, true);
 
-// Guardar el estado actualizado en el archivo
-file_put_contents($attendanceFile, json_encode($attendanceData, JSON_PRETTY_PRINT));
+        if (isset($data['exception'])) {
+            throw new Exception('Error al obtener datos: ' . $data['message']);
+        }
 
-// Calcular el porcentaje de asistencia
-$daysActive = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
-$startDate = new DateTime('2024-12-28'); // Cambiar a la fecha inicial del curso
-$endDate = new DateTime(); // Fecha actual
-$totalDays = $startDate->diff($endDate)->days + 1; // Total de días desde el inicio
+        // Verificar la actividad del estudiante en el curso
+        $currentDate = date('Y-m-d'); // Fecha actual
+        foreach ($data as $course) {
+            if ($course['id'] == $courseId) {
+                $timeAccess = $course['timeaccess'] ?? 0;
 
-$attendancePercentage = $totalDays > 0 ? round(($daysActive / $totalDays) * 100) : 0;
+                if ($timeAccess > 0) {
+                    $lastAccessDate = date('Y-m-d', $timeAccess);
 
-// Mostrar asistencia
-//echo "Asistencia acumulada: {$attendancePercentage}%<br>";
+                    if (!isset($attendanceData["user_{$userId}_course_{$courseId}"])) {
+                        $attendanceData["user_{$userId}_course_{$courseId}"] = [];
+                    }
 
-return $attendancePercentage;
+                    if (!in_array($lastAccessDate, $attendanceData["user_{$userId}_course_{$courseId}"])) {
+                        $attendanceData["user_{$userId}_course_{$courseId}"][] = $lastAccessDate;
+                        error_log("[INFO] Registrando actividad para el usuario {$userId} el día {$lastAccessDate} en el curso {$courseId}.");
+                    }
+                }
+            }
+        }
+
+        // Guardar el estado actualizado en el archivo
+        file_put_contents($attendanceFile, json_encode($attendanceData, JSON_PRETTY_PRINT));
+
+        // Calcular el porcentaje de asistencia
+        $daysActive = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
+        $startDate = new DateTime($courseStartDate);
+        $endDate = new DateTime();
+        $totalDays = $startDate->diff($endDate)->days + 1;
+
+        $attendancePercentage = $totalDays > 0 ? round(($daysActive / $totalDays) * 100) : 0;
+
+        error_log("[INFO] Días activos para el usuario {$userId} en el curso {$courseId}: {$daysActive}");
+        error_log("[INFO] Total de días desde el inicio del curso: {$totalDays}");
+        error_log("[INFO] Porcentaje de asistencia calculado para el usuario {$userId} en el curso {$courseId}: {$attendancePercentage}%");
+
+        return $attendancePercentage;
+
+    } catch (Exception $e) {
+        // Registrar errores en el archivo de error_log
+        error_log("[ERROR] " . $e->getMessage());
+        return 0;
+    }
 }

@@ -30,123 +30,123 @@
         "maxActiveTime": 0
     },
     "user_4_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439041,
-        "activeTimeInSeconds": 761384,
-        "maxActiveTime": 761384
+        "isOnline": false,
+        "lastChecked": 1737515625,
+        "activeTimeInSeconds": 837968,
+        "maxActiveTime": 837968
     },
     "user_5_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439058,
-        "activeTimeInSeconds": 728896,
-        "maxActiveTime": 728896
+        "isOnline": false,
+        "lastChecked": 1737515632,
+        "activeTimeInSeconds": 805470,
+        "maxActiveTime": 805470
     },
     "user_6_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439064,
-        "activeTimeInSeconds": 772326,
-        "maxActiveTime": 772326
+        "isOnline": false,
+        "lastChecked": 1737515638,
+        "activeTimeInSeconds": 848900,
+        "maxActiveTime": 848900
     },
     "user_7_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439071,
-        "activeTimeInSeconds": 705997,
-        "maxActiveTime": 705997
+        "isOnline": false,
+        "lastChecked": 1737515645,
+        "activeTimeInSeconds": 782571,
+        "maxActiveTime": 782571
     },
     "user_8_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439077,
-        "activeTimeInSeconds": 766766,
-        "maxActiveTime": 766766
+        "isOnline": false,
+        "lastChecked": 1737515652,
+        "activeTimeInSeconds": 843341,
+        "maxActiveTime": 843341
     },
     "user_9_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439084,
-        "activeTimeInSeconds": 755484,
-        "maxActiveTime": 755484
+        "isOnline": false,
+        "lastChecked": 1737515658,
+        "activeTimeInSeconds": 832058,
+        "maxActiveTime": 832058
     },
     "user_10_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439096,
-        "activeTimeInSeconds": 781796,
-        "maxActiveTime": 781796
+        "isOnline": false,
+        "lastChecked": 1737515665,
+        "activeTimeInSeconds": 858365,
+        "maxActiveTime": 858365
     },
     "user_11_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439108,
-        "activeTimeInSeconds": 708908,
-        "maxActiveTime": 708908
+        "isOnline": false,
+        "lastChecked": 1737515672,
+        "activeTimeInSeconds": 785472,
+        "maxActiveTime": 785472
     },
     "user_12_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439119,
-        "activeTimeInSeconds": 763819,
-        "maxActiveTime": 763819
+        "isOnline": false,
+        "lastChecked": 1737515679,
+        "activeTimeInSeconds": 840379,
+        "maxActiveTime": 840379
     },
     "user_13_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439131,
-        "activeTimeInSeconds": 747931,
-        "maxActiveTime": 747931
+        "isOnline": false,
+        "lastChecked": 1737515685,
+        "activeTimeInSeconds": 824485,
+        "maxActiveTime": 824485
     },
     "user_14_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439137,
-        "activeTimeInSeconds": 725637,
-        "maxActiveTime": 725637
+        "isOnline": false,
+        "lastChecked": 1737515692,
+        "activeTimeInSeconds": 802192,
+        "maxActiveTime": 802192
     },
     "user_15_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439149,
-        "activeTimeInSeconds": 771549,
-        "maxActiveTime": 771549
+        "isOnline": false,
+        "lastChecked": 1737515699,
+        "activeTimeInSeconds": 848099,
+        "maxActiveTime": 848099
     },
     "user_16_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439155,
-        "activeTimeInSeconds": 732455,
-        "maxActiveTime": 732455
+        "isOnline": false,
+        "lastChecked": 1737515706,
+        "activeTimeInSeconds": 809006,
+        "maxActiveTime": 809006
     },
     "user_17_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439167,
-        "activeTimeInSeconds": 738367,
-        "maxActiveTime": 738367
+        "isOnline": false,
+        "lastChecked": 1737515713,
+        "activeTimeInSeconds": 814913,
+        "maxActiveTime": 814913
     },
     "user_18_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439178,
-        "activeTimeInSeconds": 757278,
-        "maxActiveTime": 757278
+        "isOnline": false,
+        "lastChecked": 1737515719,
+        "activeTimeInSeconds": 833819,
+        "maxActiveTime": 833819
     },
     "user_19_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439190,
-        "activeTimeInSeconds": 742190,
-        "maxActiveTime": 742190
+        "isOnline": false,
+        "lastChecked": 1737515726,
+        "activeTimeInSeconds": 818726,
+        "maxActiveTime": 818726
     },
     "user_20_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439201,
-        "activeTimeInSeconds": 748101,
-        "maxActiveTime": 748101
+        "isOnline": false,
+        "lastChecked": 1737515733,
+        "activeTimeInSeconds": 824633,
+        "maxActiveTime": 824633
     },
     "user_21_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439208,
-        "activeTimeInSeconds": 734008,
-        "maxActiveTime": 734008
+        "isOnline": false,
+        "lastChecked": 1737515739,
+        "activeTimeInSeconds": 810539,
+        "maxActiveTime": 810539
     },
     "user_22_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439220,
-        "activeTimeInSeconds": 780920,
-        "maxActiveTime": 780920
+        "isOnline": false,
+        "lastChecked": 1737515747,
+        "activeTimeInSeconds": 857447,
+        "maxActiveTime": 857447
     },
     "user_23_course_2": {
-        "isOnline": true,
-        "lastChecked": 1737439232,
-        "activeTimeInSeconds": 754832,
-        "maxActiveTime": 754832
+        "isOnline": false,
+        "lastChecked": 1737515753,
+        "activeTimeInSeconds": 831353,
+        "maxActiveTime": 831353
     }
 }
