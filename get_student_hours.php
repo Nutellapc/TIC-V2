@@ -11,9 +11,9 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         $onlineStatus = [];
     }
 
-    // Recuperar tiempo activo acumulado previo y máximo valor registrado
+    // Recuperar tiempo activo acumulado previo
     $activeTimeInSeconds = $onlineStatus["user_{$userId}_course_{$courseId}"]['activeTimeInSeconds'] ?? 0;
-    $maxActiveTime = $onlineStatus["user_{$userId}_course_{$courseId}"]['maxActiveTime'] ?? 0;
+    $lastCheckedDate = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastCheckedDate'] ?? null;
 
     // Endpoint de Moodle
     $function = 'core_course_get_recent_courses';
@@ -41,7 +41,8 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         throw new Exception('Error al obtener datos: ' . $data['message']);
     }
 
-    $isOnline = false;
+    $currentDate = date('Y-m-d'); // Fecha actual
+    $timeAddedToday = 0; // Tiempo sumado hoy
 
     foreach ($data as $course) {
         if ($course['id'] == $courseId) {
@@ -49,70 +50,40 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
 
             // Validar que timeAccess tenga un valor válido
             if ($timeAccess > 0) {
-                $currentTime = time();
+                $accessDate = date('Y-m-d', $timeAccess); // Fecha del último acceso
 
-                // Verificar si el último acceso fue hace menos de 1 hora
-                if (($currentTime - $timeAccess) <= 3600) {
-                    $isOnline = true;
+                // Registrar información en el log
+                error_log("[INFO] Último acceso registrado para usuario {$userId} en curso {$courseId}: {$accessDate}.");
 
-                    // Si activeTimeInSeconds es menor o igual a 0, asignar maxActiveTime
-                    if ($activeTimeInSeconds <= 0 || $activeTimeInSeconds < $maxActiveTime) {
-                        $activeTimeInSeconds = $maxActiveTime;
-                    }
+                if ($accessDate === $currentDate) {
+                    $timeElapsed = time() - $timeAccess; // Tiempo transcurrido desde el último acceso
 
-                    // Calcular tiempo activo
-                    $lastChecked = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
-                    $timeSpent = $currentTime - $lastChecked;
+                    // Limitar el tiempo sumado a un máximo de 2 horas (7200 segundos)
+                    $timeToAdd = min($timeElapsed, 7200 - $timeAddedToday);
+                    $timeAddedToday += $timeToAdd;
 
-                    // Acumular tiempo activo
-                    $activeTimeInSeconds += $timeSpent;
+                    // Actualizar tiempo activo acumulado
+                    $activeTimeInSeconds += $timeToAdd;
 
-                    // Actualizar el valor máximo registrado
-                    $maxActiveTime = max($maxActiveTime, $activeTimeInSeconds);
-
-                    // Actualizar el estado en el archivo
-                    $onlineStatus["user_{$userId}_course_{$courseId}"] = [
-                        'isOnline' => true,
-                        'lastChecked' => $currentTime,
-                        'activeTimeInSeconds' => $activeTimeInSeconds,
-                        'maxActiveTime' => $maxActiveTime,
-                    ];
+                    // Registrar el tiempo agregado en el log
+                    error_log("[INFO] Tiempo agregado hoy para usuario {$userId} en curso {$courseId}: {$timeToAdd} segundos (Total acumulado: {$activeTimeInSeconds} segundos).");
                 }
             }
         }
     }
 
-    // Si el usuario no está activo, acumular tiempo inactivo
-    if (!$isOnline) {
-        $currentTime = time();
-        $lastChecked = $onlineStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
+    // Actualizar el estado en el archivo
+    $onlineStatus["user_{$userId}_course_{$courseId}"] = [
+        'lastCheckedDate' => $currentDate,
+        'activeTimeInSeconds' => $activeTimeInSeconds
+    ];
 
-        // Calcular tiempo de inactividad
-        $timeInactive = $currentTime - $lastChecked;
-
-        // Acumular tiempo inactivo usando el valor máximo registrado
-        $activeTimeInSeconds = max($maxActiveTime, $activeTimeInSeconds + $timeInactive);
-
-        // Actualizar el valor máximo registrado si el nuevo valor es mayor
-        $maxActiveTime = max($maxActiveTime, $activeTimeInSeconds);
-
-        // Actualizar el estado en el archivo
-        $onlineStatus["user_{$userId}_course_{$courseId}"] = [
-            'isOnline' => false,
-            'lastChecked' => $currentTime,
-            'activeTimeInSeconds' => $activeTimeInSeconds,
-            'maxActiveTime' => $maxActiveTime,
-        ];
-    }
-
-
-    // Guardar el estado actualizado en el archivo
     file_put_contents($onlineStatusFile, json_encode($onlineStatus, JSON_PRETTY_PRINT));
 
     // Convertir tiempo activo a horas
-    $activeTimeInHours = round($maxActiveTime / 3600, 2);
+    $activeTimeInHours = round($activeTimeInSeconds / 3600, 2);
 
-// Leer número de días desde el archivo de asistencia
+    // Calcular número de semanas basado en el archivo de asistencia
     if (file_exists($attendanceFile)) {
         $attendanceData = json_decode(file_get_contents($attendanceFile), true);
         $days = count($attendanceData["user_{$userId}_course_{$courseId}"] ?? []);
@@ -120,26 +91,22 @@ function get_user_active_hours($userId, $courseId, $token, $apiUrl) {
         $days = 1; // Valor predeterminado en caso de error
     }
 
-// Evitar división por 0
+    // Evitar división por 0
     if ($days == 0) {
         $days = 1;
     }
 
-// Calcular número de semanas basado en los días registrados
     $weeks = ceil($days / 7); // Redondear hacia arriba para incluir semanas incompletas
 
-// Evitar división por 0 en semanas
+    // Evitar división por 0 en semanas
     if ($weeks == 0) {
         $weeks = 1;
     }
 
-// Mostrar tiempo activo
-// echo $isOnline
-//     ? "El estudiante está actualmente en línea en el curso {$courseId}.<br>"
-//     : "El estudiante no está en línea. Tiempo acumulado: {$activeTimeInHours} horas.<br>";
-// echo "Número de semanas registradas: {$weeks}.<br>";
+    // Registrar en el log el tiempo activo total y el número de semanas
+    error_log("[INFO] Tiempo activo total para usuario {$userId} en curso {$courseId}: {$activeTimeInHours} horas.");
+    error_log("[INFO] Número de semanas registradas: {$weeks}.");
 
-// Devolver promedio de horas activas por semana
+    // Devolver promedio de horas activas por semana
     return $activeTimeInHours / $weeks;
-
 }

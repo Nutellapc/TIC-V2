@@ -11,9 +11,9 @@ function get_user_inactive_hours($userId, $courseId, $token, $apiUrl) {
         $inactiveStatus = [];
     }
 
-    // Recuperar tiempo inactivo acumulado previo y máximo valor registrado
+    // Recuperar tiempo inactivo acumulado previo y último tiempo chequeado
     $inactiveTimeInSeconds = $inactiveStatus["user_{$userId}_course_{$courseId}"]['inactiveTimeInSeconds'] ?? 0;
-    $maxInactiveTimeInSeconds = $inactiveStatus["user_{$userId}_course_{$courseId}"]['maxInactiveTime'] ?? 0;
+    $lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? time();
 
     // Endpoint de Moodle
     $function = 'core_course_get_recent_courses';
@@ -41,57 +41,41 @@ function get_user_inactive_hours($userId, $courseId, $token, $apiUrl) {
         throw new Exception('Error al obtener datos: ' . $data['message']);
     }
 
-    $isOnline = false;
+    $currentTime = time();
+    $lastAccessTime = 0;
 
+    // Procesar los datos de los cursos
     foreach ($data as $course) {
         if ($course['id'] == $courseId) {
-            $timeAccess = $course['timeaccess'] ?? 0;
+            $lastAccessTime = $course['timeaccess'] ?? 0;
 
-            // Validar que timeAccess tenga un valor válido
-            if ($timeAccess > 0) {
-                $currentTime = time();
-
-                // Verificar si el último acceso fue hace menos de 1 hora
-                if (($currentTime - $timeAccess) <= 3600) {
-                    $isOnline = true;
-
-                    // Calcular el tiempo de actividad desde la última revisión
-                    $lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
-                    $timeActive = $currentTime - $lastChecked;
-
-                    // Si el usuario vuelve a estar activo, actualizar maxInactiveTimeInSeconds
-                    if ($inactiveTimeInSeconds < $maxInactiveTimeInSeconds) {
-                        $inactiveTimeInSeconds = $maxInactiveTimeInSeconds;
-                    }
-
-                    // Actualizar estado en el archivo de inactividad
-                    $inactiveStatus["user_{$userId}_course_{$courseId}"] = [
-                        'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
-                        'lastChecked' => $currentTime,
-                        'maxInactiveTime' => $maxInactiveTimeInSeconds
-                    ];
-                }
+            // Registrar la última conexión en el log
+            if ($lastAccessTime > 0) {
+                $lastAccessFormatted = date('Y-m-d H:i:s', $lastAccessTime);
+                error_log("[INFO] Última conexión del usuario {$userId} al curso {$courseId}: {$lastAccessFormatted}");
+            } else {
+                error_log("[INFO] No se encontró información de conexión previa para el usuario {$userId} en el curso {$courseId}.");
             }
+            break;
         }
     }
 
-    // Si el usuario no está en línea, acumular tiempo inactivo
-    if (!$isOnline) {
-        $currentTime = time();
-        $lastChecked = $inactiveStatus["user_{$userId}_course_{$courseId}"]['lastChecked'] ?? $currentTime;
-        $timeInactive = $currentTime - $lastChecked;
+    // Validar que se obtuvo el último acceso al curso
+    if ($lastAccessTime > 0) {
+        // Calcular el tiempo transcurrido desde el último acceso
+        $timeSinceLastAccess = $currentTime - $lastAccessTime;
 
-        // Acumular tiempo inactivo
-        $inactiveTimeInSeconds += $timeInactive;
+        // Verificar si han pasado más de dos horas desde el último acceso
+        if ($timeSinceLastAccess > 7200) {
+            // Acumular tiempo inactivo
+            $inactiveTimeInSeconds += $timeSinceLastAccess;
+            error_log("[INFO] Tiempo inactivo acumulado para el usuario {$userId} en el curso {$courseId}: {$timeSinceLastAccess} segundos.");
+        }
 
-        // Actualizar el valor máximo registrado si el nuevo valor es mayor
-        $maxInactiveTimeInSeconds = max($maxInactiveTimeInSeconds, $inactiveTimeInSeconds);
-
-        // Actualizar estado de inactividad
+        // Actualizar el estado de inactividad
         $inactiveStatus["user_{$userId}_course_{$courseId}"] = [
             'inactiveTimeInSeconds' => $inactiveTimeInSeconds,
-            'lastChecked' => $currentTime,
-            'maxInactiveTime' => $maxInactiveTimeInSeconds
+            'lastChecked' => $currentTime
         ];
     }
 
@@ -111,13 +95,15 @@ function get_user_inactive_hours($userId, $courseId, $token, $apiUrl) {
         $days = 1;
     }
 
-    // Convertir tiempo inactivo a horas basado en el máximo
-    $inactiveTimeInHours = round($maxInactiveTimeInSeconds / 3600, 1);
+    // Convertir tiempo inactivo a horas
+    $inactiveTimeInHours = round($inactiveTimeInSeconds / 3600, 1);
 
-    // Depuración
-//    echo "Tiempo inactivo acumulado (basado en el máximo): {$inactiveTimeInHours} horas.<br>";
-//    echo "Número de días registrados: {$days}.<br>";
+    // Depuración adicional
+    error_log("[INFO] Total de días registrados para el usuario {$userId} en el curso {$courseId}: {$days}");
+    error_log("[INFO] Tiempo inactivo total para el usuario {$userId} en el curso {$courseId}: {$inactiveTimeInHours} horas.");
 
     // Devolver promedio de horas inactivas por día
     return $inactiveTimeInHours / $days;
 }
+
+
