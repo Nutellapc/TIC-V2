@@ -17,6 +17,7 @@
                 <FIELD NAME="forum_participations" TYPE="int" LENGTH="10" NOTNULL="true" DEFAULT="0" COMMENT="Participaciones en foros"/>
                 <FIELD NAME="prediction_score" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Puntaje de predicción"/>
                 <FIELD NAME="last_updated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Última actualización"/>
+                <FIELD NAME="recommendations" TYPE="text" NOTNULL="false" COMMENT="Recomendaciones personalizadas generadas por el modelo de ML"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>

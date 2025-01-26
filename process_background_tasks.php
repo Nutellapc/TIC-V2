@@ -9,6 +9,8 @@ require_once(__DIR__ . '/course_inactivity.php');
 require_once(__DIR__ . '/forum_participations.php');
 require_once(__DIR__ . '/ml_predictor.php'); // Predictor
 
+
+
 // Obtener parámetros desde la línea de comandos
 $options = getopt('', ['courseid:']);
 if (!isset($options['courseid'])) {
@@ -25,8 +27,8 @@ if (empty($users)) {
     exit;
 }
 
-
 require(__DIR__ . '/../../config.php'); // Configuración principal de Moodle
+require_once(__DIR__ . '/lib.php'); // Asegúrate de que esta ruta sea correcta
 global $DB;
 
 // Verificar que el curso exista
@@ -86,6 +88,33 @@ foreach ($users as $userId) {
         $normalized_prediction = -1; // Indica "predicción no disponible"
     }
 
+// Preparar datos para enviar a ChatGPT
+    $prompt = "Basado en los siguientes datos de un estudiante, genera recomendaciones personalizadas y directas para mejorar su desempeño académico. Las recomendaciones deben ser cortas, específicas y en un solo párrafo:\n";
+    $prompt .= "Horas de estudio: {$hours_studied}\n";
+    $prompt .= "Porcentaje de asistencia: {$attendance_percentage}%\n";
+    $prompt .= "Horas de inactividad: {$inactivity_hours}\n";
+    $prompt .= "Calificación general: {$general_grade}/10\n";
+    $prompt .= "Participaciones en foros: {$forum_participations}\n";
+    $prompt .= "Predicción del desempeño: {$normalized_prediction}/10\n";
+    $prompt .= "Por favor, evita cualquier tipo de contenido adicional o explicaciones extensas.";
+
+
+
+// Llamar a la API de ChatGPT
+    try {
+        $recommendations_text = local_ml_dashboard2_call_openai($prompt);
+        error_log("[INFO] Recomendaciones generadas por ChatGPT para el usuario {$userId} en el curso {$courseId}: {$recommendations_text}");
+    } catch (Exception $e) {
+        // En caso de error con la API, establecer un mensaje predeterminado
+        $recommendations_text = "No se pudieron generar recomendaciones debido a un error con la API de ChatGPT.";
+        error_log("[ERROR] Error al generar recomendaciones con ChatGPT: " . $e->getMessage());
+    }
+
+    // Eliminar saltos de línea innecesarios de las recomendaciones
+    $recommendations_text = str_replace(["\r\n", "\r", "\n"], " ", $recommendations_text);
+    $recommendations_text = trim($recommendations_text); // Eliminar espacios adicionales al inicio y final
+
+
     // Preparar datos para la tabla
     $record = [
         'userid' => $userId,
@@ -97,6 +126,7 @@ foreach ($users as $userId) {
         'general_grade' => $general_grade/10,
         'forum_participations' => $forum_participations,
         'prediction_score' => $normalized_prediction,
+        'recommendations' => $recommendations_text,
         'last_updated' => time()
     ];
 

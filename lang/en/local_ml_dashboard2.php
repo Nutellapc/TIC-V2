@@ -10,4 +10,8 @@ $string['dashboard_disabled'] = 'El dashboard está deshabilitado. Por favor, ha
 $string['enableml'] = 'Habilitar Machine Learning';
 $string['enablemldesc'] = 'Activa el uso del modelo de Machine Learning para predicciones en el plugin.';
 $string['processtask'] = 'Procesar datos de estudiantes';
+$string['openkey'] = 'Clave de API de OpenAI';
+$string['openkeydesc'] = 'Introduce tu clave de API de OpenAI para habilitar la integración con ChatGPT.';
+
+
 

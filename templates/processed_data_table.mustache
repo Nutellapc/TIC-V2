@@ -30,12 +30,21 @@
                     </td>
 
                     <td class="px-6 py-4">
+                        <!-- Botón para ver detalles -->
                         <button
-                            class="bg-blue-500 text-white text-lg px-6 py-3 rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
+                            class="bg-blue-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
                             onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')"
                             data-prediction="{{prediction_score}}">
                             Ver detalles
                         </button>
+
+                        <!-- Botón para ver recomendaciones -->
+                        <button
+                            class="bg-green-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105 mt-2"
+                            onclick="openRecommendationsModal('{{username}}', '{{recommendations}}')">
+                            Ver recomendaciones
+                        </button>
+
                     </td>
                 </tr>
             {{/processed_data}}
@@ -51,8 +60,10 @@
 <!-- Modal -->
 {{> modal }}
 
+{{> recommendationsModal }}
 
-<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
 <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 <script>
     function openModal(name, userId, prediction, hoursStudied, attendance, inactiveTime, generalGrade, forumParticipations) {
@@ -199,6 +210,26 @@
             window.radarChartInstance = null;
         }
     }
+
+    function openRecommendationsModal(name, recommendations) {
+        // Validar que las recomendaciones no estén vacías
+        const modalContent = recommendations || 'No hay recomendaciones disponibles.';
+
+        // Asignar datos al modal
+        document.getElementById('recommendationsName').innerText = name;
+        document.getElementById('recommendationsContent').innerText = modalContent;
+
+        // Mostrar el modal
+        document.getElementById('recommendationsModal').classList.remove('hidden');
+    }
+
+    function closeRecommendationsModal() {
+        // Cerrar el modal
+        document.getElementById('recommendationsModal').classList.add('hidden');
+    }
+
+
+
 </script>
 
 

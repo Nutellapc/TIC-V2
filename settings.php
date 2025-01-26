@@ -15,6 +15,15 @@ if ($hassiteconfig) { // Solo visible para administradores
         get_string('enableml', 'local_ml_dashboard2'),
         get_string('enablemldesc', 'local_ml_dashboard2'), 0));
 
+    // Agrega un campo para ingresar la clave de la API de OpenAI
+    $settings->add(new admin_setting_configtext(
+        'local_ml_dashboard2/openaiapikey',
+        get_string('openkey', 'local_ml_dashboard2'),
+        get_string('openkeydesc', 'local_ml_dashboard2'),
+        '',
+        PARAM_TEXT
+    ));
+
     // Añade la página de ajustes al menú de plugins locales
     $ADMIN->add('localplugins', $settings);
 
