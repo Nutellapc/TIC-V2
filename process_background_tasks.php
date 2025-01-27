@@ -114,6 +114,31 @@ foreach ($users as $userId) {
     $recommendations_text = str_replace(["\r\n", "\r", "\n"], " ", $recommendations_text);
     $recommendations_text = trim($recommendations_text); // Eliminar espacios adicionales al inicio y final
 
+    // Preparar datos para enviar a ChatGPT para generar un consejo psicopedagógico
+    $prompt_teacher = "Basado en las siguientes características de un estudiante, genera un consejo psicopedagógico corto y directo para el profesor. El consejo debe ser claro, específico y en un solo párrafo:\n";
+    $prompt_teacher .= "Horas de estudio: {$hours_studied}\n";
+    $prompt_teacher .= "Porcentaje de asistencia: {$attendance_percentage}%\n";
+    $prompt_teacher .= "Horas de inactividad: {$inactivity_hours}\n";
+    $prompt_teacher .= "Calificación general: {$general_grade}/10\n";
+    $prompt_teacher .= "Participaciones en foros: {$forum_participations}\n";
+    $prompt_teacher .= "Predicción del desempeño: {$normalized_prediction}/10\n";
+    $prompt_teacher .= "Por favor, ofrece sugerencias específicas para que el profesor pueda apoyar de manera efectiva al estudiante.";
+
+// Llamar a la API de ChatGPT
+    try {
+        $recommendations_teacher_text = local_ml_dashboard2_call_openai($prompt_teacher);
+        error_log("[INFO] Consejo psicopedagógico generado por ChatGPT para el usuario {$userId} en el curso {$courseId}: {$recommendations_teacher_text}");
+    } catch (Exception $e) {
+        // En caso de error con la API, establecer un mensaje predeterminado
+        $recommendations_teacher_text = "No se pudo generar el consejo psicopedagógico debido a un error con la API de ChatGPT.";
+        error_log("[ERROR] Error al generar consejo psicopedagógico con ChatGPT: " . $e->getMessage());
+    }
+
+// Eliminar saltos de línea innecesarios del consejo
+    $recommendations_teacher_text = str_replace(["\r\n", "\r", "\n"], " ", $recommendations_teacher_text);
+    $recommendations_teacher_text = trim($recommendations_teacher_text); // Eliminar espacios adicionales al inicio y final
+
+
 
     // Preparar datos para la tabla
     $record = [
@@ -127,6 +152,7 @@ foreach ($users as $userId) {
         'forum_participations' => $forum_participations,
         'prediction_score' => $normalized_prediction,
         'recommendations' => $recommendations_text,
+        'recommendations_teacher' => $recommendations_teacher_text,
         'last_updated' => time()
     ];
 

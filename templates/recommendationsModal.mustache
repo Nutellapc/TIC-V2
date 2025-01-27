@@ -10,18 +10,27 @@
         <!-- Título -->
         <h3 class="text-3xl font-bold text-gray-800 mb-6 text-center">Recomendaciones</h3>
 
-        <!-- Contenido de recomendaciones -->
-        <div class="text-gray-700 text-lg text-center">
-            <p><strong>Estudiante:</strong> <span id="recommendationsName"></span></p>
-            <p id="recommendationsContent" class="mt-4 text-justify"></p>
+        <!-- Contenido de recomendaciones para el maestro -->
+        <div class="text-gray-700 text-lg text-center mt-6">
+            <p><strong>Estudiante:</strong></p>
+            <p id="recommendationsName" class="mt-2"></p> <!-- Salto de línea para el nombre del estudiante -->
+            <p class="font-semibold text-gray-800 mt-4">Recomendación para el maestro:</p>
+            <p id="recommendationsTeacherContent" class="mt-2 text-justify"></p>
         </div>
+
+
+        <!-- Contenido de recomendaciones para el estudiante -->
+        <div class="text-gray-700 text-lg text-center">
+            <p class="font-semibold text-gray-800 mt-4">Recomendación para el estudiante:</p>
+            <p id="recommendationsContent" class="mt-2 text-justify"></p>
+        </div>
+
 
         <!-- Botón para cerrar al final -->
         <button
             class="mt-6 bg-blue-500 text-white px-6 py-2 rounded-lg shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
-            onclick="sendRecommendation('{{userid}}', '{{recommendationsContent}}')">
+            onclick="sendRecommendation('{{userid}}', '{{recommendationsContent}}', '{{recommendationsTeacherContent}}')">
             Enviar Recomendación
         </button>
-
     </div>
 </div>

@@ -35,15 +35,16 @@
                             class="bg-blue-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
                             onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')"
                             data-prediction="{{prediction_score}}">
-                            Ver detalles
+                            Detalles
                         </button>
 
                         <!-- Botón para ver recomendaciones -->
                         <button
-                            class="bg-green-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105 mt-2"
-                            onclick="openRecommendationsModal('{{username}}', '{{recommendations}}')">
-                            Ver recomendaciones
+                            class="bg-green-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105 mt-4"
+                            onclick="openRecommendationsModal('{{username}}', '{{recommendations}}', '{{recommendations_teacher}}')">
+                            Recomendaciones
                         </button>
+
 
                     </td>
                 </tr>
@@ -211,13 +212,15 @@
         }
     }
 
-    function openRecommendationsModal(name, recommendations) {
+    function openRecommendationsModal(name, recommendations, teacherRecommendations) {
         // Validar que las recomendaciones no estén vacías
-        const modalContent = recommendations || 'No hay recomendaciones disponibles.';
+        const studentRecommendations = recommendations || 'No hay recomendaciones disponibles para el estudiante.';
+        const teacherRecommendationsText = teacherRecommendations || 'No hay recomendaciones disponibles para el maestro.';
 
         // Asignar datos al modal
         document.getElementById('recommendationsName').innerText = name;
-        document.getElementById('recommendationsContent').innerText = modalContent;
+        document.getElementById('recommendationsContent').innerText = studentRecommendations;
+        document.getElementById('recommendationsTeacherContent').innerText = teacherRecommendationsText;
 
         // Mostrar el modal
         document.getElementById('recommendationsModal').classList.remove('hidden');
@@ -227,6 +230,7 @@
         // Cerrar el modal
         document.getElementById('recommendationsModal').classList.add('hidden');
     }
+
 
 
 

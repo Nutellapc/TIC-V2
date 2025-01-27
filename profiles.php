@@ -47,6 +47,7 @@ if ($selectedCourseId) {
                 'forum_participations' => $data->forum_participations,
                 'prediction_score' => $data->prediction_score,
                 'recommendations' => $data->recommendations,
+                'recommendations_teacher' => $data->recommendations_teacher,
                 'last_updated' => date('Y-m-d H:i:s', $data->last_updated),
                 'prediction_score_equals_negative_one' => $data->prediction_score == -1, // Verificar si es -1
             ];

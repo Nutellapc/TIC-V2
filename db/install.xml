@@ -18,6 +18,7 @@
                 <FIELD NAME="prediction_score" TYPE="float" NOTNULL="true" DEFAULT="0" COMMENT="Puntaje de predicción"/>
                 <FIELD NAME="last_updated" TYPE="int" LENGTH="10" NOTNULL="true" COMMENT="Última actualización"/>
                 <FIELD NAME="recommendations" TYPE="text" NOTNULL="false" COMMENT="Recomendaciones personalizadas generadas por el modelo de ML"/>
+                <FIELD NAME="recommendations_teacher" TYPE="text" NOTNULL="false" COMMENT="Recomendaciones generadas para los profesores"/>
             </FIELDS>
             <KEYS>
                 <KEY NAME="primary" TYPE="primary" FIELDS="id"/>
