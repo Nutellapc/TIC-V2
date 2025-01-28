@@ -1,43 +1,52 @@
-<div class="flex">
-    <!-- Botón para abrir el sidebar en pantallas pequeñas -->
+<div class="relative flex">
+    <!-- Botón para abrir/cerrar el sidebar en pantallas pequeñas -->
     <button
-        class="fixed top-4 left-4 z-50 p-2 bg-gray-900 text-white rounded-lg lg:hidden"
-        onclick="document.querySelector('aside').classList.toggle('hidden');"
+        id="menuButton"
+        class="fixed top-4 left-4 z-50 p-2 bg-[#771f20] text-white rounded-lg lg:hidden"
     >
         <span class="material-icons">menu</span>
     </button>
 
     <!-- Sidebar -->
     <aside
-        class="fixed left-0 top-0 z-50 h-full w-64 bg-gray-900 text-white shadow-lg hidden lg:block"
+        id="sidebar"
+        class="fixed left-0 top-0 z-40 h-full bg-[#771f20] text-white shadow-lg transform -translate-x-full lg:translate-x-0 lg:w-64 transition-transform duration-300"
     >
         <!-- SIDEBAR HEADER -->
-        <div class="flex items-center justify-between gap-2 p-6 border-b border-gray-700">
-            <a href="#">
-                <img src="./images/logo/logo.svg" alt="Logo" class="h-8 w-auto" />
-            </a>
+        <div class="flex flex-col items-center p-6">
+            <h1 class="text-4xl font-bold text-orange-500 tracking-wide uppercase">CAMOODLE</h1>
+            <img src="{{logo_camoodle}}" alt="Camoodle Logo" class="mt-4 h-62 w-auto">
         </div>
 
         <!-- SIDEBAR NAVIGATION -->
-        <nav class="mt-4 flex flex-col space-y-2">
-            <a href="index.php" class="flex items-center py-2 px-6 hover:bg-gray-700">
+        <nav class="mt-6 flex flex-col space-y-4">
+            <a href="index.php" class="flex items-center py-2 px-6 hover:bg-[#9a2828]">
                 <span class="material-icons">dashboard</span>
-                <span class="ml-3">Dashboard</span>
+                <span class="ml-3">Panel de control</span>
             </a>
-            <a href="profiles.php" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <a href="profiles.php" class="flex items-center py-2 px-6 hover:bg-[#9a2828]">
                 <span class="material-icons">person</span>
-                <span class="ml-3">Profiles</span>
+                <span class="ml-3">Perfiles</span>
             </a>
-            <a href="settings.php" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <a href="settings.php" class="flex items-center py-2 px-6 hover:bg-[#9a2828]">
                 <span class="material-icons">settings</span>
-                <span class="ml-3">Settings</span>
+                <span class="ml-3">Configuración</span>
             </a>
-            <a href="logout.php" class="flex items-center py-2 px-6 hover:bg-gray-700">
+            <a href="logout.php" class="flex items-center py-2 px-6 hover:bg-[#9a2828]">
                 <span class="material-icons">logout</span>
-                <span class="ml-3">Logout</span>
+                <span class="ml-3">Cerrar sesión</span>
             </a>
         </nav>
+
+        <!-- FOOTER -->
+        <div class="absolute bottom-4 w-full text-center">
+            <img src="{{logo_ucsg}}" alt="UCSG Logo"
+                 class="h-24 md:h-32 lg:h-40 mx-auto max-w-[90%] max-h-[15vh] object-contain">
+        </div>
     </aside>
 
-
+    <!-- Contenido principal -->
+    <main id="mainContent" class="flex-1 transition-all duration-300 lg:ml-64 p-6">
+        <!-- Aquí va el contenido -->
+    </main>
 </div>

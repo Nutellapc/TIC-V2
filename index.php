@@ -55,9 +55,14 @@ if (!$userData) {
     die("Error: No se pudo obtener la información del usuario.");
 }
 
+
+
+
 // Obtener el curso seleccionado de la URL (o usar un valor predeterminado si no está seleccionado)
 $selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : (isset($courses[0]['id']) ? $courses[0]['id'] : 0);
-echo $selectedCourseId;
+//echo $selectedCourseId;
+
+
 
 // Verificar si el curso seleccionado es válido
 if ($selectedCourseId > 0) {
@@ -70,8 +75,9 @@ if ($selectedCourseId > 0) {
     ]);
     // Otras funciones que dependen del courseid...
 } else {
-    echo "Error: No se seleccionó un curso válido.";
+//    echo "Error: No se seleccionó un curso válido.";
 }
+
 
 
 // Verificar si se cargó Mustache
@@ -267,9 +273,21 @@ if (empty($activityViewsData)) {
 // Obtener el curso seleccionado de la URL (o usar un valor predeterminado si no está seleccionado)
 $selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : (isset($courses[0]['id']) ? $courses[0]['id'] : 0);
 
+require_once(__DIR__ . '/../../config.php'); // Incluye la configuración de Moodle
+require_login(); // Asegúrate de que el usuario esté autenticado
+
+// Establece el contexto y la URL de la página
+$PAGE->set_context(context_system::instance());
+$PAGE->set_url(new moodle_url('/local/ml_dashboard2/index.php'));
+
+// Generar URLs para las imágenes
+$logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
+$logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
 
 // Preparar datos para la plantilla
 $data = [
+    'logo_camoodle' => $logoCamoodle,
+    'logo_ucsg' => $logoUcsg,
     'dashboard_title' => 'Mi Dashboard en Moodle',
     'active_students' => $activeStudents,
     'average_grades' => $averageGrades,
@@ -304,5 +322,72 @@ if (isset($mustache)) {
 
 </script>
 <script src="dashboard.js" defer></script>
+<script>
+    const dashboardData = <?php echo json_encode($data, JSON_UNESCAPED_UNICODE | JSON_PRETTY_PRINT); ?>;
+
+    // Manejar el cambio de curso desde el selector
+    document.getElementById('courseSelector').addEventListener('change', function () {
+        const selectedCourseId = this.value; // Obtener el valor seleccionado
+        if (selectedCourseId) {
+            window.location.href = `index.php?courseid=${selectedCourseId}`; // Redirigir con el ID del curso
+        }
+    });
+
+</script>
+<script src="dashboard.js" defer></script>
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menuButton');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        if (menuButton && sidebar && mainContent) {
+            menuButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+
+                // Alternar el estado del sidebar
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    mainContent.classList.add('ml-64');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                }
+            });
+
+            // Cerrar el sidebar al hacer clic fuera de él
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuButton.contains(event.target)) {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                }
+            });
+
+            // Cerrar el sidebar al hacer clic en un enlace dentro de él
+            const menuLinks = sidebar.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                });
+            });
+
+            // Cerrar el sidebar al presionar la tecla "Esc"
+            document.addEventListener('keydown', (event) => {
+                if (event.key === 'Escape') {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                }
+            });
+        } else {
+            console.error('El botón, el sidebar o el contenido principal no se encontraron.');
+        }
+    });
+
+
+
+
+</script>
 </body>
 </html>

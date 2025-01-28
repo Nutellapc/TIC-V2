@@ -9,20 +9,15 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
 </head>
-<body class="bg-gray-100 text-gray-800" x-data="{ sidebarToggle: false }">
+<body class="bg-gray-100 text-gray-800">
 
-<!-- Botón de menú para pantallas pequeñas -->
-<button
-    class="p-4 lg:hidden fixed top-4 left-4 z-50 bg-gray-900 text-white rounded-md"
-    @click="sidebarToggle = !sidebarToggle"
->
-    <span class="material-icons">menu</span>
-</button>
-
+<!-- Sidebar -->
 {{> sidebar}}
 
 <!-- Contenedor principal -->
-<div class="ml-64 p-6">
+<!-- Contenedor principal -->
+<div id="mainContent" class="transition-all duration-300 p-6 lg:ml-64">
+
     <h1 class="text-4xl font-bold text-blue-600">Bienvenido, {{username}}!</h1>
     <p class="text-lg text-gray-700 mb-4">Visualización de datos del sistema</p>
 
@@ -35,5 +30,6 @@
     <!-- Gráficos complementarios -->
     {{> charts}}
 </div>
+
 </body>
 </html>

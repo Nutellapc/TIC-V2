@@ -29,6 +29,10 @@ if ($selectedCourseId) {
     // Obtener los datos procesados desde la tabla
     $processedData = $DB->get_records('plugin_student_activity', ['courseid' => $selectedCourseId]);
 
+    $PAGE->set_context(context_system::instance());
+    $PAGE->set_url(new moodle_url('/local/ml_dashboard2/profiles.php'));
+    $logoUrl = $OUTPUT->image_url('logoUcsg', 'local_ml_dashboard2');
+
     // Convertir los datos obtenidos en un array compatible con Mustache
     if (!empty($processedData)) {
         foreach ($processedData as $data) {
@@ -36,6 +40,9 @@ if ($selectedCourseId) {
             // Obtener el nombre del estudiante desde la tabla 'user'
             $user = $DB->get_record('user', ['id' => $data->userid], 'firstname, lastname');
             $username = $user->firstname . ' ' . $user->lastname;
+
+
+
 
             $processedDataArray[] = [
                 'userid' => $data->userid,
@@ -50,6 +57,10 @@ if ($selectedCourseId) {
                 'recommendations_teacher' => $data->recommendations_teacher,
                 'last_updated' => date('Y-m-d H:i:s', $data->last_updated),
                 'prediction_score_equals_negative_one' => $data->prediction_score == -1, // Verificar si es -1
+                'is_red' => $data->prediction_score >= 5 && $data->prediction_score < 7, // Rojo entre 5 y 7
+                'is_yellow' => $data->prediction_score >= 7 && $data->prediction_score < 8, // Amarillo entre 7 y 8
+                'is_green' => $data->prediction_score >= 8 && $data->prediction_score <= 10, // Verde entre 8 y 10
+
             ];
         }
 
@@ -70,17 +81,68 @@ $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
 ));
 
+// Ruta de las imágenes del sidebar
+$logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
+$logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
+
 // Renderizar la plantilla con datos
 echo $m->render('profiles', [
     'courses' => $courses,
     'selected_course' => $selectedCourseId,
     'processed_data' => $processedDataArray,
     'last_updated' => $lastUpdated ?? 'No disponible',
+    'logo_url' => $logoUrl,
+    'logo_camoodle' => $logoCamoodle,
+    'logo_ucsg' => $logoUcsg,
 ]);
 
 ?>
 
-<!-- Script para procesar datos del curso -->
+<script>
+    document.addEventListener('DOMContentLoaded', () => {
+        const menuButton = document.getElementById('menuButton');
+        const sidebar = document.getElementById('sidebar');
+        const mainContent = document.getElementById('mainContent');
+
+        if (menuButton && sidebar && mainContent) {
+            menuButton.addEventListener('click', (event) => {
+                event.stopPropagation();
+
+                // Alternar las clases del sidebar y del contenido principal
+                const isHidden = sidebar.classList.contains('-translate-x-full');
+                if (isHidden) {
+                    sidebar.classList.remove('-translate-x-full');
+                    mainContent.classList.add('ml-64');
+                } else {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                }
+            });
+
+            // Cerrar el sidebar al hacer clic fuera de él
+            document.addEventListener('click', (event) => {
+                if (!sidebar.contains(event.target) && !menuButton.contains(event.target)) {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                }
+            });
+
+            // Cerrar el sidebar al hacer clic en un enlace del menú
+            const menuLinks = sidebar.querySelectorAll('a');
+            menuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    sidebar.classList.add('-translate-x-full');
+                    mainContent.classList.remove('ml-64');
+                });
+            });
+        } else {
+            console.error('El botón, el sidebar o el contenido principal no se encontraron.');
+        }
+    });
+
+
+</script>
+
 <!-- Script para procesar datos del curso -->
 <script>
     function processCourseData(courseId) {

@@ -3,12 +3,15 @@
         Datos Procesados del Curso
         <span class="text-sm text-gray-500">(Última actualización: {{last_updated}})</span>
     </h2>
+    <p class="mt-2 text-base text-gray-600">
+        A continuación, utilizamos técnicas de <span class="text-yellow-500 font-semibold">Deep Learning</span> para la predicción de estadísticas.
+    </p>
 
     <!-- Contenedor para hacer la tabla responsive -->
-    <div class="overflow-x-auto">
+    <div class="mt-6 overflow-x-auto border border-[#771f20] rounded-b-lg">
         <table class="min-w-full bg-white shadow-lg rounded-lg border-collapse border border-gray-200">
             <thead>
-            <tr class="bg-blue-600 text-white text-left text-sm uppercase tracking-wider">
+            <tr class="bg-[#771f20] text-white text-left text-sm uppercase tracking-wider">
                 <th class="px-6 py-3">ID de Usuario</th>
                 <th class="px-6 py-3">Nombre</th>
                 <th class="px-6 py-3">Predicción</th>
@@ -20,33 +23,42 @@
                 <tr class="hover:bg-gray-100">
                     <td class="px-6 py-4 text-gray-700">{{userid}}</td>
                     <td class="px-6 py-4 text-gray-700">{{username}}</td>
-                    <td class="px-6 py-4 text-gray-700">
+                    <td class="px-6 py-4">
                         {{#prediction_score_equals_negative_one}}
-                            Predicción no disponible
+                            <span class="text-red-500 font-semibold">Predicción no disponible</span>
                         {{/prediction_score_equals_negative_one}}
                         {{^prediction_score_equals_negative_one}}
-                            {{prediction_score}}
+                            {{#is_red}}
+                                <span class="text-red-500 font-bold">{{prediction_score}}</span>
+                            {{/is_red}}
+                            {{#is_yellow}}
+                                <span class="text-yellow-500 font-bold">{{prediction_score}}</span>
+                            {{/is_yellow}}
+                            {{#is_green}}
+                                <span class="text-green-600 font-bold">{{prediction_score}}</span>
+                            {{/is_green}}
                         {{/prediction_score_equals_negative_one}}
                     </td>
 
                     <td class="px-6 py-4">
-                        <!-- Botón para ver detalles -->
-                        <button
-                            class="bg-blue-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-blue-700 transition-transform transform hover:scale-105"
-                            onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')"
-                            data-prediction="{{prediction_score}}">
-                            Detalles
-                        </button>
+                        <div class="flex flex-col md:flex-row md:space-x-4 space-y-2">
+                            <!-- Botón para ver detalles -->
+                            <button
+                                class="bg-[#FFAE00] text-white text-lg px-6 py-2 w-full md:w-auto rounded-xl shadow-lg hover:bg-[#d28e00] transition-transform transform hover:scale-105"
+                                onclick="openModal('{{username}}', '{{userid}}', '{{prediction_score}}', '{{hours_studied}}', '{{attendance}}', '{{inactive_time}}', '{{general_grade}}', '{{forum_participations}}')"
+                                data-prediction="{{prediction_score}}">
+                                Ver detalles
+                            </button>
 
-                        <!-- Botón para ver recomendaciones -->
-                        <button
-                            class="bg-green-500 text-white text-lg px-6 py-2 w-full rounded-xl shadow-lg hover:bg-green-700 transition-transform transform hover:scale-105 mt-4"
-                            onclick="openRecommendationsModal('{{username}}', '{{recommendations}}', '{{recommendations_teacher}}')">
-                            Recomendaciones
-                        </button>
-
-
+                            <!-- Botón para ver recomendaciones -->
+                            <button
+                                class="bg-[#8ec63f] text-white text-lg px-6 py-2 w-full md:w-auto rounded-xl shadow-lg hover:bg-[#6a9b31] transition-transform transform hover:scale-105"
+                                onclick="openRecommendationsModal('{{username}}', '{{recommendations}}', '{{recommendations_teacher}}')">
+                                Recomendaciones
+                            </button>
+                        </div>
                     </td>
+
                 </tr>
             {{/processed_data}}
             </tbody>
@@ -57,6 +69,7 @@
         <p class="text-gray-500 mt-4">No hay datos procesados para este curso.</p>
     {{/processed_data}}
 </div>
+
 
 <!-- Modal -->
 {{> modal }}
