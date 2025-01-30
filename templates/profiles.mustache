@@ -16,18 +16,33 @@
 
     <!-- Main Content -->
     <div id="mainContent" class="flex-1 p-6 bg-gray-100 transition-all duration-300">
+
         <!-- Encabezado con logotipo y título -->
-        <div class="flex items-center justify-between mb-6">
-            <!-- Título -->
-            <div>
-                <h1 class="text-2xl font-bold text-gray-800">PERFIL ESTUDIANTIL DEL CURSO:</h1>
+        <div class="relative w-full px-4 py-4 bg-gray-100 h-auto md:h-36 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+
+            <!-- Título alineado a la izquierda en pantallas grandes, centrado en móviles -->
+            <div class="relative z-10 w-full md:w-auto mb-2 md:mb-0">
+                <h1 class="text-xl md:text-3xl font-bold text-gray-800">
+                    PERFIL ESTUDIANTIL DEL CURSO:<br>
+                    <span class="text-green-600 text-lg md:text-2xl font-semibold">{{selected_course_name}}</span>
+                </h1>
+
             </div>
 
-            <!-- Logotipo -->
-            <div>
-                <img src="{{logo_url}}" alt="LogotipoProfiles" class="h-12">
+            <!-- Imagen de fondo (CAMOODLE centrado y ajustado para responsive) -->
+            <div class="relative flex justify-center items-center order-1 md:order-none w-full md:w-auto">
+                <img src="{{camoodles}}" alt="CAMOODLE" class="max-h-24 md:max-h-32 lg:max-h-40 object-contain">
             </div>
+
+            <!-- Logotipo UCSG alineado a la derecha en pantallas grandes, debajo en móviles -->
+            <div class="relative z-10 w-full md:w-auto mt-2 md:mt-0">
+                <img src="{{logo_url}}" alt="Logotipo UCSG" class="h-10 md:h-16 mx-auto md:mx-0">
+            </div>
+
         </div>
+
+
+        <br>
 
         <!-- Selector de cursos -->
         {{> course_selector }}
@@ -91,6 +106,9 @@
             });
     }
 </script>
+
+{{> footer}}
+
 
 </body>
 </html>

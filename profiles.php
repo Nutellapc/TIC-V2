@@ -20,6 +20,17 @@ $studentName = $userInfo['fullname'];
 $courses = get_user_courses($studentId);
 $selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : ($courses[0]['id'] ?? 0);
 
+// Obtener el nombre del curso seleccionado
+$selectedCourseName = "Curso no seleccionado"; // Valor predeterminado
+
+foreach ($courses as $course) {
+    if ($course['id'] == $selectedCourseId) {
+        $selectedCourseName = $course['fullname']; // Nombre del curso seleccionado
+        break;
+    }
+}
+
+
 require_once(__DIR__ . '/../../config.php');
 require_login();
 
@@ -84,16 +95,19 @@ $m = new Mustache_Engine(array(
 // Ruta de las imágenes del sidebar
 $logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
 $logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
+$camoodles = $OUTPUT->image_url('camoodles', 'local_ml_dashboard2');
 
 // Renderizar la plantilla con datos
 echo $m->render('profiles', [
     'courses' => $courses,
     'selected_course' => $selectedCourseId,
+    'selected_course_name' => $selectedCourseName,
     'processed_data' => $processedDataArray,
     'last_updated' => $lastUpdated ?? 'No disponible',
     'logo_url' => $logoUrl,
     'logo_camoodle' => $logoCamoodle,
     'logo_ucsg' => $logoUcsg,
+    'camoodles' => $camoodles,
 ]);
 
 ?>

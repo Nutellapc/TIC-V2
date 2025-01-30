@@ -14,12 +14,33 @@
 <!-- Sidebar -->
 {{> sidebar}}
 
-<!-- Contenedor principal -->
-<!-- Contenedor principal -->
-<div id="mainContent" class="transition-all duration-300 p-6 lg:ml-64">
 
-    <h1 class="text-4xl font-bold text-blue-600">Bienvenido, {{username}}!</h1>
-    <p class="text-lg text-gray-700 mb-4">Visualización de datos del sistema</p>
+<!-- Contenedor principal -->
+<div id="mainContent" class="transition-all duration-300 p-4 lg:ml-64 space-y-0">
+
+    <!-- Encabezado con logotipo y título -->
+    <div class="relative w-full px-4 py-4 bg-gray-100 h-auto md:h-36 flex flex-col md:flex-row items-center justify-between text-center md:text-left">
+
+        <!-- Título alineado a la izquierda en pantallas grandes, centrado en móviles -->
+        <div class="relative z-10 w-full md:w-auto mb-2 md:mb-0">
+            <h1 class="text-2xl md:text-4xl font-bold text-gray-900">
+                ¡Bienvenido, {{username}}!
+            </h1>
+            <p class="text-lg text-gray-700">Visualización de datos del curso:</p>
+            <p class="text-lg font-semibold text-green-600">{{selected_course_name}}</p>
+        </div>
+
+        <!-- Imagen de fondo (CAMOODLE centrado y ajustado para responsive) -->
+        <div class="relative flex justify-center items-center order-1 md:order-none w-full md:w-auto">
+            <img src="{{camoodles}}" alt="CAMOODLE" class="max-h-24 md:max-h-32 lg:max-h-40 object-contain">
+        </div>
+
+        <!-- Logotipo UCSG alineado a la derecha en pantallas grandes, debajo en móviles -->
+        <div class="relative z-10 w-full md:w-auto mt-2 md:mt-0">
+            <img src="{{logo_ucsg1}}" alt="Logotipo UCSG" class="h-10 md:h-16 mx-auto md:mx-0">
+        </div>
+
+    </div>
 
     <!-- Selector de cursos -->
     {{> course_selector}}
@@ -30,6 +51,9 @@
     <!-- Gráficos complementarios -->
     {{> charts}}
 </div>
+
+{{> footer}}
+
 
 </body>
 </html>

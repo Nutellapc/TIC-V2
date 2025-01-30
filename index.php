@@ -280,14 +280,31 @@ require_login(); // Asegúrate de que el usuario esté autenticado
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url(new moodle_url('/local/ml_dashboard2/index.php'));
 
+// Obtener el nombre del curso seleccionado
+$selectedCourseName = '';
+foreach ($courses as $course) {
+    if ($course['id'] == $selectedCourseId) {
+        $selectedCourseName = $course['fullname'];
+        break;
+    }
+}
+
+
 // Generar URLs para las imágenes
 $logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
 $logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
+$logoUcsg1 = $OUTPUT->image_url('logoUcsg', 'local_ml_dashboard2');
+$camoodles = $OUTPUT->image_url('camoodles', 'local_ml_dashboard2');
+
+
+
 
 // Preparar datos para la plantilla
 $data = [
     'logo_camoodle' => $logoCamoodle,
     'logo_ucsg' => $logoUcsg,
+    'logo_ucsg1' => $logoUcsg1,
+    'camoodles' => $camoodles,
     'dashboard_title' => 'Mi Dashboard en Moodle',
     'active_students' => $activeStudents,
     'average_grades' => $averageGrades,
@@ -297,6 +314,7 @@ $data = [
     'activity_views' => $activityViewsData,
     'courses' => $courses,
     'selected_course' => $selectedCourseId,
+    'selected_course_name' => $selectedCourseName,
     'username' => $userData['fullname'], // Nombre completo del usuario
     'user_id' => $userData['id'], // ID del usuario
 ];
