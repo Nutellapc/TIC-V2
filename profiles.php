@@ -36,6 +36,11 @@ require_login();
 
 $processedDataArray = []; // Inicializa un array vacío para los datos procesados
 
+
+
+
+
+
 if ($selectedCourseId) {
     // Obtener los datos procesados desde la tabla
     $processedData = $DB->get_records('plugin_student_activity', ['courseid' => $selectedCourseId]);
@@ -43,6 +48,45 @@ if ($selectedCourseId) {
     $PAGE->set_context(context_system::instance());
     $PAGE->set_url(new moodle_url('/local/ml_dashboard2/profiles.php'));
     $logoUrl = $OUTPUT->image_url('logoUcsg', 'local_ml_dashboard2');
+
+
+// Definir imágenes por categorías
+    $redImages = [
+        $OUTPUT->image_url('red1', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('red2', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('red3', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('red4', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('red5', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('red6', 'local_ml_dashboard2'),
+    ];
+
+    $yellowImages = [
+        $OUTPUT->image_url('yellow1', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('yellow2', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('yellow3', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('yellow4', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('yellow5', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('yellow6', 'local_ml_dashboard2'),
+    ];
+
+    $greenImages = [
+        $OUTPUT->image_url('green1', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green2', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green3', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green4', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green5', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green6', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green7', 'local_ml_dashboard2'),
+        $OUTPUT->image_url('green8', 'local_ml_dashboard2'),
+    ];
+
+// Función para seleccionar una imagen aleatoria
+    function get_random_image($imageArray) {
+        return $imageArray[array_rand($imageArray)];
+    }
+
+
+
 
     // Convertir los datos obtenidos en un array compatible con Mustache
     if (!empty($processedData)) {
@@ -52,7 +96,21 @@ if ($selectedCourseId) {
             $user = $DB->get_record('user', ['id' => $data->userid], 'firstname, lastname');
             $username = $user->firstname . ' ' . $user->lastname;
 
-
+            // Determinar nivel de desempeño
+            $performanceLevel = 0;
+            $performanceImage = "";
+            if ($data->prediction_score >= 5 && $data->prediction_score < 7) {
+                $performanceLevel = 1; // Rojo
+                $performanceImage = get_random_image($redImages);
+            } elseif ($data->prediction_score >= 7 && $data->prediction_score < 8) {
+                $performanceLevel = 2; // Amarillo
+                $performanceImage = get_random_image($yellowImages);
+            } elseif ($data->prediction_score >= 8 && $data->prediction_score <= 10) {
+                $performanceLevel = 3; // Verde
+                $performanceImage = get_random_image($greenImages);
+            } else{
+                $performanceImage = $OUTPUT->image_url('camoodle_mid', 'local_ml_dashboard2');
+            }
 
 
             $processedDataArray[] = [
@@ -71,6 +129,8 @@ if ($selectedCourseId) {
                 'is_red' => $data->prediction_score >= 5 && $data->prediction_score < 7, // Rojo entre 5 y 7
                 'is_yellow' => $data->prediction_score >= 7 && $data->prediction_score < 8, // Amarillo entre 7 y 8
                 'is_green' => $data->prediction_score >= 8 && $data->prediction_score <= 10, // Verde entre 8 y 10
+                'performance_level' => $performanceLevel,
+                'performance_image' => $performanceImage,
 
             ];
         }
@@ -92,10 +152,15 @@ $m = new Mustache_Engine(array(
     'loader' => new Mustache_Loader_FilesystemLoader(__DIR__ . '/templates'),
 ));
 
+
+
 // Ruta de las imágenes del sidebar
-$logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
+$logoCamoodle = $OUTPUT->image_url('camoodle_logo1', 'local_ml_dashboard2');
 $logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
 $camoodles = $OUTPUT->image_url('camoodles', 'local_ml_dashboard2');
+$randomRedImage = get_random_image($redImages);
+$randomYellowImage = get_random_image($yellowImages);
+$randomGreenImage = get_random_image($greenImages);
 
 // Renderizar la plantilla con datos
 echo $m->render('profiles', [
@@ -108,6 +173,9 @@ echo $m->render('profiles', [
     'logo_camoodle' => $logoCamoodle,
     'logo_ucsg' => $logoUcsg,
     'camoodles' => $camoodles,
+    'random_red_image' => $randomRedImage,
+    'random_yellow_image' => $randomYellowImage,
+    'random_green_image' => $randomGreenImage
 ]);
 
 ?>
