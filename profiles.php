@@ -101,15 +101,15 @@ if ($selectedCourseId) {
             $performanceImage = "";
             if ($data->prediction_score >= 5 && $data->prediction_score < 7) {
                 $performanceLevel = 1; // Rojo
-                $performanceImage = get_random_image($redImages);
+                $performanceImage = $OUTPUT->image_url('red6', 'local_ml_dashboard2');
             } elseif ($data->prediction_score >= 7 && $data->prediction_score < 8) {
                 $performanceLevel = 2; // Amarillo
-                $performanceImage = get_random_image($yellowImages);
+                $performanceImage = $OUTPUT->image_url('yellow6', 'local_ml_dashboard2');
             } elseif ($data->prediction_score >= 8 && $data->prediction_score <= 10) {
                 $performanceLevel = 3; // Verde
-                $performanceImage = get_random_image($greenImages);
+                $performanceImage = $OUTPUT->image_url('green8', 'local_ml_dashboard2');
             } else{
-                $performanceImage = $OUTPUT->image_url('camoodle_mid', 'local_ml_dashboard2');
+                $performanceImage = $OUTPUT->image_url('camoodle_confundido', 'local_ml_dashboard2');
             }
 
 

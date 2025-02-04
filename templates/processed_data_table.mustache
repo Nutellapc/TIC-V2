@@ -53,7 +53,7 @@
                             <!-- Botón para ver recomendaciones -->
                             <button
                                 class="bg-[#8ec63f] text-white text-lg px-6 py-2 w-full md:w-auto rounded-xl shadow-lg hover:bg-[#6a9b31] transition-transform transform hover:scale-105"
-                                onclick="openRecommendationsModal('{{username}}', '{{recommendations}}', '{{recommendations_teacher}}', '{{prediction_score}}', '{{performance_image}}')"
+                                onclick="openRecommendationsModal('{{username}}', '{{recommendations}}', '{{recommendations_teacher}}', '{{prediction_score}}', '{{performance_image}}' , '{{userid}}')"
                                 data-prediction="{{prediction_score}}"
                                 data-performance="{{performance_image}}">
                                 Recomendaciones
@@ -229,33 +229,96 @@
         }
     }
 
-    function openRecommendationsModal(name, recommendations, teacherRecommendations, predictionScore, performanceImage) {
-        // Validar que las recomendaciones no estén vacías
-        const studentRecommendations = recommendations || 'No hay recomendaciones disponibles para el estudiante.';
-        const teacherRecommendationsText = teacherRecommendations || 'No hay recomendaciones disponibles para el maestro.';
+    const recommendationsData = {};
+
+    function openRecommendationsModal(name, recommendations, teacherRecommendations, predictionScore, performanceImage, userId) {
+        console.log("🔹 Abriendo modal para userId:", userId);
+
+        if (!userId || isNaN(userId)) {
+            console.error("❌ Error: userId no válido.");
+            alert("Error: No se pudo obtener el ID del usuario.");
+            return;
+        }
+
+        // Si no hay recomendación almacenada para este usuario, usa la recomendación original
+        if (!(userId in recommendationsData)) {
+            recommendationsData[userId] = recommendations || '';
+        }
 
         // Asignar datos al modal
         document.getElementById('recommendationsName').innerText = name;
-        document.getElementById('recommendationsContent').innerText = studentRecommendations;
-        document.getElementById('recommendationsTeacherContent').innerText = teacherRecommendationsText;
+        document.getElementById('recommendationsTeacherContent').innerText = teacherRecommendations || 'No hay recomendaciones para el maestro.';
 
-        // Cambiar la imagen de desempeño según el nivel recibido
+        // 🔹 Asignar la recomendación correcta al textarea
+        document.getElementById('recommendationsContent').value = recommendationsData[userId];
+
+        // 🔹 Cambiar la imagen de desempeño
         const performanceImageElement = document.getElementById("performanceImage");
-        if (performanceImageElement && performanceImage) {
-            performanceImageElement.src = performanceImage; // Asignamos la imagen correspondiente
-        } else {
-            performanceImageElement.src = ""; // Si no hay imagen, ocultamos el src
-        }
+        performanceImageElement.src = performanceImage || '';
+
+        // Guardar userId en el modal para usarlo después en `sendRecommendation()`
+        document.getElementById("recommendationsModal").setAttribute("data-userid", userId);
 
         // Mostrar el modal
         document.getElementById('recommendationsModal').classList.remove('hidden');
     }
 
-
     function closeRecommendationsModal() {
         // Cerrar el modal
         document.getElementById('recommendationsModal').classList.add('hidden');
     }
+
+    document.addEventListener("DOMContentLoaded", function () {
+        document.getElementById("recommendationsContent").addEventListener("input", function () {
+            const userId = document.getElementById("recommendationsModal").getAttribute("data-userid");
+            if (userId) {
+                recommendationsData[userId] = this.value;
+            }
+        });
+    });
+
+    function sendRecommendation() {
+        const userId = document.getElementById("recommendationsModal").getAttribute("data-userid");
+
+        if (!userId || isNaN(userId)) {
+            alert("Error: No se pudo obtener el ID del usuario.");
+            console.error("❌ userId inválido:", userId);
+            return;
+        }
+
+        const studentMessage = recommendationsData[userId] || '';
+
+        if (!studentMessage.trim()) {
+            alert("Por favor, ingresa una recomendación antes de enviarla.");
+            return;
+        }
+
+        // Enviar la recomendación al backend
+        fetch('send_recommendation.php', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({
+                userid: userId,
+                message: studentMessage
+            })
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("✅ Recomendación enviada con éxito.");
+                    closeRecommendationsModal();
+                } else {
+                    console.error("❌ Error al enviar la recomendación:", data);
+                    alert("Hubo un error al enviar la recomendación.");
+                }
+            })
+            .catch(error => {
+                console.error("❌ Error de red:", error);
+                alert("Hubo un problema de conexión al enviar la recomendación.");
+            });
+    }
+
+
 
 
 

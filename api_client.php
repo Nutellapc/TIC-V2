@@ -105,6 +105,27 @@ function get_user_ids_from_course($courseId) {
     return array_slice($userIds, 2); // A partir del tercer ID
 }
 
+/**
+ * Envía un mensaje a un usuario en Moodle utilizando la API REST.
+ *
+ * @param int $userId ID del usuario destinatario.
+ * @param string $message Mensaje a enviar.
+ * @return array|null Respuesta de la API o null en caso de error.
+ */
+function send_moodle_message($userId, $message) {
+    $function = 'core_message_send_instant_messages';
+    $params = [
+        'messages' => [
+            [
+                'touserid' => $userId,
+                'text' => $message,
+                'textformat' => 1
+            ]
+        ]
+    ];
+
+    return callMoodleAPI($function, $params);
+}
 
 
 ?>
