@@ -74,3 +74,4 @@ function local_ml_dashboard2_call_openai($prompt) {
         throw new moodle_exception('No se recibió una respuesta válida de OpenAI.');
     }
 }
+

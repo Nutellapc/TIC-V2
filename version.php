@@ -34,3 +34,8 @@ $plugin->version = 2025010802;             // Versión del plugin en formato AAA
 $plugin->requires = 2022041900;              // Versión mínima de Moodle requerida (ajusta según tu Moodle).
 $plugin->maturity = MATURITY_STABLE;         // Estado del plugin: MATURITY_ALPHA, MATURITY_BETA, MATURITY_RC o MATURITY_STABLE.
 $plugin->release = '1.0';                    // Número de versión del plugin.
+
+// Registro del módulo AMD
+$plugin->dependencies = array(
+    'core/jquery' => ANY_VERSION,
+);

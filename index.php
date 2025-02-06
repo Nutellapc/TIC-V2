@@ -291,7 +291,7 @@ foreach ($courses as $course) {
 
 
 // Generar URLs para las imágenes
-$logoCamoodle = $OUTPUT->image_url('camoodle_logo', 'local_ml_dashboard2');
+$logoCamoodle1 = $OUTPUT->image_url('camoodle_logo1', 'local_ml_dashboard2');
 $logoUcsg = $OUTPUT->image_url('ucsg_logo', 'local_ml_dashboard2');
 $logoUcsg1 = $OUTPUT->image_url('logoUcsg', 'local_ml_dashboard2');
 $camoodles = $OUTPUT->image_url('camoodles', 'local_ml_dashboard2');
@@ -301,7 +301,7 @@ $camoodles = $OUTPUT->image_url('camoodles', 'local_ml_dashboard2');
 
 // Preparar datos para la plantilla
 $data = [
-    'logo_camoodle' => $logoCamoodle,
+    'logo_camoodle' => $logoCamoodle1,
     'logo_ucsg' => $logoUcsg,
     'logo_ucsg1' => $logoUcsg1,
     'camoodles' => $camoodles,

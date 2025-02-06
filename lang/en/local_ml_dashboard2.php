@@ -12,6 +12,16 @@ $string['enablemldesc'] = 'Activa el uso del modelo de Machine Learning para pre
 $string['processtask'] = 'Procesar datos de estudiantes';
 $string['openkey'] = 'Clave de API de OpenAI';
 $string['openkeydesc'] = 'Introduce tu clave de API de OpenAI para habilitar la integración con ChatGPT.';
+$string['go_to_dashboard'] = 'Ir al Dashboard de ML';
+$string['ml_dashboard2_button'] = 'ML Dashboard';
+$string['ml_dashboard2_button_desc'] = 'Accede al panel de Machine Learning';
+
+$string['plugin_category'] = 'ML Dashboard';
+$string['plugin_link'] = 'Acceder a ML Dashboard';
+
+
+
+
 
 
 
