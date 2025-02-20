@@ -36,10 +36,50 @@ require_login();
 
 $processedDataArray = []; // Inicializa un array vacío para los datos procesados
 
+// Asegúrate de que Moodle está cargado y que la variable global $USER está disponible
+global $USER;
 
+// Obtener los datos del usuario autenticado
+$userData = [
+    'id' => $USER->id,  // ID del usuario autenticado
+    'fullname' => fullname($USER),  // Nombre completo del usuario
+    'username' => $USER->username,  // Nombre de usuario
+];
 
+// Mostrar la información del usuario autenticado
+echo "Usuario autenticado - ID: " . $userData['id'] . ", Nombre: " . $userData['fullname'] . ", Username: " . $userData['username'];
 
+// Obtener los cursos a los que está inscrito el usuario
+$coursesUser = enrol_get_all_users_courses($USER->id, true); // El segundo parámetro se usa para incluir cursos activos/inactivos
 
+// Crear un array vacío para almacenar los cursos
+$userCoursesArray = [];
+// Verificar si el usuario está inscrito en cursos
+if (!empty($coursesUser)) {
+    // Recorremos los cursos y los almacenamos en el array
+    foreach ($coursesUser as $course) {
+        // Almacenar solo el nombre completo del curso
+        $userCoursesArray[] = [
+            'id' => $course->id,             // ID del curso
+            'fullname' => $course->fullname  // Nombre completo del curso
+        ];
+    }
+
+}
+
+// Filtrar el array $courses para que solo queden los cursos que están en el array $userCoursesArray
+$courses = array_filter($courses, function($course) use ($userCoursesArray) {
+    // Compara el ID de cada curso con los IDs del usuario, y devuelve el curso con 'id' y 'fullname'
+    foreach ($userCoursesArray as $userCourse) {
+        if ($course['id'] == $userCourse['id']) {
+            return true;
+        }
+    }
+    return false;
+});
+
+// Reindexar el array filtrado para evitar índices no consecutivos
+$courses = array_values($courses);
 
 if ($selectedCourseId) {
     // Obtener los datos procesados desde la tabla

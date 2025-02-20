@@ -11,6 +11,7 @@
 
 <?php
 
+
 // Token de Moodle
 $token = "143bfe295993ff7caa6e404efea7d245";
 $apiUrl = "http://localhost/TIC/moodle/webservice/rest/server.php";
@@ -35,10 +36,12 @@ function callMoodleAPI($functionName, $params = []) {
 
 // Obtener los datos del usuario autenticado
 function getAuthenticatedUser($token, $apiUrl) {
+
     $function = 'core_webservice_get_site_info';
     $siteInfo = callMoodleAPI($function);
 
     if (isset($siteInfo['userid'])) {
+//        echo "Usuario autenticado - ID: " . $siteInfo['userid'] . ", Nombre: " . $siteInfo['fullname'] . ", Username: " . $siteInfo['username'];
         return [
             'id' => $siteInfo['userid'],
             'fullname' => $siteInfo['fullname'],
@@ -46,6 +49,8 @@ function getAuthenticatedUser($token, $apiUrl) {
         ];
     }
 
+    // Registrar error si no se obtuvieron datos del usuario
+    error_log("Error: No se pudo obtener la información del usuario autenticado.");
     return null;
 }
 
@@ -54,7 +59,6 @@ $userData = getAuthenticatedUser($token, $apiUrl);
 if (!$userData) {
     die("Error: No se pudo obtener la información del usuario.");
 }
-
 
 
 
@@ -123,14 +127,29 @@ $users = callMoodleAPI("core_user_get_users", [
     "criteria[0][value]" => ""
 ]);
 
+// Obtener los usuarios inscritos en el curso seleccionado
+$courseUsers = callMoodleAPI("core_enrol_get_enrolled_users", [
+    "courseid" => $selectedCourseId
+]);
+
+
 $activeStudents = 0;
-if (!empty($users['users'])) {
-    foreach ($users['users'] as $user) {
+
+if (!empty($courseUsers)) {
+    foreach ($courseUsers as $user) {
         if (isset($user['lastaccess']) && $user['lastaccess'] > time() - 30 * 24 * 60 * 60) { // Activo en el último mes
             $activeStudents++;
         }
     }
 }
+
+// Obtener la lista de usuarios inscritos en el curso seleccionado a través de la API de Moodle
+$enrolledUsers = callMoodleAPI("core_enrol_get_enrolled_users", [
+    "courseid" => $selectedCourseId
+]);
+
+// Contar el número de estudiantes inscritos
+$enrolledStudentsCount = !empty($enrolledUsers) ? count($enrolledUsers) : 0;
 
 // Obtener calificaciones promedio
 $grades = callMoodleAPI("gradereport_user_get_grade_items", [
@@ -276,6 +295,72 @@ $selectedCourseId = isset($_GET['courseid']) ? (int)$_GET['courseid'] : (isset($
 require_once(__DIR__ . '/../../config.php'); // Incluye la configuración de Moodle
 require_login(); // Asegúrate de que el usuario esté autenticado
 
+
+// Asegúrate de que Moodle está cargado y que la variable global $USER está disponible
+global $USER;
+
+// Obtener los datos del usuario autenticado
+$userData = [
+    'id' => $USER->id,  // ID del usuario autenticado
+    'fullname' => fullname($USER),  // Nombre completo del usuario
+    'username' => $USER->username,  // Nombre de usuario
+];
+
+// Mostrar la información del usuario autenticado
+//echo "Usuario autenticado - ID: " . $userData['id'] . ", Nombre: " . $userData['fullname'] . ", Username: " . $userData['username'];
+
+
+// Verificar si el usuario está inscrito en cursos
+// Obtener los cursos a los que está inscrito el usuario
+$coursesUser = enrol_get_all_users_courses($USER->id, true); // El segundo parámetro se usa para incluir cursos activos/inactivos
+
+// Crear un array vacío para almacenar los cursos
+$userCoursesArray = [];
+
+// Verificar si el usuario está inscrito en cursos
+if (!empty($coursesUser)) {
+    // Recorremos los cursos y los almacenamos en el array
+    foreach ($coursesUser as $course) {
+        // Almacenar solo el nombre completo del curso
+        $userCoursesArray[] = [
+            'id' => $course->id,             // ID del curso
+            'fullname' => $course->fullname  // Nombre completo del curso
+        ];
+    }
+
+    // Opcional: Mostrar los cursos almacenados en el array
+//    echo "<ul>";
+//    foreach ($userCoursesArray as $course) {
+//        echo "<li>" . $course['fullname'] . "</li>";
+//    }
+//    echo "</ul>";
+}
+
+// Filtrar el array $courses para que solo queden los cursos que están en el array $userCoursesArray
+$courses = array_filter($courses, function($course) use ($userCoursesArray) {
+    // Compara el ID de cada curso con los IDs del usuario, y devuelve el curso con 'id' y 'fullname'
+    foreach ($userCoursesArray as $userCourse) {
+        if ($course['id'] == $userCourse['id']) {
+            return true;
+        }
+    }
+    return false;
+});
+
+// Reindexar el array filtrado para evitar índices no consecutivos
+$courses = array_values($courses);
+
+//// Mostrar los cursos filtrados
+//if (!empty($courses)) {
+//    echo "<ul>";
+//    foreach ($courses as $course) {
+//        echo "<li>" . $course['fullname'] . " (ID: " . $course['id'] . ")</li>";  // Mostrar nombre completo y ID
+//    }
+//    echo "</ul>";
+//} else {
+////    echo "No hay cursos disponibles para este usuario.";
+//}
+
 // Establece el contexto y la URL de la página
 $PAGE->set_context(context_system::instance());
 $PAGE->set_url(new moodle_url('/local/ml_dashboard2/index.php'));
@@ -317,6 +402,7 @@ $data = [
     'selected_course_name' => $selectedCourseName,
     'username' => $userData['fullname'], // Nombre completo del usuario
     'user_id' => $userData['id'], // ID del usuario
+    'enrolled_students_count' => $enrolledStudentsCount,
 ];
 
 // Renderizar la plantilla Mustache
