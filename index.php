@@ -299,6 +299,16 @@ require_login(); // Asegúrate de que el usuario esté autenticado
 // Asegúrate de que Moodle está cargado y que la variable global $USER está disponible
 global $USER;
 
+
+// Obtén el ID del usuario actual
+$user_id = $USER->id;
+
+// Verifica si el usuario tiene el rol de administrador o profesor
+if (!is_siteadmin($user_id) && !user_has_role_assignment($user_id, 3)) { // 3 es el rol de "Profesor" por defecto
+    // Si no tiene los roles necesarios, redirige al usuario a la página principal
+    redirect($CFG->wwwroot);
+}
+
 // Obtener los datos del usuario autenticado
 $userData = [
     'id' => $USER->id,  // ID del usuario autenticado

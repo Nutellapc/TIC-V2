@@ -97,7 +97,7 @@
 
         // Mostrar mensaje según la predicción
         if (data.predictionEqualsNegativeOne) {
-            document.getElementById('modalPrediction').innerText = 'Los datos aún no alcanzan los valores requeridos para realizar una predicción precisa.';
+            document.getElementById('modalPrediction').innerText = 'Para que el modelo realice una predicción precisa, se deben cumplir los siguientes límites: un mínimo de 2 horas de estudio por semana, 50% de asistencia, no más de 4 horas de inactividad por día, una calificación general mínima de 50. Si los datos no alcanzan estos valores, no es posible generar una predicción confiable.';
         } else {
             document.getElementById('modalPrediction').innerText = ` ${data.prediction}`;
         }
