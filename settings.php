@@ -24,6 +24,42 @@ if ($hassiteconfig) { // Solo visible para administradores
         PARAM_TEXT
     ));
 
+    // Agrega un campo para ingresar la clave de la API de Moodle
+    $settings->add(new admin_setting_configtext(
+        'local_ml_dashboard2/moodleapikey',
+        get_string('moodleapikey', 'local_ml_dashboard2'),
+        get_string('moodleapikeydesc', 'local_ml_dashboard2'),
+        '',
+        PARAM_TEXT
+    ));
+
+    // Agrega un campo para configurar la URL del servicio web de Moodle
+    $settings->add(new admin_setting_configtext(
+        'local_ml_dashboard2/apiurl',
+        get_string('apiurl', 'local_ml_dashboard2'),
+        get_string('apiurldesc', 'local_ml_dashboard2'),
+        'http://localhost/TIC/moodle/webservice/rest/server.php',
+        PARAM_URL
+    ));
+
+    // Agrega un campo para la Nota Máxima (solo permite números)
+    $settings->add(new admin_setting_configtext(
+        'local_ml_dashboard2/notamaxima',
+        get_string('notamaxima', 'local_ml_dashboard2'),
+        get_string('notamaximadesc', 'local_ml_dashboard2'),
+        '10',
+        PARAM_INT
+    ));
+
+    // Agrega un campo para la Nota Mínima (solo permite números)
+    $settings->add(new admin_setting_configtext(
+        'local_ml_dashboard2/notaminima',
+        get_string('notaminima', 'local_ml_dashboard2'),
+        get_string('notaminimadesc', 'local_ml_dashboard2'),
+        '7',
+        PARAM_INT
+    ));
+
     // Añade la página de ajustes al menú de plugins locales
     $ADMIN->add('localplugins', $settings);
 

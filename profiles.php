@@ -3,6 +3,7 @@
 $token = "143bfe295993ff7caa6e404efea7d245";
 $apiUrl = "http://localhost/TIC/moodle/webservice/rest/server.php";
 
+
 require_once(__DIR__ . '/api_client.php'); // Llamadas a la API externa
 require_once(__DIR__ . '/vendor/autoload.php'); // Mustache para la plantilla
 
@@ -33,6 +34,8 @@ foreach ($courses as $course) {
 
 require_once(__DIR__ . '/../../config.php');
 require_login();
+
+
 
 $processedDataArray = []; // Inicializa un array vacío para los datos procesados
 
@@ -129,6 +132,32 @@ if ($selectedCourseId) {
         $OUTPUT->image_url('green8', 'local_ml_dashboard2'),
     ];
 
+
+    $nota_maxima = get_config('local_ml_dashboard2', 'notamaxima');
+    $nota_minima = get_config('local_ml_dashboard2', 'notaminima');
+
+//    error_log("Nota Máxima: " . $nota_maxima);
+//    error_log("Nota Mínima: " . $nota_minima);
+
+    $rojoMin = $nota_minima - ($nota_maxima * 0.2);
+    $rojoMax = $nota_minima;
+
+    $amarilloMin = $nota_minima;
+    $amarilloMax = $nota_minima + ($nota_maxima * 0.1);
+
+    $verdMin = $amarilloMax;
+    $verdMax = $nota_maxima;
+
+//    error_log("Notar -: " . $rojoMin);
+//    error_log("Notar +: " . $rojoMax);
+//    error_log("Notaa -: " . $amarilloMin);
+//    error_log("Notaa +: " . $amarilloMax);
+//    error_log("Notav -: " . $verdMin);
+//    error_log("Notav +: " . $verdMax);
+
+
+
+
 // Función para seleccionar una imagen aleatoria
     function get_random_image($imageArray) {
         return $imageArray[array_rand($imageArray)];
@@ -148,13 +177,13 @@ if ($selectedCourseId) {
             // Determinar nivel de desempeño
             $performanceLevel = 0;
             $performanceImage = "";
-            if ($data->prediction_score >= 5 && $data->prediction_score < 7) {
+            if ($data->prediction_score >= $rojoMin && $data->prediction_score < $rojoMax) {
                 $performanceLevel = 1; // Rojo
                 $performanceImage = $OUTPUT->image_url('red6', 'local_ml_dashboard2');
-            } elseif ($data->prediction_score >= 7 && $data->prediction_score < 8) {
+            } elseif ($data->prediction_score >= $amarilloMin && $data->prediction_score < $amarilloMax) {
                 $performanceLevel = 2; // Amarillo
                 $performanceImage = $OUTPUT->image_url('yellow6', 'local_ml_dashboard2');
-            } elseif ($data->prediction_score >= 8 && $data->prediction_score <= 10) {
+            } elseif ($data->prediction_score >= $verdMin && $data->prediction_score <= $verdMax) {
                 $performanceLevel = 3; // Verde
                 $performanceImage = $OUTPUT->image_url('green8', 'local_ml_dashboard2');
             } else{
@@ -175,9 +204,9 @@ if ($selectedCourseId) {
                 'recommendations_teacher' => $data->recommendations_teacher,
                 'last_updated' => date('Y-m-d H:i:s', $data->last_updated),
                 'prediction_score_equals_negative_one' => $data->prediction_score == -1, // Verificar si es -1
-                'is_red' => $data->prediction_score >= 5 && $data->prediction_score < 7, // Rojo entre 5 y 7
-                'is_yellow' => $data->prediction_score >= 7 && $data->prediction_score < 8, // Amarillo entre 7 y 8
-                'is_green' => $data->prediction_score >= 8 && $data->prediction_score <= 10, // Verde entre 8 y 10
+                'is_red' => $data->prediction_score >= $rojoMin && $data->prediction_score < $rojoMax, // Rojo entre 5 y 7
+                'is_yellow' => $data->prediction_score >= $amarilloMin && $data->prediction_score < $amarilloMax, // Amarillo entre 7 y 8
+                'is_green' => $data->prediction_score >= $verdMin && $data->prediction_score <= $verdMax, // Verde entre 8 y 10
                 'performance_level' => $performanceLevel,
                 'performance_image' => $performanceImage,
 

@@ -296,6 +296,7 @@ require_once(__DIR__ . '/../../config.php'); // Incluye la configuración de Moo
 require_login(); // Asegúrate de que el usuario esté autenticado
 
 
+
 // Asegúrate de que Moodle está cargado y que la variable global $USER está disponible
 global $USER;
 
